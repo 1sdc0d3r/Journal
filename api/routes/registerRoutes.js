@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../data/journalModel");
+const bcrypt = require("bcryptjs");
 
 router.post("/", validateUser, (req, res) => {
-  const user = req.body;
-  db.insertEntry(user)
+  let user = req.body;
+  const hash = bcrypt.hashSync(user.password, 13);
+  user.password = hash;
+  db.insertUser(user)
     .then(user => res.status(201).json(user))
     .catch(err =>
       res
@@ -21,11 +24,9 @@ module.exports = router;
 
 function validateUser(req, res, next) {
   const user = req.body;
-  if (!user.firstName) {
+  if (!user.first_name) {
     res.status(400).json({ message: "please provide first name" });
-  } else if (!user.firstName) {
-    res.status(400).json({ message: "please provide first name" });
-  } else if (!user.lastName) {
+  } else if (!user.last_name) {
     res.status(400).json({ message: "please provide last name" });
   } else if (!user.email) {
     res.status(400).json({ message: "please provide email" });

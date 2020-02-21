@@ -15,7 +15,8 @@ module.exports = {
 
 //* User
 function insertUser(user) {
-  return db(User).insert(user);
+  console.log(user);
+  return db("User").insert(user);
 }
 
 function getUserById(id) {
@@ -23,36 +24,38 @@ function getUserById(id) {
 }
 
 function getUserByUsername(username) {
-  return db("User").where({ username });
+  return db("User")
+    .where({ username })
+    .first();
 }
 
 function modifyUser(id, user) {
-  return db(User)
+  return db("User")
     .update(user)
     .where({ id });
 }
 
 function removeUser(id) {
-  return db(User).delete({ id });
+  return db("User").delete({ id });
 }
 
 //* Entry
 function insertEntry(entry) {
-  return db(Entry).insert(entry);
+  return db("Entry").insert(entry);
 }
 
 function getEntry(id) {
-  return db(Entry).where({ id });
+  return db("Entry").where({ id });
 }
 
 function modifyEntry(id, entry) {
-  return db(Entry)
+  return db("Entry")
     .update(entry)
     .where({ id });
 }
 
 function removeEntry(id) {
-  return db(Entry).where({ id });
+  return db("Entry").where({ id });
 }
 
 //* Journal
