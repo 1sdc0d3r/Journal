@@ -5,11 +5,6 @@ const { SESS_NAME } = process.env;
 
 router.get("/", (req, res) => {
   req.session.destroy(err => {
-    if (err) {
-      console.log("error");
-    } else {
-      console.log("NOT ERROR");
-    }
     err
       ? res.status(500).json({ errorMessage: "unable to logout", error: err })
       : res

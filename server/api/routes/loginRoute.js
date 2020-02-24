@@ -1,12 +1,10 @@
 require("dotenv").config(); // fix the .env file
 const express = require("express");
 const router = express.Router();
-const db = require("../../data/journalModel");
+const db = require("../../../data/journalModel");
 const bcrypt = require("bcryptjs");
-
+const { validateHeaders } = require("../middleware/loginMiddleware");
 //todo add more security, learn more
-
-
 
 router.get("/", validateHeaders, async (req, res) => {
   const { username, password } = req.headers;
@@ -40,14 +38,6 @@ router.use("/", (req, res) => {
 });
 
 module.exports = router;
-
-function validateHeaders(req, res, next) {
-  !req.headers.username || !req.headers.password
-    ? res.status(400).json({
-        message: "Please provide username and password"
-      })
-    : next();
-}
 
 // function redirectLogin(req, res, next) {
 //   !req.session.userId ? res.redirect("/login") : next();

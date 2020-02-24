@@ -13,7 +13,7 @@ const {
   SESS_NAME = "sid"
 } = process.env;
 const IN_PROD = NODE_ENV === "production";
-console.log(SESS_LIFETIME);
+
 module.exports = server => {
   server.use(express.json());
   server.use(morgan("combined"));
