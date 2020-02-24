@@ -4,6 +4,7 @@ module.exports = {
   insertEntry,
   getUserById,
   getUserByUsername,
+  getUserByEmail,
   insertUser,
   modifyUser,
   removeUser,
@@ -28,6 +29,11 @@ function getUserByUsername(username) {
     .where({ username })
     .first();
 }
+
+function getUserByEmail(email) {
+  return db("User")
+    .where({ email })
+    .first();
 
 function modifyUser(id, user) {
   return db("User")

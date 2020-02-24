@@ -4,7 +4,7 @@ const router = express.Router();
 const db = require("../../data/journalModel");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
-const parser = require('body-parser');
+const parser = require("body-parser");
 //todo add more security, learn more
 ONE_WEEK = 1 * 24 * 60 * 60 * 1000; //1week
 const {
@@ -32,20 +32,26 @@ router.use(
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
-  const user = await db
-    .getUserByUsername(username)
-    .then(user => {
-      if (!user) {
-        res.status(404);
-      }
-      return user;
-    })
-    .catch(err =>
-      res
-        .status(500)
-        .json({ errorMessage: "unable to retrieve user", error: err })
-    );
-
+  if ((username, password)) {
+    const user = await db
+      .getUserByUsername(username)
+      .then(user => {
+        if (!user) {
+          res.status(404);
+        }
+        return user;
+      })
+      .catch(err =>
+        res
+          .status(500)
+          .json({ errorMessage: "unable to retrieve user", error: err })
+      );
+    return user;
+  } else {
+    res.status(400).json({
+      message: "Please provide username and password"
+    });
+  }
   if (bcrypt.compareSync(password, user.password)) {
     req.session.userId = user.id;
     console.log(req.session);
@@ -76,3 +82,11 @@ module.exports = router;
 //   };
 //   return jwt.sign(payload, secret, options);
 // }
+
+function redirectLogin(req, res, next) {
+  if (!req.session.userId) {
+    res.redirect("/login");
+  } else {
+    next();
+  }
+}
