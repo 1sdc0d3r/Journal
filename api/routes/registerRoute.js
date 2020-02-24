@@ -2,13 +2,16 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../data/journalModel");
 const bcrypt = require("bcryptjs");
-//todo validate that user is not already created.
+
 router.post("/", validateUserBody, checkExistingUsers, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 13);
   user.password = hash;
   db.insertUser(user)
-    .then(user => res.status(201).json(user))
+    .then(user => {
+      //todo add in req.session.userId
+      res.status(201).json(user);
+    })
     .catch((
       err //{name, message, stack} = .catch
     ) =>
@@ -23,7 +26,6 @@ router.use("/", (req, res) => {
 });
 
 module.exports = router;
-//todo validate user email or username isn't already in database User table
 
 function checkExistingUsers(req, res, next) {
   const user = req.body;

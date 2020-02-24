@@ -3,67 +3,36 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../data/journalModel");
 const bcrypt = require("bcryptjs");
-const session = require("express-session");
-const parser = require("body-parser");
+
 //todo add more security, learn more
-ONE_WEEK = 1 * 24 * 60 * 60 * 1000; //1week
-const {
-  NODE_ENV,
-  COOKIE_SECRET = "N0tBf3niTiwod8",
-  SESS_LIFETIME = ONE_WEEK,
-  SESS_NAME = "sid"
-} = process.env;
-const IN_PROD = NODE_ENV === "production";
 
-router.use(
-  session({
-    name: SESS_NAME,
-    secret: COOKIE_SECRET,
-    cookie: {
-      maxAge: SESS_LIFETIME,
-      sameSite: true,
-      secure: IN_PROD
-    },
-    httpOnly: true, //don't let JS code access cookies
-    resave: false,
-    saveUninitialized: false
-  })
-);
 
-router.post("/", async (req, res) => {
+
+router.get("/", validateHeaders, async (req, res) => {
   const { username, password } = req.headers;
-  // console.log(req.body);
-  // console.log(req.headers);
-  if ((username, password)) {
-    const user = await db
-      .getUserByUsername(username)
-      .then(user => {
-        if (!user) {
-          res.status(404);
-        }
-        return user;
-      })
-      .catch(err =>
-        res
-          .status(500)
-          .json({ errorMessage: "unable to retrieve user", error: err })
-      );
-    console.log("user", user);
-    return user;
-  } else {
-    res.status(400).json({
-      message: "Please provide username and password"
-    });
-  }
+  const user = await db
+    .getUserByUsername(username)
+    .then(user => {
+      if (!user) {
+        res.status(404);
+      }
+      return user;
+    })
+    .catch(err =>
+      res
+        .status(500)
+        .json({ errorMessage: "unable to retrieve user", error: err })
+    );
+
   if (bcrypt.compareSync(password, user.password)) {
-    // req.session.userId = user.id;
-    console.log(req.session);
+    req.session.userId = user.id;
     res
       .status(200)
       .json({ message: `Welcome ${user.first_name} ${user.last_name}` });
   } else {
     res.status(403).json({ message: "incorrect credentials" });
   }
+  // console.log(req.session.userId);
 });
 
 router.use("/", (req, res) => {
@@ -71,6 +40,20 @@ router.use("/", (req, res) => {
 });
 
 module.exports = router;
+
+function validateHeaders(req, res, next) {
+  !req.headers.username || !req.headers.password
+    ? res.status(400).json({
+        message: "Please provide username and password"
+      })
+    : next();
+}
+
+// function redirectLogin(req, res, next) {
+//   !req.session.userId ? res.redirect("/login") : next();
+// }
+
+// function redirectHome(req, res, next) {}
 
 // function generateToken(user) {
 //   const secret = process.env.JWT_SECRET;
@@ -85,11 +68,3 @@ module.exports = router;
 //   };
 //   return jwt.sign(payload, secret, options);
 // }
-
-function redirectLogin(req, res, next) {
-  if (!req.session.userId) {
-    res.redirect("/login");
-  } else {
-    next();
-  }
-}
