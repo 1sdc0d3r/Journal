@@ -34,6 +34,7 @@ function getUserByEmail(email) {
   return db("User")
     .where({ email })
     .first();
+}
 
 function modifyUser(id, user) {
   return db("User")

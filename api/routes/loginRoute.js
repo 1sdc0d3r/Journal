@@ -31,7 +31,9 @@ router.use(
 );
 
 router.post("/", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password } = req.headers;
+  // console.log(req.body);
+  // console.log(req.headers);
   if ((username, password)) {
     const user = await db
       .getUserByUsername(username)
@@ -46,6 +48,7 @@ router.post("/", async (req, res) => {
           .status(500)
           .json({ errorMessage: "unable to retrieve user", error: err })
       );
+    console.log("user", user);
     return user;
   } else {
     res.status(400).json({
@@ -53,7 +56,7 @@ router.post("/", async (req, res) => {
     });
   }
   if (bcrypt.compareSync(password, user.password)) {
-    req.session.userId = user.id;
+    // req.session.userId = user.id;
     console.log(req.session);
     res
       .status(200)
