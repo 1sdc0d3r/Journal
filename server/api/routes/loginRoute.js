@@ -1,7 +1,7 @@
 require("dotenv").config(); // fix the .env file
 const express = require("express");
 const router = express.Router();
-const db = require("../../../data/journalModel");
+const db = require("../../../database/journalModel");
 const bcrypt = require("bcryptjs");
 const { validateHeaders } = require("../middleware/loginMiddleware");
 //todo add more security, learn more
