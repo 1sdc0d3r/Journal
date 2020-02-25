@@ -55,8 +55,9 @@ function LoginForm({ loggedIn, logoutAction }) {
 }
 
 const mapStateToProps = state => {
+  // console.log(`state: ${state.userReducer.loggedIn}`);
   return {
-    loggedIn: state.loggedIn
+    loggedIn: state.userReducer.loggedIn
   };
 };
 

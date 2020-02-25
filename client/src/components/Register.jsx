@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { registerAction } from "../actions/registerAction";
 
-function RegisterForm() {
+function RegisterForm({ isRegistering, registerAction }) {
   const [input, setInput] = useState({
     fName: "",
     lName: "",
@@ -18,8 +19,15 @@ function RegisterForm() {
   };
 
   const onSubmitHandler = evt => {
-    evt.preventDefault();
-    console.log(input);
+    // evt.preventDefault();
+    const newUser = {
+      first_name: input.fName,
+      last_name: input.lName,
+      email: input.email,
+      username: input.username,
+      password: input.password
+    };
+    registerAction(newUser);
   };
 
   return (
@@ -79,13 +87,17 @@ function RegisterForm() {
           required
         />
       </label>
-      <input type="submit" />
+      <button type="submit">
+        {isRegistering ? "Registering..." : "Register"}
+      </button>
     </form>
   );
 }
 
-// const mapStateToProps = state => {
-//   return {};
-// };
+const mapStateToProps = state => {
+  return {
+    isRegistering: state.userReducer.isRegistering
+  };
+};
 
-export default connect(null, {})(RegisterForm);
+export default connect(mapStateToProps, { registerAction })(RegisterForm);
