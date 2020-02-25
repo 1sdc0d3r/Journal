@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-function Register() {
+function RegisterForm() {
   const [input, setInput] = useState({
     fName: "",
     lName: "",
@@ -88,4 +88,4 @@ function Register() {
 //   return {};
 // };
 
-export default connect(null, {})(Register);
+export default connect(null, {})(RegisterForm);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 
-export default function LoginForm() {
+function LoginForm() {
   const [credentials, setCredentials] = useState({
     username: "",
     password: ""
@@ -45,3 +46,5 @@ export default function LoginForm() {
     </form>
   );
 }
+
+export default connect(null, {})(LoginForm);
