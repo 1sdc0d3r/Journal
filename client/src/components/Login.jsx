@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import { logoutAction } from "../actions/logoutAction";
+import { loginAction } from "../actions/loginAction";
 
-function LoginForm({ loggedIn, logoutAction }) {
+function LoginForm({ isLoggingIn, loginAction }) {
   const [credentials, setCredentials] = useState({
     username: "",
     password: ""
@@ -18,7 +18,7 @@ function LoginForm({ loggedIn, logoutAction }) {
 
   const onSubmitHandler = evt => {
     evt.preventDefault();
-    console.log("login credentials", credentials);
+    loginAction(credentials);
   };
   return (
     <>
@@ -45,20 +45,17 @@ function LoginForm({ loggedIn, logoutAction }) {
             required
           />
         </label>
-        <input type="submit" />
+        <button type="submit">{!isLoggingIn ? "Login" : "Loading..."}</button>
       </form>
-      <button onClick={() => logoutAction()}>
-        {loggedIn ? "true" : "false"}
-      </button>
     </>
   );
 }
 
 const mapStateToProps = state => {
-  // console.log(`state: ${state.userReducer.loggedIn}`);
   return {
+    isLoggingIn: state.userReducer.isLoggingIn,
     loggedIn: state.userReducer.loggedIn
   };
 };
 
-export default connect(mapStateToProps, { logoutAction })(LoginForm);
+export default connect(mapStateToProps, { loginAction })(LoginForm);

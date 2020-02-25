@@ -12,9 +12,9 @@ router.post("/", validateUserBody, checkExistingUsers, (req, res) => {
   const hash = bcrypt.hashSync(user.password, 13);
   user.password = hash;
   db.insertUser(user)
-    .then(([userId]) => {
-      req.session.userId = userId;
-      res.status(201).json(userId);
+    .then(user => {
+      req.session.userId = user.id;
+      res.status(201).json(user);
     })
     .catch((
       err //{name, message, stack} = .catch

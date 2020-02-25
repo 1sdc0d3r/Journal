@@ -12,7 +12,8 @@ import rootReducer from "./reducers";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 
-const middleware = [thunk, logger];
+// const middleware = [thunk, logger];
+const middleware = [thunk];
 const store = createStore(rootReducer, applyMiddleware(...middleware));
 
 ReactDOM.render(

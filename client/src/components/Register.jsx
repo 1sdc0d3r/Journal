@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { registerAction } from "../actions/registerAction";
+import { Redirect } from "react-router-dom";
 
-function RegisterForm({ isRegistering, registerAction }) {
+function RegisterForm(props) {
+  const { isRegistering, registerAction, error, user } = props;
   const [input, setInput] = useState({
     fName: "",
     lName: "",
@@ -19,7 +21,7 @@ function RegisterForm({ isRegistering, registerAction }) {
   };
 
   const onSubmitHandler = evt => {
-    // evt.preventDefault();
+    evt.preventDefault();
     const newUser = {
       first_name: input.fName,
       last_name: input.lName,
@@ -29,9 +31,12 @@ function RegisterForm({ isRegistering, registerAction }) {
     };
     registerAction(newUser);
   };
-
+  if (error === "success") {
+    props.history.push("/");
+  }
   return (
     <form onSubmit={onSubmitHandler}>
+      {!error ? <h3>NoError</h3> : <h3>{error}</h3>}
       <label>
         First Name:{" "}
         <input
@@ -84,6 +89,7 @@ function RegisterForm({ isRegistering, registerAction }) {
           value={input.password}
           onChange={onChangeHandler}
           placeholder="password"
+          //todo autoComplete="current-password"
           required
         />
       </label>
@@ -96,7 +102,9 @@ function RegisterForm({ isRegistering, registerAction }) {
 
 const mapStateToProps = state => {
   return {
-    isRegistering: state.userReducer.isRegistering
+    isRegistering: state.userReducer.isRegistering,
+    error: state.userReducer.error,
+    user: state.userReducer.user
   };
 };
 

@@ -16,7 +16,8 @@ import {
 } from "../actions/logoutAction";
 
 const initialState = {
-  loggedIn: false,
+  user: null,
+  newUser: null,
   isRegistering: false,
   isLoggingIn: false,
   isLoggingOut: false,
@@ -27,9 +28,15 @@ export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     //* REGISTER
     case USER_REGISTER_START:
-      return { ...state, isRegistering: true };
+      return { ...state, newUser: action.payload, isRegistering: true };
     case USER_REGISTER_SUCCESS:
-      return { ...state, isRegistering: false };
+      return {
+        ...state,
+        user: action.payload,
+        newUser: null,
+        isRegistering: false,
+        error: "success"
+      };
     case USER_REGISTER_FAIL:
       return { ...state, isRegistering: false, error: action.payload };
 
@@ -37,7 +44,7 @@ export const userReducer = (state = initialState, action) => {
     case USER_LOGIN_START:
       return { ...state, isLoggingIn: true };
     case USER_LOGIN_SUCCESS:
-      return { ...state, isLoggingIn: false };
+      return { ...state, isLoggingIn: false, error: null };
     case USER_LOGIN_FAIL:
       return { ...state, isLoggingIn: false, error: action.payload };
 
@@ -45,7 +52,7 @@ export const userReducer = (state = initialState, action) => {
     case USER_LOGOUT_START:
       return { ...state, isLoggingOut: true };
     case USER_LOGOUT_SUCCESS:
-      return { ...state, isLoggingOut: false };
+      return { ...state, isLoggingOut: false, error: null };
     case USER_LOGOUT_FAIL:
       return { ...state, isLoggingOut: false, error: action.payload };
 
