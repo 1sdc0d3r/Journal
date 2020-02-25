@@ -7,13 +7,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import { rootReducer } from "./reducers/rootReducer";
+import rootReducer from "./reducers";
+import { userReducer } from "./reducers/userReducer";
 
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 
 const middleware = [thunk, logger];
-const store = createStore(rootReducer, applyMiddleware(...middleware));
+// const store = createStore(rootReducer, applyMiddleware(...middleware));
+const store = createStore(userReducer, applyMiddleware(...middleware));
+console.log(`user: ${userReducer}, root: ${rootReducer}`);
 
 ReactDOM.render(
   <Provider store={store}>
