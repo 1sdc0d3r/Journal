@@ -1,3 +1,4 @@
+const db = require("../../../database/journalModel");
 module.exports = {
   validateUserBody,
   checkExistingUsers

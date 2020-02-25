@@ -12,9 +12,9 @@ router.post("/", validateUserBody, checkExistingUsers, (req, res) => {
   const hash = bcrypt.hashSync(user.password, 13);
   user.password = hash;
   db.insertUser(user)
-    .then(user => {
-      //todo add in req.session.userId
-      res.status(201).json(user);
+    .then(([userId]) => {
+      req.session.userId = userId;
+      res.status(201).json(userId);
     })
     .catch((
       err //{name, message, stack} = .catch
@@ -26,7 +26,7 @@ router.post("/", validateUserBody, checkExistingUsers, (req, res) => {
 });
 
 router.use("/", (req, res) => {
-  res.status(200).json({ Route: "Register Route" });
+  res.status(200).json({ Route: "Register Route up" });
 });
 
 module.exports = router;

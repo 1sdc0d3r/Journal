@@ -4,18 +4,14 @@ const router = express.Router();
 const db = require("../../../database/journalModel");
 const bcrypt = require("bcryptjs");
 const { validateHeaders } = require("../middleware/loginMiddleware");
+
 //todo add more security, learn more
 
 router.get("/", validateHeaders, async (req, res) => {
   const { username, password } = req.headers;
   const user = await db
     .getUserByUsername(username)
-    .then(user => {
-      if (!user) {
-        res.status(404);
-      }
-      return user;
-    })
+    .then(user => (!user ? res.status(404) : user))
     .catch(err =>
       res
         .status(500)
@@ -34,7 +30,7 @@ router.get("/", validateHeaders, async (req, res) => {
 });
 
 router.use("/", (req, res) => {
-  res.status(200).json({ Route: "Login Route" });
+  res.status(200).json({ Route: "Login Route up" });
 });
 
 module.exports = router;

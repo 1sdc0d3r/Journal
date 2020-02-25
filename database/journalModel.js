@@ -11,12 +11,13 @@ module.exports = {
   getEntry,
   modifyEntry,
   removeEntry,
-  getJournalByUserId
+  getJournalByUserId,
+  truncate
 };
 
 //* User
 function insertUser(user) {
-  console.log(user);
+  // console.log(user);
   return db("User").insert(user);
 }
 
@@ -72,4 +73,9 @@ function getJournalByUserId(id) {
     .join("Entry as e", "j.entry_id", "e.id")
     .select("e.*")
     .where("u.id", id);
+}
+
+//* Testing
+function truncate() {
+  return db("User").truncate();
 }

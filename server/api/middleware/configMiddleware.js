@@ -16,7 +16,7 @@ const IN_PROD = NODE_ENV === "production";
 
 module.exports = server => {
   server.use(express.json());
-  server.use(morgan("combined"));
+  // server.use(morgan("combined"));
   server.use(helmet());
   server.use(cors());
   server.use(

@@ -8,10 +8,10 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: "./data/migrations"
+      directory: "./database/migrations"
     },
     seeds: {
-      directory: "./data/seeds"
+      directory: "./database/seeds"
     },
     pool: {
       afterCreate: (conn, done) => {
@@ -51,5 +51,19 @@ module.exports = {
     migrations: {
       tableName: "knex_migrations"
     }
+  },
+
+  testing: {
+    client: "sqlite3",
+    connection: {
+      filename: "./__test__"
+    },
+    useNullAsDefault: true
+    // migrations: {
+    //   directory: "./data/migrations"
+    // },
+    // seeds: {
+    //   directory: "./data/seeds"
+    // }
   }
 };
