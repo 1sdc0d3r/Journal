@@ -1,6 +1,6 @@
 export const USER_LOGIN = "USER_LOGIN";
 
-export const login = credentials => {
+export const loginAction = credentials => {
   return {
     type: USER_LOGIN,
     payload: credentials

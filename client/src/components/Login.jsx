@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-function LoginForm() {
+import { logoutAction } from "../actions/logoutAction";
+
+function LoginForm({ loggedIn, logoutAction }) {
   const [credentials, setCredentials] = useState({
     username: "",
     password: ""
@@ -19,32 +21,43 @@ function LoginForm() {
     console.log("login credentials", credentials);
   };
   return (
-    <form onSubmit={onSubmitHandler}>
-      <label>
-        Username:{" "}
-        <input
-          type="text"
-          name="username"
-          value={credentials.username}
-          onChange={onChangeHandler}
-          placeholder="username"
-          required
-        />
-      </label>
-      <label>
-        Password:{" "}
-        <input
-          type="password"
-          name="password"
-          value={credentials.password}
-          onChange={onChangeHandler}
-          placeholder="password"
-          required
-        />
-      </label>
-      <input type="submit" />
-    </form>
+    <>
+      <form onSubmit={onSubmitHandler}>
+        <label>
+          Username:{" "}
+          <input
+            type="text"
+            name="username"
+            value={credentials.username}
+            onChange={onChangeHandler}
+            placeholder="username"
+            required
+          />
+        </label>
+        <label>
+          Password:{" "}
+          <input
+            type="password"
+            name="password"
+            value={credentials.password}
+            onChange={onChangeHandler}
+            placeholder="password"
+            required
+          />
+        </label>
+        <input type="submit" />
+      </form>
+      <button onClick={() => logoutAction()}>
+        {loggedIn ? "true" : "false"}
+      </button>
+    </>
   );
 }
 
-export default connect(null, {})(LoginForm);
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.loggedIn
+  };
+};
+
+export default connect(mapStateToProps, { logoutAction })(LoginForm);
