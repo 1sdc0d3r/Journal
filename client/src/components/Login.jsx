@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 
-import { loginAction } from "../actions/loginAction";
+import { loginAction } from "../actions/user/loginAction";
 
 function LoginForm(props) {
   const { isLoggingIn, loginAction, error, user } = props;

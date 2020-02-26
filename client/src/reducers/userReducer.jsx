@@ -2,18 +2,18 @@ import {
   USER_REGISTER_START,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL
-} from "../actions/registerAction";
+} from "../actions/user/registerAction";
 
 import {
   USER_LOGIN_START,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL
-} from "../actions/loginAction";
+} from "../actions/user/loginAction";
 import {
   USER_LOGOUT_START,
   USER_LOGOUT_SUCCESS,
   USER_LOGOUT_FAIL
-} from "../actions/logoutAction";
+} from "../actions/user/logoutAction";
 
 const initialState = {
   user: null,
@@ -25,7 +25,6 @@ const initialState = {
 };
 
 export const userReducer = (state = initialState, action) => {
-  console.log(`payload: ${action.payload}`);
   switch (action.type) {
     //* REGISTER
     case USER_REGISTER_START:

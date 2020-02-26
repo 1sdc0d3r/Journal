@@ -1,12 +1,12 @@
 require("dotenv").config(); // fix the .env file
 const express = require("express");
 const router = express.Router();
-const db = require("../../../database/journalModel");
+const db = require("../../../../database/journalModel");
 const bcrypt = require("bcryptjs");
-const { validateHeaders } = require("../middleware/loginMiddleware");
+const { validateHeaders } = require("../../middleware/user/loginMiddleware");
 
 //todo add more security, learn more
-
+//todo if already logged in redirect to dashboard
 router.get("/", validateHeaders, (req, res) => {
   const { username, password } = req.headers;
 

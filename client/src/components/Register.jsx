@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { registerAction } from "../actions/registerAction";
+import { registerAction } from "../actions/user/registerAction";
 
 function RegisterForm(props) {
   const { isRegistering, registerAction, error } = props;

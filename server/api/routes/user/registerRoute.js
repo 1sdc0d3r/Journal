@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../database/journalModel");
+const db = require("../../../../database/journalModel");
 const bcrypt = require("bcryptjs");
 const {
   validateUserBody,
   checkExistingUsers
-} = require("../middleware/registerMiddleware");
+} = require("../../middleware/user/registerMiddleware");
 
 router.post("/", validateUserBody, checkExistingUsers, (req, res) => {
   let user = req.body;
