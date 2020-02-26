@@ -1,7 +1,9 @@
 const db = require("../../../../database/journalModel");
+
 module.exports = {
   validateUserBody,
-  checkExistingUsers
+  checkExistingUsers,
+  validateHeaders
 };
 function validateUserBody(req, res, next) {
   const user = req.body;
@@ -30,4 +32,14 @@ function checkExistingUsers(req, res, next) {
       });
     }
   });
+}
+
+function validateHeaders(req, res, next) {
+  const { username, password } = req.headers;
+
+  !username || !password
+    ? res.status(400).json({
+        message: "Please provide username and password"
+      })
+    : next();
 }

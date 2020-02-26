@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { registerAction } from "../actions/user/registerAction";
 
 function RegisterForm(props) {
-  const { isRegistering, registerAction, error } = props;
+  const { isRegistering, registerAction, user, error } = props;
   const [input, setInput] = useState({
     fName: "",
     lName: "",
@@ -31,7 +31,7 @@ function RegisterForm(props) {
     registerAction(newUser);
   };
   //! warning: "can't update during state transition..."
-  if (error === "success") {
+  if (user) {
     props.history.push("/dashboard");
   }
   return (
@@ -103,6 +103,7 @@ function RegisterForm(props) {
 const mapStateToProps = state => {
   return {
     isRegistering: state.userReducer.isRegistering,
+    user: state.userReducer.user,
     error: state.userReducer.error
   };
 };
