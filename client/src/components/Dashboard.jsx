@@ -6,7 +6,7 @@ function Dashboard({ user }) {
   return (
     <>
       <h2>Dashboard</h2>
-      <h2>{user ? user.first_name : "noUser"}</h2>
+      <h2>Welcome: {user ? user.first_name : "noUser"}</h2>
     </>
   );
 }
