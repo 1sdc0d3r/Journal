@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
 const session = require("express-session");
+const KnexStore = require("connect-session-knex")(session);
+const knex = require("../../../database/journalConfig");
 
 const ONE_WEEK = 1 * 24 * 60 * 60 * 1000; //1week
 const {
@@ -16,7 +18,7 @@ const IN_PROD = NODE_ENV === "production";
 
 module.exports = server => {
   server.use(express.json());
-  // server.use(morgan("combined"));
+  server.use(morgan("combined"));
   server.use(helmet());
   server.use(cors());
   server.use(
@@ -24,13 +26,20 @@ module.exports = server => {
       name: SESS_NAME, //sid
       secret: COOKIE_SECRET,
       cookie: {
-        maxAge: 20000 || SESS_LIFETIME, //take off hard number
+        maxAge: 86400000 || SESS_LIFETIME, //todo take off hard number
         sameSite: true,
         secure: IN_PROD // https only
       },
       httpOnly: true, //don't let JS code access cookies
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: false,
+      store: new KnexStore({
+        knex,
+        tableName: "sessions",
+        createTable: true,
+        sidFieldName: "sid",
+        clearInterval: 1000 * 60 * 60 * 24 * 1
+      })
     })
   );
 };

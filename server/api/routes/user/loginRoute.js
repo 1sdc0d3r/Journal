@@ -1,32 +1,33 @@
 require("dotenv").config(); // fix the .env file
 const express = require("express");
 const router = express.Router();
-const db = require("../../../database/journalModel");
+const db = require("../../../../database/journalModel");
 const bcrypt = require("bcryptjs");
-const { validateHeaders } = require("../middleware/loginMiddleware");
+const { validateHeaders } = require("../../middleware/user/loginMiddleware");
 
 //todo add more security, learn more
-
-router.get("/", validateHeaders, async (req, res) => {
+//todo if already logged in redirect to dashboard
+router.get("/", validateHeaders, (req, res) => {
   const { username, password } = req.headers;
-  const user = await db
-    .getUserByUsername(username)
-    .then(user => (!user ? res.status(404) : user))
+
+  db.getUserByUsername(username)
+    .then(user => {
+      if (!user) {
+        res.status(404).json({ errorMessage: "Username does not exist" });
+      } else {
+        if (bcrypt.compareSync(password, user.password)) {
+          req.session.userId = user.id;
+          res.status(200).json(user);
+        } else {
+          res.status(403).json({ errorMessage: "incorrect credentials" });
+        }
+      }
+    })
     .catch(err =>
       res
         .status(500)
         .json({ errorMessage: "unable to retrieve user", error: err })
     );
-
-  if (bcrypt.compareSync(password, user.password)) {
-    req.session.userId = user.id;
-    res
-      .status(200)
-      .json({ message: `Welcome ${user.first_name} ${user.last_name}` });
-  } else {
-    res.status(403).json({ message: "incorrect credentials" });
-  }
-  // console.log(req.session.userId);
 });
 
 router.use("/", (req, res) => {

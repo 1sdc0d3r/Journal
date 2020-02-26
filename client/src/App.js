@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./style/App.css";
+import { Route, Switch, NavLink, Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-function App() {
+import { logoutAction } from "./actions/user/logoutAction";
+
+//* components
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Dashboard from "./components/Dashboard";
+import Entry from "./components/Entry";
+
+//todo implement GraphQL
+
+function App({ user, logoutAction, loggingOut }) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h3>Journal Application</h3>
+      <nav>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/register">Register</NavLink>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+
+        <button onClick={() => logoutAction()}>
+          {!loggingOut ? "Logout" : "loggingOut..."}
+        </button>
+      </nav>
+      <Switch>
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/entry" component={Entry} />
+      </Switch>
     </div>
   );
 }
-
-export default App;
+const mapStateToProps = state => {
+  return {
+    user: state.userReducer.user,
+    loggingOut: state.userReducer.loggingOut
+  };
+};
+export default connect(mapStateToProps, { logoutAction })(App);

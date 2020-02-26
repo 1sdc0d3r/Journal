@@ -17,12 +17,15 @@ module.exports = {
 
 //* User
 function insertUser(user) {
-  // console.log(user);
-  return db("User").insert(user);
+  return db("User")
+    .insert(user)
+    .then(([id]) => getUserById(id));
 }
 
 function getUserById(id) {
-  return db("User").where({ id });
+  return db("User")
+    .where({ id })
+    .first();
 }
 
 function getUserByUsername(username) {

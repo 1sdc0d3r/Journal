@@ -3,7 +3,9 @@ module.exports = {
 };
 
 function validateHeaders(req, res, next) {
-  !req.headers.username || !req.headers.password
+  const { username, password } = req.headers;
+
+  !username || !password
     ? res.status(400).json({
         message: "Please provide username and password"
       })
