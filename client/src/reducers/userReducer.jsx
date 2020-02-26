@@ -24,7 +24,7 @@ const initialState = {
   error: null
 };
 
-export const userReducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     //* REGISTER
     case USER_REGISTER_START:
