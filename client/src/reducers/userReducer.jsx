@@ -24,7 +24,8 @@ const initialState = {
   error: null
 };
 
-export const userReducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     //* REGISTER
     case USER_REGISTER_START:
@@ -35,7 +36,7 @@ export const userReducer = (state = initialState, action) => {
         user: action.payload,
         newUser: null,
         isRegistering: false,
-        error: "success"
+        error: null
       };
     case USER_REGISTER_FAIL:
       return { ...state, isRegistering: false, error: action.payload };

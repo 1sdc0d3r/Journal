@@ -1,16 +1,14 @@
-require("dotenv").config();
+
 const router = require("express").Router();
 
 //* ROUTES
-const registerRoute = require("./routes/user/registerRoute");
-const loginRoute = require("./routes/user/loginRoute");
-const logoutRoute = require("./routes/user/logoutRoute");
+const authRouter = require("./routes/auth/authRouter");
+const logoutRoute = require("./routes/logoutRoute");
 
 //* MIDDLEWARE
-const restricted = require("./middleware/restricted");
+const restricted = require("./middleware/auth/restricted");
 
-router.use("/register", registerRoute);
-router.use("/login", loginRoute);
+router.use("/auth", authRouter);
 router.use("/logout", restricted, logoutRoute);
 
 router.use("/", (req, res) => {

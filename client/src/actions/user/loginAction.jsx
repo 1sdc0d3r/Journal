@@ -7,7 +7,7 @@ export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
 export const loginAction = credentials => dispatch => {
   dispatch({ type: USER_LOGIN_START, payload: credentials });
   axios
-    .get("http://localhost:5000/api/login", {
+    .get("http://localhost:5000/api/auth/login", {
       headers: credentials
     })
     .then(user => dispatch({ type: USER_LOGIN_SUCCESS, payload: user.data }))
