@@ -25,6 +25,7 @@ const initialState = {
 };
 
 export const userReducer = (state = initialState, action) => {
+  console.log(`payload: ${action.payload}`);
   switch (action.type) {
     //* REGISTER
     case USER_REGISTER_START:
@@ -57,7 +58,7 @@ export const userReducer = (state = initialState, action) => {
     case USER_LOGOUT_START:
       return { ...state, isLoggingOut: true };
     case USER_LOGOUT_SUCCESS:
-      return { ...state, isLoggingOut: false, error: null };
+      return { ...state, user: null, isLoggingOut: false, error: null };
     case USER_LOGOUT_FAIL:
       return { ...state, isLoggingOut: false, error: action.payload };
 

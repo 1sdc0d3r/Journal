@@ -26,7 +26,7 @@ module.exports = server => {
       name: SESS_NAME, //sid
       secret: COOKIE_SECRET,
       cookie: {
-        maxAge: 20000 || SESS_LIFETIME, //take off hard number
+        maxAge: 86400000 || SESS_LIFETIME, //todo take off hard number
         sameSite: true,
         secure: IN_PROD // https only
       },

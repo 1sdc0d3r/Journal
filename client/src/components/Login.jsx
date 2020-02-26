@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import { loginAction } from "../actions/loginAction";
 
-function LoginForm({ isLoggingIn, loginAction }) {
+function LoginForm(props) {
+  const { isLoggingIn, loginAction, error, user } = props;
   const [credentials, setCredentials] = useState({
     username: "",
     password: ""
@@ -20,9 +21,14 @@ function LoginForm({ isLoggingIn, loginAction }) {
     evt.preventDefault();
     loginAction(credentials);
   };
+  //! warning: "can't update during state transition..."
+  if (user) {
+    props.history.push("/dashboard");
+  }
   return (
     <>
       <form onSubmit={onSubmitHandler}>
+        {!error ? null : <h3>{error}</h3>}
         <label>
           Username:{" "}
           <input
@@ -54,7 +60,8 @@ function LoginForm({ isLoggingIn, loginAction }) {
 const mapStateToProps = state => {
   return {
     isLoggingIn: state.userReducer.isLoggingIn,
-    loggedIn: state.userReducer.loggedIn
+    error: state.userReducer.error,
+    user: state.userReducer.user
   };
 };
 

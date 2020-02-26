@@ -32,11 +32,11 @@ function RegisterForm(props) {
   };
   //! warning: "can't update during state transition..."
   if (error === "success") {
-    props.history.push("/");
+    props.history.push("/dashboard");
   }
   return (
     <form onSubmit={onSubmitHandler}>
-      {!error ? <h3>NoError</h3> : <h3>{error}</h3>}
+      {!error ? null : <h3>{error}</h3>}
       <label>
         First Name:{" "}
         <input
