@@ -14,7 +14,6 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   user.password = hash;
   db.insertUser(user)
     .then(user => {
-      req.session.userId = user.id;
       res.status(201).json(user);
     })
     .catch((
@@ -37,7 +36,6 @@ router.get("/login", validateHeaders, (req, res) => {
         res.status(404).json({ errorMessage: "Username does not exist" });
       } else {
         if (bcrypt.compareSync(password, user.password)) {
-          req.session.userId = user.id;
           res.status(200).json(user);
         } else {
           res.status(403).json({ errorMessage: "incorrect credentials" });
