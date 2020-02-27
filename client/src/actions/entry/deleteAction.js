@@ -7,7 +7,7 @@ export const ENTRY_DELETE_FAIL = "ENTRY_DELETE_FAIL";
 export const submitAction = id => dispatch => {
   dispatch({ type: ENTRY_DELETE_START });
   axios
-    .delete(`localhost:5000/api/entry/${id}`)
+    .delete(`https://micro-journal.herokuapp.com/api/entry/${id}`)
     .then(res => dispatch({ type: ENTRY_DELETE_SUCCESS, payload: res.data }))
     .catch(err => dispatch({ type: ENTRY_DELETE_FAIL, payload: err }));
 };
