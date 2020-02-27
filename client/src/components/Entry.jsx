@@ -21,7 +21,8 @@ function EntryForm(props) {
 
   const onSubmitHandler = evt => {
     evt.preventDefault();
-    submitAction(entry);
+    submitAction(entry).then(res => console.log(res));
+    props.history.push("/journal");
   };
 
   return (
