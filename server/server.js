@@ -4,7 +4,7 @@ const apiRouter = require("./api/api-router");
 
 const server = express();
 
-const configureMiddleware = require("./api/middleware/configMiddleware");
+const configureMiddleware = require("./api/middleware/journalConfig");
 configureMiddleware(server);
 
 server.use("/api", apiRouter);

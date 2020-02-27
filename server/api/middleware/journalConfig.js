@@ -16,12 +16,12 @@ module.exports = server => {
 // const knex = require("../../../database/journalConfig");
 // const ONE_WEEK = 1 * 24 * 60 * 60 * 1000; //1week
 // const {
-//   NODE_ENV,
+//   DB_ENV,
 //   COOKIE_SECRET = "N0tBf3niTiwod8",
 //   SESS_LIFETIME = ONE_WEEK,
 //   SESS_NAME = "sid"
 // } = process.env;
-// const IN_PROD = NODE_ENV === "production";
+// const IN_PROD = DB_ENV === "production";
 
 //  server.use(
 //    session({
