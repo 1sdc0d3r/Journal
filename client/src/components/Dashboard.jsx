@@ -2,8 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-function Dashboard({ user, error }) {
-  console.log("DASHBOARD");
+function Dashboard(props) {
+  const { user, error } = props;
+  if (!user) {
+    props.history.push("/login");
+  }
+
   return (
     <>
       <nav>

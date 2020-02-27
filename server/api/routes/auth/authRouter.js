@@ -19,7 +19,7 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   db.insertUser(user)
     .then(user => {
       const token = generateToken(user);
-      res.status(201).json(user, token);
+      res.status(201).json({ user, token });
     })
     .catch((
       err //{name, message, stack} = .catch
@@ -42,7 +42,7 @@ router.get("/login", validateHeaders, (req, res) => {
       } else {
         if (bcrypt.compareSync(password, user.password)) {
           const token = generateToken(user);
-          res.status(200).json(user, token);
+          res.status(200).json({ user, token });
         } else {
           res.status(403).json({ errorMessage: "incorrect credentials" });
         }

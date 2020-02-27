@@ -17,6 +17,7 @@ import {
 
 const initialState = {
   user: null,
+  token: null,
   newUser: null,
   isRegistering: false,
   isLoggingIn: false,
@@ -25,7 +26,6 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     //* REGISTER
     case USER_REGISTER_START:
@@ -33,7 +33,8 @@ export default (state = initialState, action) => {
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
+        token: action.payload.token,
         newUser: null,
         isRegistering: false,
         error: null
@@ -47,7 +48,8 @@ export default (state = initialState, action) => {
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        user: action.payload.user,
+        token: action.payload.token,
         isLoggingIn: false,
         error: null
       };
@@ -58,7 +60,13 @@ export default (state = initialState, action) => {
     case USER_LOGOUT_START:
       return { ...state, isLoggingOut: true };
     case USER_LOGOUT_SUCCESS:
-      return { ...state, user: null, isLoggingOut: false, error: null };
+      return {
+        ...state,
+        user: null,
+        token: null,
+        isLoggingOut: false,
+        error: null
+      };
     case USER_LOGOUT_FAIL:
       return { ...state, isLoggingOut: false, error: action.payload };
 
