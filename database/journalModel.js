@@ -72,7 +72,9 @@ function modifyEntry(id, entry) {
 }
 
 function removeEntry(id) {
-  return db("Entry").where({ id });
+  return db("Entry")
+    .where({ id })
+    .del();
 }
 
 //* Journal

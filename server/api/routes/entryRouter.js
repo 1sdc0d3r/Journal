@@ -3,7 +3,6 @@ const db = require("../../../database/journalModel");
 const { validateEntry } = require("../middleware/entryMiddleware");
 
 router.get("/", (req, res) => {
-  const { id } = req.params;
   db.getEntries()
     .then(entries => res.status(200).json(entries))
     .catch(err =>
@@ -26,8 +25,9 @@ router.get("/:id", (req, res) => {
 
 router.post("/", validateEntry, (req, res) => {
   const entry = req.body;
+  console.log(entry);
   db.insertEntry(entry)
-    .then(count => res.status(200).json(count))
+    .then(entry => res.status(200).json(entry))
     .catch(err =>
       res.status(500).json({ errorMessage: "unable to add entry", error: err })
     );
