@@ -1,4 +1,19 @@
-// todo
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET = "not a secret" } = process.env;
+
 module.exports = (req, res, next) => {
-  next();
+  const { authorization } = req.headers;
+  if (authorization) {
+    jwt.verify(authorization, JWT_SECRET, (err, decodedToken) => {
+      if (err) {
+        res.status(401).json({ errorMessage: "Invalid Credentials" });
+      } else {
+        req.decodedToken = decodedToken;
+        console.log(req.decodedToken);
+        next();
+      }
+    });
+  } else {
+    res.status(400).json({ message: "No credentials provided" });
+  }
 };

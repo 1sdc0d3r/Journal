@@ -3,8 +3,6 @@ import "./style/App.css";
 import { Route, Switch, NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { logoutAction } from "./actions/user/logoutAction";
-
 //* components
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -20,11 +18,6 @@ function App({ user, logoutAction, loggingOut }) {
       <nav>
         <NavLink to="/login">Login</NavLink>
         <NavLink to="/register">Register</NavLink>
-        <NavLink to="/dashboard">Dashboard</NavLink>
-
-        <button onClick={() => logoutAction()}>
-          {!loggingOut ? "Logout" : "loggingOut..."}
-        </button>
       </nav>
       <Switch>
         <Route path="/register" component={Register} />
@@ -37,8 +30,7 @@ function App({ user, logoutAction, loggingOut }) {
 }
 const mapStateToProps = state => {
   return {
-    user: state.userReducer.user,
-    loggingOut: state.userReducer.loggingOut
+    user: state.userReducer.user
   };
 };
-export default connect(mapStateToProps, { logoutAction })(App);
+export default connect(mapStateToProps, {})(App);

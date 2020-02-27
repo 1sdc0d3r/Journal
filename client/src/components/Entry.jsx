@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { submitAction } from "../actions/entry/submitAction";
 
 function EntryForm(props) {
-  const { isSubmitting, error } = props;
+  const { isSubmitting, error, user, submitAction } = props;
 
   const [entry, setEntry] = useState({
-    username: "",
-    password: ""
+    medication: null,
+    dose: null,
+    description: null
   });
 
   const onChangeHandler = evt => {
@@ -18,7 +20,7 @@ function EntryForm(props) {
 
   const onSubmitHandler = evt => {
     evt.preventDefault();
-    // loginAction(entry);
+    submitAction(entry);
   };
 
   return (
@@ -51,10 +53,10 @@ function EntryForm(props) {
           Entry:{" "}
           <input
             type="text"
-            name="entry"
-            value={entry.entry}
+            name="description"
+            value={entry.description}
             onChange={onChangeHandler}
-            placeholder="entry"
+            placeholder="description"
             required
           />
         </label>
@@ -68,9 +70,10 @@ function EntryForm(props) {
 
 const mapStateToProps = state => {
   return {
-    error: state.userReducer.error,
+    user: state.userReducer.user,
+    error: state.entryReducer.error,
     isSubmitting: state.entryReducer.isSubmitting
   };
 };
 
-export default connect(mapStateToProps, {})(EntryForm);
+export default connect(mapStateToProps, { submitAction })(EntryForm);
