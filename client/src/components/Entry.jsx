@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { submitAction } from "../actions/entry/submitAction";
 
 function EntryForm(props) {
@@ -20,11 +21,13 @@ function EntryForm(props) {
 
   const onSubmitHandler = evt => {
     evt.preventDefault();
-    submitAction(entry);
+    submitAction(entry).then(res => console.log(res));
+    props.history.push("/journal");
   };
 
   return (
     <>
+      <NavLink to="/dashboard">Dashboard</NavLink>
       <form onSubmit={onSubmitHandler}>
         {!error ? null : <h3>{error}</h3>}
         <label>

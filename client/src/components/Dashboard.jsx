@@ -13,8 +13,8 @@ function Dashboard(props) {
   return (
     <>
       <nav>
-        <NavLink to="/dashboard">Dashboard</NavLink>
         <NavLink to="/entry">Entry</NavLink>
+        <NavLink to="/journal">Journal</NavLink>
         <button onClick={() => logoutAction()}>
           {!loggingOut ? "Logout" : "loggingOut..."}
         </button>

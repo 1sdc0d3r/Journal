@@ -8,6 +8,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import Entry from "./components/Entry";
+// import Journal from "./components/Journal";
+import JournalPage from "./components/JournalPage";
 
 //todo implement GraphQL
 
@@ -24,6 +26,8 @@ function App({ user, logoutAction, loggingOut }) {
         <Route path="/login" component={Login} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/entry" component={Entry} />
+        <Route path="/journal" component={JournalPage} />
+        //todo change to Journal component
       </Switch>
     </div>
   );
