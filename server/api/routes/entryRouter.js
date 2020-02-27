@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const db = "/database/journalModel.js";
+const db = require("../../../database/journalModel");
 const { validateEntry } = require("../middleware/entryMiddleware");
 
 router.get("/", (req, res) => {
+  const { id } = req.params;
   db.getEntries()
     .then(entries => res.status(200).json(entries))
     .catch(err =>

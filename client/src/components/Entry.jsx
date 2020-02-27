@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 
 function EntryForm(props) {
-  const { isSubmitting, error } = props;
+  const { isSubmitting, error, user } = props;
 
   const [entry, setEntry] = useState({
     username: "",
@@ -68,7 +68,8 @@ function EntryForm(props) {
 
 const mapStateToProps = state => {
   return {
-    error: state.userReducer.error,
+    user: state.userReducer.user,
+    error: state.entryReducer.error,
     isSubmitting: state.entryReducer.isSubmitting
   };
 };

@@ -54,6 +54,7 @@ function removeUser(id) {
 //* Entry
 function insertEntry(entry) {
   return db("Entry").insert(entry);
+  // db()
 }
 
 function getEntries() {
