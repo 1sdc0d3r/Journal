@@ -8,7 +8,8 @@ module.exports = {
   insertUser,
   modifyUser,
   removeUser,
-  getEntry,
+  getEntries,
+  getEntryById,
   modifyEntry,
   removeEntry,
   getJournalByUserId,
@@ -55,7 +56,11 @@ function insertEntry(entry) {
   return db("Entry").insert(entry);
 }
 
-function getEntry(id) {
+function getEntries() {
+  return db("Entry");
+}
+
+function getEntryById(id) {
   return db("Entry").where({ id });
 }
 

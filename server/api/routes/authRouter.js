@@ -1,16 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../../database/journalModel");
+const db = require("../../../database/journalModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET = "not a secret" } = process.env;
 
 const {
   validateUserBody,
   checkExistingUsers,
   validateHeaders
-} = require("../../middleware/auth/authMiddleware");
+} = require("../middleware/auth/authMiddleware");
 
 router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   let user = req.body;

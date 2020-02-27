@@ -1,6 +1,5 @@
-const express = require("express");
-const router = express.Router();
-
+const router = require("express").Router();
+//todo ADD TO AUTH ROUTER
 router.get("/", (req, res) => {
   res.status(200).json({ message: "Successfully logged out" });
 });
