@@ -7,7 +7,7 @@ export const USER_REGISTER_FAIL = "USER_REGISTER_FAIL";
 export const registerAction = user => dispatch => {
   dispatch({ type: USER_REGISTER_START, payload: user });
   axios
-    .post("http://localhost:5000/api/auth/register", user)
+    .post("https://micro-journal.herokuapp.com/api/auth/register", user)
     .then(res => {
       dispatch({ type: USER_REGISTER_SUCCESS, payload: res.data });
     })

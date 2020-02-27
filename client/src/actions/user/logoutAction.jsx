@@ -7,7 +7,7 @@ export const USER_LOGOUT_FAIL = "USER_LOGOUT_FAIL";
 export const logoutAction = () => dispatch => {
   dispatch({ type: USER_LOGOUT_START });
   axios
-    .get("http://localhost:5000/api/logout")
+    .get("https://micro-journal.herokuapp.com/api/logout")
     .then(res =>
       dispatch({ type: USER_LOGOUT_SUCCESS, payload: res.data.message })
     )

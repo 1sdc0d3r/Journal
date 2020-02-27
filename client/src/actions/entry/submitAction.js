@@ -8,7 +8,7 @@ export const submitAction = entry => dispatch => {
   console.log("submitAction", entry);
   dispatch({ type: ENTRY_SUBMIT_START });
   axios
-    .post("localhost:5000/api/entry", entry)
+    .post("https://micro-journal.herokuapp.com/api/entry", entry)
     .then(res => dispatch({ type: ENTRY_SUBMIT_SUCCESS, payload: res.data }))
     .catch(err => dispatch({ type: ENTRY_SUBMIT_FAIL, payload: err.response }));
 };
