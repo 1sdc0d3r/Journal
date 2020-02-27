@@ -33,6 +33,8 @@ const users = {
   }
 };
 
+// expect(Array.isArray(res.body)) Object.isObject?
+
 beforeEach(async () => {
   await db("User").truncate();
   await request(server)

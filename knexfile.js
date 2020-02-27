@@ -53,7 +53,7 @@ module.exports = {
   production: {
     client: "postgresql",
     connection: {
-      database: "my_db",
+      database: "my_db", // process.env.DATABASE_URL (on heroku)
       user: "username",
       password: "password"
     },
