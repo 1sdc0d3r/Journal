@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { submitAction } from "../actions/entry/submitAction";
 
 function EntryForm(props) {
@@ -25,6 +26,7 @@ function EntryForm(props) {
 
   return (
     <>
+      <NavLink to="/dashboard">Dashboard</NavLink>
       <form onSubmit={onSubmitHandler}>
         {!error ? null : <h3>{error}</h3>}
         <label>
