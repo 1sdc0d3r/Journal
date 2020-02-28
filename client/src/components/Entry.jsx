@@ -1,10 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
 import { submitAction } from "../actions/entry/submitAction";
+import { getEntriesAction } from "../actions/entry/getAction";
 
 function EntryForm(props) {
-  const { isSubmitting, error, user, submitAction } = props;
+  const {
+    isSubmitting,
+    error,
+    user,
+    entries,
+    submitAction,
+    getEntriesAction
+  } = props;
+
+  useEffect(() => {
+    console.log("id", props.location.state.id);
+    getEntriesAction(props.location.state.id);
+  }, []);
+
+  const [editing, setEditing] = useState(entries);
+  console.log("editing", editing);
 
   const [entry, setEntry] = useState({
     medication: null,
@@ -28,6 +44,7 @@ function EntryForm(props) {
   return (
     <>
       <NavLink to="/dashboard">Dashboard</NavLink>
+      <NavLink to="/journal">Journal</NavLink>
       <form onSubmit={onSubmitHandler}>
         {!error ? null : <h3>{error}</h3>}
         <label>
@@ -72,9 +89,12 @@ function EntryForm(props) {
 const mapStateToProps = state => {
   return {
     user: state.userReducer.user,
+    entries: state.entryReducer.entries,
     error: state.entryReducer.error,
     isSubmitting: state.entryReducer.isSubmitting
   };
 };
 
-export default connect(mapStateToProps, { submitAction })(EntryForm);
+export default connect(mapStateToProps, { submitAction, getEntriesAction })(
+  EntryForm
+);

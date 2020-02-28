@@ -15,14 +15,22 @@
 
 ## Users
 
--id
--name
+-Id
 -Creation date
+-First Name
+-Last Name
+-Email
+-Username
+-Password
 
 ## Posts
 
--id
--name
+-Id
+-Creation date
+-Modification date
+-Medication
+-Dose
+-Description
 
 ## Testing
 

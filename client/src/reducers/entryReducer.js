@@ -21,6 +21,7 @@ import {
 
 const initialState = {
   entries: [],
+  edit: null,
   isSubmitting: false,
   isModifying: false,
   isDeleting: false,
@@ -38,11 +39,16 @@ export default (state = initialState, action) => {
       return { ...state, isSubmitting: false, error: action.payload };
 
     case ENTRY_MODIFY_START:
-      return { ...state, isSubmitting: true, error: null };
+      return { ...state, entries: null, isModifying: true, error: null };
     case ENTRY_MODIFY_SUCCESS:
-      return { ...state, isSubmitting: false, error: null };
+      return {
+        ...state,
+        modifyingEntry: action.payload,
+        isModifying: false,
+        error: null
+      };
     case ENTRY_MODIFY_FAIL:
-      return { ...state, isSubmitting: false, error: action.payload };
+      return { ...state, isModifying: false, error: action.payload };
 
     case ENTRY_DELETE_START:
       return { ...state, isDeleting: true, error: null };

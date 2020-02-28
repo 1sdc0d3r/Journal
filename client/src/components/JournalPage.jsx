@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { getEntriesAction } from "../actions/entry/getAction";
 import { deleteAction } from "../actions/entry/deleteAction";
 
 function JournalPage(props) {
   const { entries, getEntriesAction, deleteAction } = props;
+
+  // const [edit, setEdit] = useState(false);
+
   useEffect(() => {
     getEntriesAction();
   }, []);
@@ -14,6 +17,7 @@ function JournalPage(props) {
     <>
       <NavLink to="/dashboard">Dashboard</NavLink>
       <NavLink to="/entry">Entry</NavLink>
+      {/* {edit ? <Redirect to="/entry" /> : null} */}
       {entries.map(entry => (
         <div>
           <p>Entry: {entry.id}</p>
@@ -24,6 +28,19 @@ function JournalPage(props) {
             </li>
           </ul>
           <p>Description: {entry.description}</p>
+          <button
+            onClick={() => {
+              // getEntriesAction(entry.id);
+              // setEdit(true);
+              props.history.push({
+                pathname: "/entry",
+                state: { id: entry.id }
+              });
+            }}
+          >
+            Edit
+          </button>
+
           <button onClick={() => deleteAction(entry.id)}>Delete</button>
         </div>
       ))}
