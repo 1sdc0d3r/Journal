@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { submitAction } from "../actions/entry/submitAction";
 
 function EntryForm(props) {
@@ -21,7 +21,7 @@ function EntryForm(props) {
 
   const onSubmitHandler = evt => {
     evt.preventDefault();
-    submitAction(entry).then(res => console.log(res));
+    submitAction(entry);
     props.history.push("/journal");
   };
 
@@ -38,7 +38,6 @@ function EntryForm(props) {
             value={entry.medication}
             onChange={onChangeHandler}
             placeholder="medication"
-            required
           />
         </label>
         <label>
@@ -49,7 +48,6 @@ function EntryForm(props) {
             value={entry.dose}
             onChange={onChangeHandler}
             placeholder="dose"
-            required
           />
         </label>{" "}
         <label>

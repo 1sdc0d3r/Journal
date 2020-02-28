@@ -17,7 +17,6 @@ import {
 
 const initialState = {
   user: null,
-  token: null,
   newUser: null,
   isRegistering: false,
   isLoggingIn: false,
@@ -33,8 +32,7 @@ export default (state = initialState, action) => {
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
-        user: action.payload.user,
-        token: action.payload.token,
+        user: action.payload,
         newUser: null,
         isRegistering: false,
         error: null
@@ -48,8 +46,7 @@ export default (state = initialState, action) => {
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
-        user: action.payload.user,
-        token: action.payload.token,
+        user: action.payload,
         isLoggingIn: false,
         error: null
       };
@@ -63,7 +60,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: null,
-        token: null,
         isLoggingOut: false,
         error: null
       };
