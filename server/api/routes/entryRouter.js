@@ -25,7 +25,7 @@ router.get("/:id", (req, res) => {
 
 router.post("/", validateEntry, (req, res) => {
   const entry = req.body;
-  console.log(entry);
+  // console.log(entry);
   db.insertEntry(entry)
     .then(entry => res.status(200).json(entry))
     .catch(err =>
@@ -38,7 +38,7 @@ router.put("/:id", validateEntry, (req, res) => {
   const newEntry = req.body;
 
   db.modifyEntry(id, newEntry)
-    .then(entry => res.status(200).json(entry))
+    .then(entry => res.status(201).json(entry))
     .catch(err =>
       res
         .status(500)
@@ -58,3 +58,4 @@ router.delete("/:id", (req, res) => {
 });
 
 module.exports = router;
+//  "knex seed:run --env testing && cross-env NODE_ENV=testing && jest --watchAll --verbose"

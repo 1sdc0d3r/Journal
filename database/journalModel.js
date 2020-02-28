@@ -62,13 +62,18 @@ function getEntries() {
 }
 
 function getEntryById(id) {
-  return db("Entry").where({ id });
+  return db("Entry")
+    .where({ id })
+    .first();
 }
 
 function modifyEntry(id, entry) {
   return db("Entry")
     .update(entry)
-    .where({ id });
+    .where({ id })
+    .then(id => {
+      return getEntryById(id);
+    });
 }
 
 function removeEntry(id) {

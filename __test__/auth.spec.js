@@ -122,18 +122,73 @@ describe("Auth route", () => {
       const expectedStatusCode = 200;
       const response = await request(server)
         .get("/api/auth/login")
-        .send();
+        .set({
+          username: "jackTest",
+          password: "password"
+        });
       expect(response.status).toEqual(expectedStatusCode);
     });
 
-    // it('should return a user', async () => {
-    //   const expectedBody = {
-    //     first_name: "Jack",
-    //     last_name: "Barry",
-    //     email: "jackBarry@email.com",
-    //     username: "jackBarry"
-    //   };
-    // });
+    it("should return a JSON format", async () => {
+      const response = await request(server)
+        .get("/api/auth/login")
+        .set({ username: "jackTest", password: "password" });
+      expect(response.type).toMatch(/json/);
+    });
+
+    it("should return user jackTest", async () => {
+      const response = await request(server)
+        .get("/api/auth/login")
+        .set({
+          username: "jackTest",
+          password: "password"
+        });
+      const expectedBody = {
+        ...response.body.user,
+        first_name: "Jack",
+        last_name: "Barry",
+        email: "test@email.com",
+        username: "jackTest"
+      };
+      expect(response.body.user).toEqual(expectedBody);
+    });
+  });
+  describe("Unsuccessful Login", () => {
+    it("should return status 403", async () => {
+      const expectedStatus = 403;
+      const response = await request(server)
+        .get("/api/auth/login")
+        .set({
+          username: "jackWrong",
+          password: "password"
+        });
+
+      expect(response.status).toEqual(expectedStatus);
+    });
+
+    it("should return json format", async () => {
+      const response = await request(server)
+        .get("/api/auth/login")
+        .set({ username: "jackTest", password: "wrongPass" });
+
+      expect(response.type).toMatch(/json/);
+    });
+
+    it("should return error message on wrong username", async () => {
+      const expectedBody = { errorMessage: "incorrect credentials" };
+      const response = await request(server)
+        .get("/api/auth/login")
+        .set({ username: "jackWrong", password: "password" });
+      expect(response.body).toEqual(expectedBody);
+    });
+
+    it("should return error message on wrong password", async () => {
+      const expectedBody = { errorMessage: "incorrect credentials" };
+      const response = await request(server)
+        .get("/api/auth/login")
+        .set({ username: "jackTest", password: "wrongPass" });
+      expect(response.body).toEqual(expectedBody);
+    });
   });
 });
 

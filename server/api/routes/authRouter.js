@@ -38,10 +38,13 @@ router.get("/login", validateHeaders, (req, res) => {
   db.getUserByUsername(username)
     .then(user => {
       if (!user) {
-        res.status(404).json({ errorMessage: "Username does not exist" });
+        res.status(403).json({
+          errorMessage: "incorrect credentials"
+        });
       } else {
         if (bcrypt.compareSync(password, user.password)) {
           const token = generateToken(user);
+          //saves to req.headers.Authorization
           res.status(200).json({ user, token });
         } else {
           res.status(403).json({ errorMessage: "incorrect credentials" });
