@@ -2,10 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
-import { logoutAction } from "../actions/user/logoutAction";
-
 function Dashboard(props) {
-  const { user, error, loggingOut, logoutAction } = props;
+  const { user, error } = props;
   if (!user) {
     props.history.push("/login");
   }
@@ -15,8 +13,8 @@ function Dashboard(props) {
       <nav>
         <NavLink to="/entry">Entry</NavLink>
         <NavLink to="/journal">Journal</NavLink>
-        <button onClick={() => logoutAction()}>
-          {!loggingOut ? "Logout" : "loggingOut..."}
+        <button onClick={() => localStorage.removeItem("journalToken")}>
+          Logout
         </button>
       </nav>
       <h2>Dashboard</h2>
@@ -33,4 +31,4 @@ const mapStateToProps = state => {
     error: state.userReducer.error
   };
 };
-export default connect(mapStateToProps, { logoutAction })(Dashboard);
+export default connect(mapStateToProps)(Dashboard);

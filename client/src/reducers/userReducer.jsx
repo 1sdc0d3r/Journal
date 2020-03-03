@@ -9,11 +9,6 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL
 } from "../actions/user/loginAction";
-import {
-  USER_LOGOUT_START,
-  USER_LOGOUT_SUCCESS,
-  USER_LOGOUT_FAIL
-} from "../actions/user/logoutAction";
 
 const initialState = {
   user: null,
@@ -52,19 +47,6 @@ export default (state = initialState, action) => {
       };
     case USER_LOGIN_FAIL:
       return { ...state, isLoggingIn: false, error: action.payload };
-
-    //* LOGOUT
-    case USER_LOGOUT_START:
-      return { ...state, isLoggingOut: true };
-    case USER_LOGOUT_SUCCESS:
-      return {
-        ...state,
-        user: null,
-        isLoggingOut: false,
-        error: null
-      };
-    case USER_LOGOUT_FAIL:
-      return { ...state, isLoggingOut: false, error: action.payload };
 
     default:
       return state;

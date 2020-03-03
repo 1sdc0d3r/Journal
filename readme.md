@@ -6,7 +6,6 @@
 | :------------- | :----: | :----------------- |
 | Register User  |  POST  | /api/auth/register |
 | Login User     |  GET   | /api/auth/login    |
-| Logout User    |  GET   | /api/logout        |
 | Create Post    |  POST  | /api/post          |
 | Get Posts      |  GET   | /api/post          |
 | Get Post by Id |  GET   | /api/post/:id      |

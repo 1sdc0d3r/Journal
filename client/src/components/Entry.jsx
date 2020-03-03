@@ -11,22 +11,26 @@ function EntryForm(props) {
     user,
     entries,
     submitAction,
-    getEntriesAction
+    getEntriesAction,
+    isModifying
   } = props;
 
-  useEffect(() => {
-    console.log("id", props.location.state.id);
-    getEntriesAction(props.location.state.id);
-  }, []);
-
-  const [editing, setEditing] = useState(entries);
-  console.log("editing", editing);
+  const [editing, setEditing] = useState(entries[0]);
 
   const [entry, setEntry] = useState({
     medication: null,
     dose: null,
     description: null
   });
+  useEffect(() => {
+    if (isModifying) {
+      setEntry({
+        medication: editing.medication,
+        dose: editing.dose,
+        description: editing.description
+      });
+    }
+  }, []);
 
   const onChangeHandler = evt => {
     setEntry({
