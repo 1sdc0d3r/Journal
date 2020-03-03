@@ -5,7 +5,7 @@ const authRouter = require("./routes/authRouter");
 const entryRouter = require("./routes/entryRouter");
 
 //* MIDDLEWARE
-const restricted = require("./middleware/auth/restricted");
+const restricted = require("./middleware/restricted");
 
 // .catch({name, message, stack, code})
 

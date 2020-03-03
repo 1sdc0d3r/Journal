@@ -10,7 +10,7 @@ const {
   validateUserBody,
   checkExistingUsers,
   validateHeaders
-} = require("../middleware/auth/authMiddleware");
+} = require("../middleware/authMiddleware");
 
 router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   let user = req.body;
