@@ -14,9 +14,10 @@ class JournalPage extends Component {
   }
 
   render() {
-    if (!this.props.user.length) {
+    if (!this.props.user.id) {
       return <Redirect to="/login" />;
     }
+
     return (
       <>
         <NavLink to="/dashboard">Dashboard</NavLink>
@@ -41,7 +42,7 @@ class JournalPage extends Component {
 
             <button
               onClick={() => {
-                this.props.deleteAction(entry.id, this.props.history);
+                this.props.deleteAction(entry.id);
               }}
             >
               Delete
