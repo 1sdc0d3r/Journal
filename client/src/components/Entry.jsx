@@ -38,7 +38,7 @@ class EntryForm extends Component {
   };
 
   render() {
-    if (!this.props.user.length) {
+    if (!this.props.user.id) {
       return <Redirect to="/login" />;
     }
     return (
