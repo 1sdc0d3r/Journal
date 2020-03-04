@@ -1,58 +1,50 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react";
 import { NavLink, Redirect } from "react-router-dom";
-import { getEntriesAction } from "../actions/entry/getAction";
-import { deleteAction } from "../actions/entry/deleteAction";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-function JournalPage(props) {
-  const { entries, getEntriesAction, deleteAction } = props;
+export default class JournalPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      entries: [],
+      editing: false
+    };
+  }
+  componentWillMount() {
+    //todo get entries
+    axiosWithAuth()
+      .get(`http://localhost:5000/api/entry`)
+      .then(res => this.setState({ entries: res.data }))
+      .catch(err => console.log(err));
+  }
 
-  const [edit, setEdit] = useState(false);
+  editEntry = id => {};
+  deleteEntry = id => {};
 
-  useEffect(() => {
-    getEntriesAction();
-  }, []);
+  render() {
+    if (this.state.editing) {
+      return <Redirect to="/entry" />;
+    }
+    return (
+      <>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+        <NavLink to="/entry">Entry</NavLink>
+        {this.state.entries.map(entry => (
+          <div>
+            <p>Entry: {entry.id}</p>
+            <p>Entry Date: {entry.created_at}</p>
+            <ul>
+              <li>
+                Medication: {entry.medication} - Dose: {entry.dose}
+              </li>
+            </ul>
+            <p>Description: {entry.description}</p>
+            <button onClick={() => {}}>Edit</button>
 
-  return (
-    <>
-      <NavLink to="/dashboard">Dashboard</NavLink>
-      <NavLink to="/entry">Entry</NavLink>
-      {edit ? <Redirect to="/entry" /> : null}
-      {entries.map(entry => (
-        <div>
-          <p>Entry: {entry.id}</p>
-          <p>Entry Date: {entry.created_at}</p>
-          <ul>
-            <li>
-              Medication: {entry.medication} - Dose: {entry.dose}
-            </li>
-          </ul>
-          <p>Description: {entry.description}</p>
-          <button
-            onClick={async () => {
-              await getEntriesAction(entry.id);
-              setEdit(true);
-              // props.history.push({
-              //   pathname: "/entry",
-              //   state: { id: entry.id }
-              // });
-            }}
-          >
-            Edit
-          </button>
-
-          <button onClick={() => deleteAction(entry.id)}>Delete</button>
-        </div>
-      ))}
-    </>
-  );
+            <button onClick={() => {}}>Delete</button>
+          </div>
+        ))}
+      </>
+    );
+  }
 }
-
-const mapStateToProps = state => {
-  return {
-    entries: state.entryReducer.entries
-  };
-};
-export default connect(mapStateToProps, { getEntriesAction, deleteAction })(
-  JournalPage
-);

@@ -1,111 +1,102 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { registerAction } from "../actions/user/registerAction";
+import React, { Component } from "react";
+import axios from "axios";
 
-function RegisterForm(props) {
-  const { isRegistering, registerAction, user, error } = props;
-  const [input, setInput] = useState({
-    fName: "",
-    lName: "",
-    email: "",
-    username: "",
-    password: ""
-  });
+export default class RegisterForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      user: {
+        first_name: null,
+        last_name: null,
+        email: null,
+        username: null,
+        password: null
+      }
+    };
+  }
 
-  const onChangeHandler = evt => {
-    setInput({
-      ...input,
-      [evt.target.name]: evt.target.value
+  onChangeHandler = evt => {
+    this.setState({
+      ...this.state,
+      user: {
+        ...this.state.user,
+        [evt.target.name]: evt.target.value
+      }
     });
   };
 
-  const onSubmitHandler = evt => {
+  onSubmitHandler = evt => {
     evt.preventDefault();
-    const newUser = {
-      first_name: input.fName,
-      last_name: input.lName,
-      email: input.email,
-      username: input.username,
-      password: input.password
-    };
-    registerAction(newUser);
+    axios
+      .post("http://localhost:5000/api/auth/register", this.state.user)
+      .then(res => {
+        localStorage.setItem("journalToken", res.data.token);
+      });
   };
-  //! warning: "can't update during state transition..."
-  if (user) {
-    props.history.push("/dashboard");
+
+  render() {
+    return (
+      <form onSubmit={this.onSubmitHandler}>
+        {this.state.error}
+        <label>
+          First Name:{" "}
+          <input
+            type="text"
+            name="first_name"
+            value={this.state.user.first_name}
+            onChange={this.onChangeHandler}
+            placeholder="first name"
+            required
+          />
+        </label>
+        <label>
+          Last Name:
+          <input
+            type="text"
+            name="last_name"
+            value={this.state.user.last_name}
+            onChange={this.onChangeHandler}
+            placeholder="last name"
+            required
+          />
+        </label>
+        <label>
+          Email:{" "}
+          <input
+            type="text"
+            name="email"
+            value={this.state.user.email}
+            onChange={this.onChangeHandler}
+            placeholder="email"
+            required
+          />
+        </label>
+        <label>
+          Username:{" "}
+          <input
+            type="text"
+            name="username"
+            value={this.state.user.username}
+            onChange={this.onChangeHandler}
+            placeholder="username"
+            required
+          />
+        </label>
+        <label>
+          Password:{" "}
+          <input
+            type="password"
+            name="password"
+            value={this.state.user.password}
+            onChange={this.onChangeHandler}
+            placeholder="password"
+            //? autoComplete="current-password"
+            required
+          />
+        </label>
+        <button type="submit">Register</button>
+      </form>
+    );
   }
-  return (
-    <form onSubmit={onSubmitHandler}>
-      {!error ? null : <h3>{error}</h3>}
-      <label>
-        First Name:{" "}
-        <input
-          type="text"
-          name="fName"
-          value={input.fName}
-          onChange={onChangeHandler}
-          placeholder="first name"
-          required
-        />
-      </label>
-      <label>
-        Last Name:
-        <input
-          type="text"
-          name="lName"
-          value={input.lName}
-          onChange={onChangeHandler}
-          placeholder="last name"
-          required
-        />
-      </label>
-      <label>
-        Email:{" "}
-        <input
-          type="text"
-          name="email"
-          value={input.email}
-          onChange={onChangeHandler}
-          placeholder="email"
-          required
-        />
-      </label>
-      <label>
-        Username:{" "}
-        <input
-          type="text"
-          name="username"
-          value={input.username}
-          onChange={onChangeHandler}
-          placeholder="username"
-          required
-        />
-      </label>
-      <label>
-        Password:{" "}
-        <input
-          type="password"
-          name="password"
-          value={input.password}
-          onChange={onChangeHandler}
-          placeholder="password"
-          //todo autoComplete="current-password"
-          required
-        />
-      </label>
-      <button type="submit">
-        {isRegistering ? "Registering..." : "Register"}
-      </button>
-    </form>
-  );
 }
-
-const mapStateToProps = state => {
-  return {
-    isRegistering: state.userReducer.isRegistering,
-    user: state.userReducer.user,
-    error: state.userReducer.error
-  };
-};
-
-export default connect(mapStateToProps, { registerAction })(RegisterForm);

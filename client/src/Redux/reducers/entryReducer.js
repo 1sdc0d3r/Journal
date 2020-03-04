@@ -16,12 +16,15 @@ import {
 import {
   ENTRY_GET_START,
   ENTRY_GET_SUCCESS,
-  ENTRY_GET_FAIL
+  ENTRY_GET_FAIL,
+  ENTRYID_GET_START,
+  ENTRYID_GET_SUCCESS,
+  ENTRYID_GET_FAIL
 } from "../actions/entry/getAction";
 
 const initialState = {
   entries: [],
-  edit: null,
+  edit: {},
   isSubmitting: false,
   isModifying: false,
   isDeleting: false,
@@ -67,6 +70,18 @@ export default (state = initialState, action) => {
         error: null
       };
     case ENTRY_GET_FAIL:
+      return { ...state, isGetting: false, error: action.payload };
+
+    case ENTRYID_GET_START:
+      return { ...state, isGetting: true, error: null };
+    case ENTRYID_GET_SUCCESS:
+      return {
+        ...state,
+        edit: action.payload,
+        isGetting: false,
+        error: null
+      };
+    case ENTRYID_GET_FAIL:
       return { ...state, isGetting: false, error: action.payload };
 
     default:

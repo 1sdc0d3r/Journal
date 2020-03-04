@@ -1,68 +1,64 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react";
+import axios from "axios";
 
-import { loginAction } from "../actions/user/loginAction";
+export default class LoginForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      credentials: {
+        username: null,
+        password: null
+      },
+      error: null
+    };
+  }
 
-function LoginForm(props) {
-  const { isLoggingIn, loginAction, error, user } = props;
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: ""
-  });
-
-  const onChangeHandler = evt => {
-    setCredentials({
-      ...credentials,
+  onChangeHandler = evt => {
+    this.setState({
+      ...this.state,
       [evt.target.name]: evt.target.value
     });
   };
 
-  const onSubmitHandler = evt => {
+  onSubmitHandler = evt => {
     evt.preventDefault();
-    loginAction(credentials);
+    axios
+      .post("http://localhost:5000/api/auth/login", this.state.credentials)
+      .then(res => {
+        localStorage.setItem("journalToken", res.data.token);
+      });
   };
-  //! warning: "can't update during state transition..."
-  if (user) {
-    props.history.push("/dashboard");
+
+  render() {
+    return (
+      <>
+        <form onSubmit={this.onSubmitHandler}>
+          {!this.state.error ? null : <h3>{this.state.error}</h3>}
+          <label>
+            Username:{" "}
+            <input
+              type="text"
+              name="username"
+              value={this.state.credentials.username}
+              onChange={this.onChangeHandler}
+              placeholder="username"
+              required
+            />
+          </label>
+          <label>
+            Password:{" "}
+            <input
+              type="password"
+              name="password"
+              value={this.state.credentials.password}
+              onChange={this.onChangeHandler}
+              placeholder="password"
+              required
+            />
+          </label>
+          <button type="submit">Login</button>
+        </form>
+      </>
+    );
   }
-  return (
-    <>
-      <form onSubmit={onSubmitHandler}>
-        {!error ? null : <h3>{error}</h3>}
-        <label>
-          Username:{" "}
-          <input
-            type="text"
-            name="username"
-            value={credentials.username}
-            onChange={onChangeHandler}
-            placeholder="username"
-            required
-          />
-        </label>
-        <label>
-          Password:{" "}
-          <input
-            type="password"
-            name="password"
-            value={credentials.password}
-            onChange={onChangeHandler}
-            placeholder="password"
-            required
-          />
-        </label>
-        <button type="submit">{!isLoggingIn ? "Login" : "Loading..."}</button>
-      </form>
-    </>
-  );
 }
-
-const mapStateToProps = state => {
-  return {
-    isLoggingIn: state.userReducer.isLoggingIn,
-    error: state.userReducer.error,
-    user: state.userReducer.user
-  };
-};
-
-export default connect(mapStateToProps, { loginAction })(LoginForm);
