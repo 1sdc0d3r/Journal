@@ -12,7 +12,7 @@ import JournalPage from "./components/JournalPage";
 import { connect } from "react-redux";
 
 //todo implement GraphQL
-
+//todo HOW TO REDIRECT ONLY ON SUCCESSFUL REGISTER/LOGIN
 class App extends Component {
   constructor(props) {
     super(props);
