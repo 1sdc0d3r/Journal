@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getEntriesAction } from "../redux/actions/entry/getAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
@@ -14,6 +14,9 @@ class JournalPage extends Component {
   }
 
   render() {
+    if (!this.props.user.length) {
+      return <Redirect to="/login" />;
+    }
     return (
       <>
         <NavLink to="/dashboard">Dashboard</NavLink>
@@ -51,6 +54,7 @@ class JournalPage extends Component {
 }
 const mapStateToProps = state => {
   return {
+    user: state.userReducer.user,
     entries: state.entryReducer.entries
   };
 };

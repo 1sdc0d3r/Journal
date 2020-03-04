@@ -77,6 +77,7 @@ export default (state = initialState, action) => {
         ...state,
         edit: action.payload,
         isFetching: false,
+        isModifying: true,
         error: null
       };
     case ENTRY_ID_GET_FAIL:

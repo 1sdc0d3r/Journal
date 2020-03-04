@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { submitAction } from "../redux/actions/entry/submitAction";
 import { modifyAction } from "../redux/actions/entry/modifyAction";
@@ -38,12 +38,15 @@ class EntryForm extends Component {
   };
 
   render() {
+    if (!this.props.user.length) {
+      return <Redirect to="/login" />;
+    }
     return (
       <>
         <NavLink to="/dashboard">Dashboard</NavLink>
         <NavLink to="/journal">Journal</NavLink>
         <form onSubmit={this.onSubmitHandler}>
-          {!this.props.error ? null : <h3>{this.props.error}</h3>}
+          <h3>{this.props.error}</h3>
           <label>
             medication:{" "}
             <input
@@ -85,8 +88,9 @@ class EntryForm extends Component {
 }
 const mapStateToProps = state => {
   return {
+    user: state.userReducer.user,
     fetching: state.entryReducer.isFetching,
-    isModifying: state.entryReducer,
+    isModifying: state.entryReducer.isModifying,
     edit: state.entryReducer.edit,
     error: state.entryReducer.error
   };
