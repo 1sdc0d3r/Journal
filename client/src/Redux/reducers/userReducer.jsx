@@ -21,12 +21,11 @@ export default (state = initialState, action) => {
   switch (action.type) {
     //* REGISTER
     case USER_REGISTER_START:
-      return { ...state, newUser: action.payload, isRegistering: true };
+      return { ...state, user: action.payload, isRegistering: true };
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
         user: action.payload,
-        newUser: null,
         isRegistering: false,
         error: null
       };
@@ -35,7 +34,7 @@ export default (state = initialState, action) => {
 
     //* LOGIN
     case USER_LOGIN_START:
-      return { ...state, isLoggingIn: true };
+      return { ...state, user: action.payload, isLoggingIn: true };
     case USER_LOGIN_SUCCESS:
       return {
         ...state,

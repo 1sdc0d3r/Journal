@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { loginAction } from "../redux/actions/user/loginAction";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -12,7 +12,8 @@ class LoginForm extends Component {
         username: "",
         password: ""
       },
-      error: null
+      error: null,
+      login: props.loginAction
     };
   }
 
@@ -28,22 +29,12 @@ class LoginForm extends Component {
 
   onSubmitHandler = evt => {
     evt.preventDefault();
-    // axios
-    //   .get("http://localhost:5000/api/auth/login", {
-    //     headers: this.state.credentials
-    //   })
-    //   .then(res => {
-    //     localStorage.setItem("journalToken", res.data.token);
-    //     this.setState({
-    //       ...this.state,
-    //       toDashboard: true
-    //     });
-    //   })
-    //   .catch(err => console.log("error", err.response.data.message));
+    this.state.login(this.state.credentials);
+    this.setState({ ...this.state, toDashboard: true });
   };
 
   render() {
-    if (this.state.toDashboard === true) {
+    if (this.state.toDashboard) {
       return (
         <Redirect to={{ pathname: "/dashboard", state: this.state.user }} />
       );
@@ -84,4 +75,4 @@ class LoginForm extends Component {
 const mapStateToProps = state => {
   return {};
 };
-export default connect(mapStateToProps, {})(LoginForm);
+export default connect(mapStateToProps, { loginAction })(LoginForm);

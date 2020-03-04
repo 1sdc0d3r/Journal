@@ -23,7 +23,7 @@ class Dashboard extends Component {
         {this.state.error ? (
           <h2>{this.state.error}</h2>
         ) : (
-          <h2>Welcome: {this.state.user.first_name || ""}</h2>
+          <h2>Welcome: {this.state.user.username}</h2>
         )}
       </>
     );

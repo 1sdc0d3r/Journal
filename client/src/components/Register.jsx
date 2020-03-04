@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+
+import { registerAction } from "../redux/actions/user/registerAction";
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -9,7 +10,14 @@ class RegisterForm extends Component {
     this.state = {
       toDashboard: false,
       error: null,
-      user: {}
+      user: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        username: "",
+        password: ""
+      },
+      register: props.registerAction
     };
   }
 
@@ -25,25 +33,12 @@ class RegisterForm extends Component {
 
   onSubmitHandler = evt => {
     evt.preventDefault();
-    // axios
-    //   .post("http://localhost:5000/api/auth/register", this.state.user)
-    //   .then(res => {
-    //     localStorage.setItem("journalToken", res.data.token);
-    //     this.setState({
-    //       ...this.state,
-    //       toDashboard: true
-    //     });
-    //   })
-    //   .catch(err => {
-    //     this.setState({
-    //       ...this.state,
-    //       error: err.response.data.errorMessage
-    //     });
-    //   });
+    this.state.register(this.state.user);
+    this.setState({ ...this.state, toDashboard: true });
   };
 
   render() {
-    if (this.state.toDashboard === true) {
+    if (this.state.toDashboard) {
       return <Redirect to={{ pathname: "/dashboard" }} />;
     }
 
@@ -118,4 +113,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {})(RegisterForm);
+export default connect(mapStateToProps, { registerAction })(RegisterForm);
