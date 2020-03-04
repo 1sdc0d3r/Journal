@@ -33,15 +33,10 @@ class RegisterForm extends Component {
 
   onSubmitHandler = evt => {
     evt.preventDefault();
-    this.state.register(this.state.user);
-    this.setState({ ...this.state, toDashboard: true });
+    this.props.registerAction(this.state.user, this.props.history);
   };
 
   render() {
-    if (this.state.toDashboard) {
-      return <Redirect to={{ pathname: "/dashboard" }} />;
-    }
-
     return (
       <form onSubmit={this.onSubmitHandler}>
         <h3>{this.state.error}</h3>

@@ -12,8 +12,7 @@ class LoginForm extends Component {
         username: "",
         password: ""
       },
-      error: null,
-      login: props.loginAction
+      error: null
     };
   }
 
@@ -29,21 +28,14 @@ class LoginForm extends Component {
 
   onSubmitHandler = evt => {
     evt.preventDefault();
-    this.state.login(this.state.credentials);
-    this.setState({ ...this.state, toDashboard: true });
+    this.props.loginAction(this.state.credentials, this.props.history);
   };
 
   render() {
-    if (this.state.toDashboard) {
-      return (
-        <Redirect to={{ pathname: "/dashboard", state: this.state.user }} />
-      );
-    }
-
     return (
       <>
         <form onSubmit={this.onSubmitHandler}>
-          {!this.state.error ? null : <h3>{this.state.error}</h3>}
+          {!this.props.error ? null : <h3>{this.state.error}</h3>}
           <label>
             Username:{" "}
             <input
@@ -73,6 +65,9 @@ class LoginForm extends Component {
   }
 }
 const mapStateToProps = state => {
-  return {};
+  return {
+    user: state.userReducer.user,
+    error: state.userReducer.error
+  };
 };
 export default connect(mapStateToProps, { loginAction })(LoginForm);

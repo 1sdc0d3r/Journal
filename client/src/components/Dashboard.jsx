@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Dashboard extends Component {
@@ -13,6 +13,9 @@ class Dashboard extends Component {
   }
 
   render() {
+    if (!this.props.user.length) {
+      return <Redirect to="/login" />;
+    }
     return (
       <>
         <nav>
