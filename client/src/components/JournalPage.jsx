@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { NavLink, Redirect } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { connect } from "react-redux";
 
-export default class JournalPage extends Component {
+class JournalPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,3 +49,7 @@ export default class JournalPage extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {};
+};
+export default connect(mapStateToProps, {})(JournalPage);

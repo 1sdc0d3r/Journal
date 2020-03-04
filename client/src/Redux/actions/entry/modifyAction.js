@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 
 export const ENTRY_MODIFY_START = "ENTRY_MODIFY_START";
 export const ENTRY_MODIFY_SUCCESS = "ENTRY_MODIFY_SUCCESS";

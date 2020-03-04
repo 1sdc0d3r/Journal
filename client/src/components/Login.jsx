@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      toDashboard: false,
       credentials: {
-        username: null,
-        password: null
+        username: "",
+        password: ""
       },
       error: null
     };
@@ -16,20 +19,36 @@ export default class LoginForm extends Component {
   onChangeHandler = evt => {
     this.setState({
       ...this.state,
-      [evt.target.name]: evt.target.value
+      credentials: {
+        ...this.state.credentials,
+        [evt.target.name]: evt.target.value
+      }
     });
   };
 
   onSubmitHandler = evt => {
     evt.preventDefault();
-    axios
-      .post("http://localhost:5000/api/auth/login", this.state.credentials)
-      .then(res => {
-        localStorage.setItem("journalToken", res.data.token);
-      });
+    // axios
+    //   .get("http://localhost:5000/api/auth/login", {
+    //     headers: this.state.credentials
+    //   })
+    //   .then(res => {
+    //     localStorage.setItem("journalToken", res.data.token);
+    //     this.setState({
+    //       ...this.state,
+    //       toDashboard: true
+    //     });
+    //   })
+    //   .catch(err => console.log("error", err.response.data.message));
   };
 
   render() {
+    if (this.state.toDashboard === true) {
+      return (
+        <Redirect to={{ pathname: "/dashboard", state: this.state.user }} />
+      );
+    }
+
     return (
       <>
         <form onSubmit={this.onSubmitHandler}>
@@ -62,3 +81,7 @@ export default class LoginForm extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {};
+};
+export default connect(mapStateToProps, {})(LoginForm);

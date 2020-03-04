@@ -17,9 +17,9 @@ import {
   ENTRY_GET_START,
   ENTRY_GET_SUCCESS,
   ENTRY_GET_FAIL,
-  ENTRYID_GET_START,
-  ENTRYID_GET_SUCCESS,
-  ENTRYID_GET_FAIL
+  ENTRY_ID_GET_START,
+  ENTRY_ID_GET_SUCCESS,
+  ENTRY_ID_GET_FAIL
 } from "../actions/entry/getAction";
 
 const initialState = {
@@ -72,16 +72,16 @@ export default (state = initialState, action) => {
     case ENTRY_GET_FAIL:
       return { ...state, isGetting: false, error: action.payload };
 
-    case ENTRYID_GET_START:
+    case ENTRY_ID_GET_START:
       return { ...state, isGetting: true, error: null };
-    case ENTRYID_GET_SUCCESS:
+    case ENTRY_ID_GET_SUCCESS:
       return {
         ...state,
         edit: action.payload,
         isGetting: false,
         error: null
       };
-    case ENTRYID_GET_FAIL:
+    case ENTRY_ID_GET_FAIL:
       return { ...state, isGetting: false, error: action.payload };
 
     default:

@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: null,
-      user: {
-        first_name: null,
-        last_name: null
-      }
+      toLogin: false,
+      user: props.user,
+      error: null
     };
   }
 
@@ -19,17 +18,18 @@ export default class Dashboard extends Component {
         <nav>
           <NavLink to="/entry">Entry</NavLink>
           <NavLink to="/journal">Journal</NavLink>
-          <button onClick={() => localStorage.removeItem("journalToken")}>
-            Logout
-          </button>
         </nav>
         <h2>Dashboard</h2>
         {this.state.error ? (
           <h2>{this.state.error}</h2>
         ) : (
-          <h2>Welcome: {this.state.user.first_name}</h2>
+          <h2>Welcome: {this.state.user.first_name || ""}</h2>
         )}
       </>
     );
   }
 }
+const mapStateToProps = state => {
+  return { user: state.userReducer.user };
+};
+export default connect(mapStateToProps, {})(Dashboard);

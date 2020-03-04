@@ -11,11 +11,9 @@ import {
 } from "../actions/user/loginAction";
 
 const initialState = {
-  user: null,
-  newUser: null,
+  user: {},
   isRegistering: false,
   isLoggingIn: false,
-  isLoggingOut: false,
   error: null
 };
 

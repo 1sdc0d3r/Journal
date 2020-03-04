@@ -1,4 +1,4 @@
-import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 
 export const ENTRY_DELETE_START = "ENTRY_DELETE_START";
 export const ENTRY_DELETE_SUCCESS = "ENTRY_DELETE_SUCCESS";

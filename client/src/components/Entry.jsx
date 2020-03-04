@@ -1,7 +1,8 @@
 import React, { Component, useEffect } from "react";
 import { NavLink, Redirect } from "react-router-dom";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-export default class EntryForm extends Component {
+import { connect } from "react-redux";
+class EntryForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -78,3 +79,7 @@ export default class EntryForm extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {};
+};
+export default connect(mapStateToProps, {})(EntryForm);
