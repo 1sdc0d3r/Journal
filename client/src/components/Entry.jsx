@@ -1,17 +1,17 @@
-import React, { Component, useEffect } from "react";
-import { NavLink, Redirect } from "react-router-dom";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+import { submitAction } from "../redux/actions/entry/submitAction";
+import { modifyAction } from "../redux/actions/entry/modifyAction";
+
 class EntryForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSubmitting: false,
-      error: null,
       entry: {
-        medication: null,
-        dose: null,
-        description: null
+        medication: props.edit.medication || "",
+        dose: props.edit.dose || "",
+        description: props.edit.description || ""
       }
     };
   }
@@ -28,9 +28,13 @@ class EntryForm extends Component {
 
   onSubmitHandler = evt => {
     evt.preventDefault();
-    axiosWithAuth()
-      .post("http://localhost:5000/api/entry", this.state.entry)
-      .then(res => console.log(res));
+    this.props.isModifying
+      ? this.props.modifyAction(
+          this.props.edit.id,
+          this.state.entry,
+          this.props.history
+        )
+      : this.props.submitAction(this.state.entry, this.props.history);
   };
 
   render() {
@@ -39,7 +43,7 @@ class EntryForm extends Component {
         <NavLink to="/dashboard">Dashboard</NavLink>
         <NavLink to="/journal">Journal</NavLink>
         <form onSubmit={this.onSubmitHandler}>
-          {!this.state.error ? null : <h3>{this.state.error}</h3>}
+          {!this.props.error ? null : <h3>{this.props.error}</h3>}
           <label>
             medication:{" "}
             <input
@@ -72,7 +76,7 @@ class EntryForm extends Component {
             />
           </label>
           <button type="submit">
-            {!this.isSubmitting ? "Submit" : "Submitting..."}
+            {!this.props.fetching ? "Submit" : "Submitting..."}
           </button>
         </form>
       </>
@@ -80,6 +84,13 @@ class EntryForm extends Component {
   }
 }
 const mapStateToProps = state => {
-  return {};
+  return {
+    fetching: state.entryReducer.isFetching,
+    isModifying: state.entryReducer,
+    edit: state.entryReducer.edit,
+    error: state.entryReducer.error
+  };
 };
-export default connect(mapStateToProps, {})(EntryForm);
+export default connect(mapStateToProps, { submitAction, modifyAction })(
+  EntryForm
+);

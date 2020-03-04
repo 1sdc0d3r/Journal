@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./style/App.css";
-import { Route, Switch, NavLink, Redirect } from "react-router-dom";
+import { Route, Switch, NavLink } from "react-router-dom";
 
 //* components
 import Login from "./components/Login";
@@ -12,7 +12,6 @@ import JournalPage from "./components/JournalPage";
 import { connect } from "react-redux";
 
 //todo implement GraphQL
-//todo HOW TO REDIRECT ONLY ON SUCCESSFUL REGISTER/LOGIN
 class App extends Component {
   constructor(props) {
     super(props);
@@ -22,9 +21,6 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.toLogin) {
-      return <Redirect to="/login" />;
-    }
     return (
       <div className="App">
         <h3>Journal Application</h3>

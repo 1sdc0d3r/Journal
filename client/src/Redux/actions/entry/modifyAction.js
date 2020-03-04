@@ -4,10 +4,14 @@ export const ENTRY_MODIFY_START = "ENTRY_MODIFY_START";
 export const ENTRY_MODIFY_SUCCESS = "ENTRY_MODIFY_SUCCESS";
 export const ENTRY_MODIFY_FAIL = "ENTRY_MODIFY_FAIL";
 
-export const modifyAction = (id, entry) => dispatch => {
+export const modifyAction = (id, entry, history) => dispatch => {
+  // console.log({ id }, { entry });
   dispatch({ type: ENTRY_MODIFY_START });
-  axiosWithAuth
+  axiosWithAuth()
     .put(`http://localhost:5000/api/entry/${id}`, entry)
-    .then(res => dispatch({ type: ENTRY_MODIFY_SUCCESS, payload: res.data }))
+    .then(res => {
+      dispatch({ type: ENTRY_MODIFY_SUCCESS, payload: res.data });
+      history.push("/journal");
+    })
     .catch(err => dispatch({ type: ENTRY_MODIFY_FAIL, payload: err }));
 };

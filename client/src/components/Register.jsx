@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import {} from "react-router-dom";
 
 import { registerAction } from "../redux/actions/user/registerAction";
 
@@ -9,7 +9,6 @@ class RegisterForm extends Component {
     super(props);
     this.state = {
       toDashboard: false,
-      error: null,
       user: {
         first_name: "",
         last_name: "",
@@ -102,7 +101,6 @@ class RegisterForm extends Component {
   }
 }
 const mapStateToProps = state => {
-  // console.log(state.userReducer.user);
   return {
     user: state.userReducer.user
   };

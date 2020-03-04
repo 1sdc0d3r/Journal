@@ -6,9 +6,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toLogin: false,
-      user: props.user,
-      error: null
+      toLogin: false
     };
   }
 
@@ -23,10 +21,10 @@ class Dashboard extends Component {
           <NavLink to="/journal">Journal</NavLink>
         </nav>
         <h2>Dashboard</h2>
-        {this.state.error ? (
-          <h2>{this.state.error}</h2>
+        {this.props.error ? (
+          <h2>{this.props.error}</h2>
         ) : (
-          <h2>Welcome: {this.state.user.username}</h2>
+          <h2>Welcome: {this.props.user.username}</h2>
         )}
       </>
     );

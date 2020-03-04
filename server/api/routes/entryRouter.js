@@ -33,12 +33,14 @@ router.post("/", validateEntry, (req, res) => {
     );
 });
 
-router.put("/:id", validateEntry, (req, res) => {
+router.put("/:id", (req, res) => {
   const { id } = req.params;
   const newEntry = req.body;
 
   db.modifyEntry(id, newEntry)
-    .then(entry => res.status(201).json(entry))
+    .then(entry =>
+      res.status(201).json({ message: "successfully updated entry", entry })
+    )
     .catch(err =>
       res
         .status(500)

@@ -25,28 +25,26 @@ import {
 const initialState = {
   entries: [],
   edit: {},
-  isSubmitting: false,
+  isFetching: false,
   isModifying: false,
-  isDeleting: false,
-  isGetting: false,
   error: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case ENTRY_SUBMIT_START:
-      return { ...state, isSubmitting: true, error: null };
+      return { ...state, isFetching: true, error: null };
     case ENTRY_SUBMIT_SUCCESS:
-      return { ...state, isSubmitting: false, error: null };
+      return { ...state, isFetching: false, error: null };
     case ENTRY_SUBMIT_FAIL:
-      return { ...state, isSubmitting: false, error: action.payload };
+      return { ...state, isFetching: false, error: action.payload };
 
     case ENTRY_MODIFY_START:
-      return { ...state, entries: null, isModifying: true, error: null };
+      return { ...state, isModifying: true, error: null };
     case ENTRY_MODIFY_SUCCESS:
       return {
         ...state,
-        modifyingEntry: action.payload,
+        edit: {},
         isModifying: false,
         error: null
       };
@@ -54,35 +52,35 @@ export default (state = initialState, action) => {
       return { ...state, isModifying: false, error: action.payload };
 
     case ENTRY_DELETE_START:
-      return { ...state, isDeleting: true, error: null };
+      return { ...state, isFetching: true, error: null };
     case ENTRY_DELETE_SUCCESS:
-      return { ...state, isDeleting: false, error: null };
+      return { ...state, isFetching: false, error: null };
     case ENTRY_DELETE_FAIL:
-      return { ...state, isDeleting: false, error: action.payload };
+      return { ...state, isFetching: false, error: action.payload };
 
     case ENTRY_GET_START:
-      return { ...state, isGetting: true, error: null };
+      return { ...state, isFetching: true, error: null };
     case ENTRY_GET_SUCCESS:
       return {
         ...state,
         entries: action.payload,
-        isGetting: false,
+        isFetching: false,
         error: null
       };
     case ENTRY_GET_FAIL:
-      return { ...state, isGetting: false, error: action.payload };
+      return { ...state, isFetching: false, error: action.payload };
 
     case ENTRY_ID_GET_START:
-      return { ...state, isGetting: true, error: null };
+      return { ...state, isFetching: true, error: null };
     case ENTRY_ID_GET_SUCCESS:
       return {
         ...state,
         edit: action.payload,
-        isGetting: false,
+        isFetching: false,
         error: null
       };
     case ENTRY_ID_GET_FAIL:
-      return { ...state, isGetting: false, error: action.payload };
+      return { ...state, isFetching: false, error: action.payload };
 
     default:
       return state;
