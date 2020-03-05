@@ -1,12 +1,38 @@
-// Update with your config settings.
+// const pgUser = process.env.PG_USER || "jackBarry";
+// const pgDb = process.env.PG_DB || "password";
+// const prodConnection = `postgres://${pgUser}@localhost/${pgDb}`;
 
 module.exports = {
   development: {
+    client: "pg", //sqlite3
+    connection: "postgresql://localhost/MicroJournal",
+    // connection: {
+    //   filename: "./database/Journal.db3"
+    // },
+    migrations: {
+      directory: "./database/migrations",
+      tableName: "knex_migrations"
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    seeds: {
+      directory: "./database/seeds"
+    }
+    // pool: {
+    //   afterCreate: (conn, done) => {
+    //     // runs after a connection is made to the sqlite engine
+    //     conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
+    //   }
+    // }
+  },
+
+  testing: {
     client: "sqlite3",
     connection: {
-      filename: "./database/Journal.db3"
+      filename: "./database/JournalTest.db3"
     },
-    useNullAsDefault: true,
     migrations: {
       directory: "./database/migrations"
     },
@@ -20,63 +46,39 @@ module.exports = {
       }
     }
   },
-
-  testing: {
-    client: "sqlite3",
-    connection: {
-      filename: "./database/Journal.db3"
-    },
-    migrations: {
-      directory: "./database/migrations"
-    },
-    pool: {
-      afterCreate: (conn, done) => {
-        // runs after a connection is made to the sqlite engine
-        conn.run("PRAGMA foreign_keys = ON", done); // turn on FK enforcement
-      }
-    }
-    // client: "postgresql",
-    // connection: {
-    //   database: "my_db",
-    //   user: "username",
-    //   password: "password"
-    // },
-    // pool: {
-    //   min: 2,
-    //   max: 10
-    // },
-    // migrations: {
-    //   tableName: "knex_migrations"
-    // }
-  },
-
+  // testing: {
+  //   client: "pg",
+  //   connection: "postgresql://localhost/testing",
+  //   pool: {
+  //     min: 2,
+  //     max: 10,
+  //   },
+  //   migrations: {
+  //     directory: "./database/migrations",
+  //     tableName: "knex_migrations",
+  //   },
+  // },
   production: {
-    client: "postgresql",
-    connection: {
-      database: "my_db", // process.env.DATABASE_URL (on heroku)
-      user: "username",
-      password: "password"
-    },
+    client: "pg",
+    connection: process.env.DB_URL,
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
+      directory: "./database/migrations",
       tableName: "knex_migrations"
-    }
-  },
-
-  testing: {
-    client: "sqlite3",
-    connection: {
-      filename: "./__test__"
     },
-    useNullAsDefault: true
-    // migrations: {
-    //   directory: "./data/migrations"
-    // },
-    // seeds: {
-    //   directory: "./data/seeds"
-    // }
+    seeds: {
+      directory: "./database/seeds"
+    }
   }
 };
+
+// connection: "postgres:// username : password @ addressToServer:5432 / databaseName"
+// connection: {
+//   host: 'db.ourcompany.com',
+//   user: 'me',
+//   password: 'mini me',
+//   database: 'school'
+// }}
