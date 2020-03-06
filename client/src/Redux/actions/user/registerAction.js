@@ -16,6 +16,9 @@ export const registerAction = (user, history) => dispatch => {
       history.push("/dashboard");
     })
     .catch(err =>
-      dispatch({ type: USER_REGISTER_FAIL, payload: err.response })
+      dispatch({
+        type: USER_REGISTER_FAIL,
+        payload: err.response.data.errorMessage
+      })
     );
 };

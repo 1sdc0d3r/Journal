@@ -32,7 +32,6 @@ class App extends Component {
         <nav>
           <NavLink to="/register">Register</NavLink>
           <NavLink to="/login">Login</NavLink>
-          <NavLink to="/journal">Journal</NavLink>
           <button
             onClick={() => {
               removeToken();

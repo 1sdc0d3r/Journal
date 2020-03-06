@@ -9,11 +9,9 @@ export const getEntriesAction = (limit, offset, history) => dispatch => {
   dispatch({ type: ENTRY_GET_START });
   axiosWithAuth()
     .get(`${address.LOCALHOST}/api/entry`, {
-      headers: {
-        query: {
-          limit: limit,
-          offset: offset
-        }
+      params: {
+        limit: limit,
+        offset: offset
       }
     })
     .then(res => {

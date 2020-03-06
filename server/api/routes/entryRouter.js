@@ -3,8 +3,8 @@ const db = require("../../../database/model");
 const { validateEntry } = require("../middleware/entryMiddleware");
 
 router.get("/", (req, res) => {
-  console.log({ req });
-  db.getEntries()
+  const { limit, offset } = req.query;
+  db.getEntries(limit, offset)
     .then(entries => res.status(200).json(entries))
     .catch(err =>
       res

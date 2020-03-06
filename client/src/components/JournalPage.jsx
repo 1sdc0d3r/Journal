@@ -13,14 +13,10 @@ class JournalPage extends Component {
     };
   }
 
-  //? is there a way to merge these together?
   componentDidMount() {
     const { limit, offset } = this.state;
     this.props.getEntriesAction(limit, offset);
   }
-  // componentDidUpdate() {
-  //   this.props.getEntriesAction();
-  // }
 
   render() {
     return (
@@ -46,7 +42,9 @@ class JournalPage extends Component {
             </button>
             <button
               onClick={() => {
+                const { limit, offset } = this.state;
                 this.props.deleteAction(entry.id, this.props.history);
+                this.props.getEntriesAction(limit, offset);
               }}
             >
               Delete

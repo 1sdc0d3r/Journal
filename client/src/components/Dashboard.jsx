@@ -20,7 +20,7 @@ class Dashboard extends Component {
     // if (this.state.redirect) {
     //   return <Redirect to={this.state.redirect} />;
     // }
-
+    console.log(this.props.user);
     return (
       <>
         <nav>
@@ -31,7 +31,7 @@ class Dashboard extends Component {
         {this.props.error ? (
           <h2>{this.props.error}</h2>
         ) : (
-          <h2>Welcome: {this.props.user.username}</h2>
+          <h2>Welcome: {this.props.user.first_name}</h2>
         )}
       </>
     );
