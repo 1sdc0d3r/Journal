@@ -18,9 +18,8 @@ module.exports = {
 
 //* User
 function insertUser(user) {
-  return db("User")
-    .insert(user)
-    .then(([id]) => getUserById(id));
+  return db("User").insert(user);
+  // .then(([id]) => getUserById(id));
 }
 
 function getUserById(id) {

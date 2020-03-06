@@ -17,16 +17,12 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   const hash = bcrypt.hashSync(user.password, 13);
   user.password = hash;
   db.insertUser(user)
-    .then(user => {
+    .then(newUser => {
       const token = generateToken(user);
-      res.status(201).json({ user, token });
+      res.status(201).json({ newUser, token });
     })
-    .catch((
-      err //{name, message, stack} = .catch
-    ) =>
-      res
-        .status(500)
-        .json({ errorMessage: "unable to create user", error: err })
+    .catch(({ name, message, stack, code }) =>
+      res.status(500).json({ name, message, stack, code })
     );
 });
 
