@@ -16,11 +16,13 @@ import {
 import {
   ENTRY_GET_START,
   ENTRY_GET_SUCCESS,
-  ENTRY_GET_FAIL,
+  ENTRY_GET_FAIL
+} from "../actions/entry/getAction";
+import {
   ENTRY_ID_GET_START,
   ENTRY_ID_GET_SUCCESS,
   ENTRY_ID_GET_FAIL
-} from "../actions/entry/getAction";
+} from "../actions/entry/getIdAction";
 
 const initialState = {
   entries: [],

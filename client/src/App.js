@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import "./style/App.css";
+import { connect } from "react-redux";
 import { Route, Switch, NavLink, Redirect } from "react-router-dom";
+import { removeToken } from "./utils/authService";
 
 //* components
 import { PrivateRoute } from "./components/PrivateRoute";
-import Login from "./components/Login";
 import Register from "./components/Register";
+import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Entry from "./components/Entry";
-// import Journal from "./components/Journal";
 import JournalPage from "./components/JournalPage";
-import { connect } from "react-redux";
-// import { Redirect } from "react-router-dom";
+// import Journal from "./components/Journal";
 
 //todo implement GraphQL
 class App extends Component {
@@ -35,7 +35,7 @@ class App extends Component {
           <NavLink to="/journal">Journal</NavLink>
           <button
             onClick={() => {
-              localStorage.removeItem("journalToken");
+              removeToken();
               this.setState({
                 ...this.state,
                 redirect: "/login"

@@ -61,6 +61,8 @@ function insertEntry(entry) {
 //todo ORDERBY NOT SORTING CORRECTLY
 function getEntries() {
   return db("Entry").orderBy("id");
+  // .limit(lim)
+  // .offset(off);
 }
 
 function getEntryById(id) {

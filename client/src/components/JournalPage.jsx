@@ -2,20 +2,25 @@ import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getEntriesAction } from "../redux/actions/entry/getAction";
+import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
 class JournalPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      limit: 10,
+      offset: 0
+    };
   }
 
   //? is there a way to merge these together?
   componentDidMount() {
-    this.props.getEntriesAction();
+    const { limit, offset } = this.state;
+    this.props.getEntriesAction(limit, offset);
   }
-  componentDidUpdate() {
-    this.props.getEntriesAction();
-  }
+  // componentDidUpdate() {
+  //   this.props.getEntriesAction();
+  // }
 
   render() {
     return (
@@ -34,7 +39,7 @@ class JournalPage extends Component {
             <p>Description: {entry.description}</p>
             <button
               onClick={() => {
-                this.props.getEntriesAction(entry.id, this.props.history);
+                this.props.getEntryIdAction(entry.id, this.props.history);
               }}
             >
               Edit
@@ -59,5 +64,9 @@ const mapStateToProps = state => {
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { getEntriesAction, deleteAction })(JournalPage)
+  connect(mapStateToProps, {
+    getEntriesAction,
+    deleteAction,
+    getEntryIdAction
+  })(JournalPage)
 );

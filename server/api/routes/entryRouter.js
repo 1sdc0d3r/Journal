@@ -3,6 +3,7 @@ const db = require("../../../database/model");
 const { validateEntry } = require("../middleware/entryMiddleware");
 
 router.get("/", (req, res) => {
+  console.log({ req });
   db.getEntries()
     .then(entries => res.status(200).json(entries))
     .catch(err =>
@@ -25,7 +26,6 @@ router.get("/:id", (req, res) => {
 
 router.post("/", validateEntry, (req, res) => {
   const entry = req.body;
-  // console.log(entry);
   db.insertEntry(entry)
     .then(entry => res.status(200).json(entry))
     .catch(err =>

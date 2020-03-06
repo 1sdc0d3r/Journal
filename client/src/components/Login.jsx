@@ -13,7 +13,7 @@ class LoginForm extends Component {
       }
     };
   }
-//todo rerender this component when using <Redirect />
+  //todo re-render this component when using <Redirect />
   componentDidMount() {
     console.log("LOGIN MOUNTED");
   }
