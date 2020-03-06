@@ -12,7 +12,7 @@ export const getEntriesAction = (id, history) => dispatch => {
   if (!id) {
     console.log("no ID");
     axiosWithAuth()
-      .get(`http://localhost:5000/api/entry`)
+      .get(`https://micro-journal.herokuapp.com/api/entry`)
       .then(res => {
         dispatch({ type: ENTRY_GET_SUCCESS, payload: res.data });
         //todo history.push("/journal");
@@ -20,9 +20,11 @@ export const getEntriesAction = (id, history) => dispatch => {
       .catch(err => dispatch({ type: ENTRY_GET_FAIL, payload: err }));
   } else {
     axiosWithAuth()
-      .get(`http://localhost:5000/api/entry/${id}`)
-      .then(res => {dispatch({ type: ENTRY_ID_GET_SUCCESS, payload: res.data })
-    history.push("/entry")})
+      .get(`https://micro-journal.herokuapp.com/api/entry/${id}`)
+      .then(res => {
+        dispatch({ type: ENTRY_ID_GET_SUCCESS, payload: res.data });
+        history.push("/entry");
+      })
       .catch(err => dispatch({ type: ENTRY_ID_GET_FAIL, payload: err }));
   }
 };

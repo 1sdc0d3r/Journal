@@ -20,7 +20,6 @@ module.exports = {
 //* User
 function insertUser(user) {
   return db("User").insert(user);
-  // .then(([id]) => getUserById(id));
 }
 function getUsers() {
   return db("User");

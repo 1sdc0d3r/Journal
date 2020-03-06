@@ -7,7 +7,7 @@ export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
 export const loginAction = (credentials, history) => dispatch => {
   dispatch({ type: USER_LOGIN_START, payload: credentials });
   axios
-    .get("http://localhost:5000/api/auth/login", {
+    .get("https://micro-journal.herokuapp.com/api/auth/login", {
       headers: credentials
     })
     .then(res => {

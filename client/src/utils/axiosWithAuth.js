@@ -3,7 +3,7 @@ import axios from "axios";
 export const axiosWithAuth = () => {
   const token = localStorage.getItem("journalToken");
   return axios.create({
-    baseURL: "http://localhost:5000/api/",
+    baseURL: "https://micro-journal.herokuapp.com/api/",
     headers: { Authorization: token }
   });
 };
