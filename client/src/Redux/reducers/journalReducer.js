@@ -2,7 +2,7 @@ import {
   JOURNAL_GET_START,
   JOURNAL_GET_SUCCESS,
   JOURNAL_GET_FAIL
-} from "../actions/entry/getJournal";
+} from "../actions/journal/getJournal";
 
 const initialState = {
   entries: [],

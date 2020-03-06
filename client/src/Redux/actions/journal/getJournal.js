@@ -5,7 +5,7 @@ export const JOURNAL_GET_START = "JOURNAL_GET_START";
 export const JOURNAL_GET_SUCCESS = "JOURNAL_GET_SUCCESS";
 export const JOURNAL_GET_FAIL = "JOURNAL_GET_FAIL";
 
-export const getEntriesAction = (limit, offset, history) => dispatch => {
+export const getJournalAction = (limit, offset, history) => dispatch => {
   dispatch({ type: JOURNAL_GET_START });
   axiosWithAuth()
     .get(`${address.LOCALHOST}/api/journal`, {

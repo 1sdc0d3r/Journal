@@ -12,7 +12,7 @@ const restricted = require("./middleware/restricted");
 
 router.use("/auth", authRouter);
 router.use("/entry", restricted, entryRouter);
-router.use("/journal", journalRouter);
+router.use("/journal", restricted, journalRouter);
 
 router.use("/", (req, res) => {
   res.status(200).json({ api: "up" });

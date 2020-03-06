@@ -89,12 +89,14 @@ function removeEntry(id) {
 }
 
 //* Journal
-function getJournalByUserId(id) {
+function getJournalByUserId(id, limit, offset) {
   return db("Journal as j")
     .join("User as u", "j.user_id", "u.id")
     .join("Entry as e", "j.entry_id", "e.id")
     .select("e.*")
-    .where("u.id", id);
+    .where("u.id", id)
+    .limit(limit)
+    .offset(offset);
 }
 
 function updateJournal(userId, entryId) {

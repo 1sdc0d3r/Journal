@@ -14,11 +14,6 @@ import {
   ENTRY_DELETE_FAIL
 } from "../actions/entry/deleteAction";
 import {
-  JOURNAL_GET_START,
-  JOURNAL_GET_SUCCESS,
-  JOURNAL_GET_FAIL
-} from "../actions/entry/getJournal";
-import {
   ENTRY_ID_GET_START,
   ENTRY_ID_GET_SUCCESS,
   ENTRY_ID_GET_FAIL
@@ -58,18 +53,6 @@ export default (state = initialState, action) => {
     case ENTRY_DELETE_SUCCESS:
       return { ...state, isFetching: false, error: null };
     case ENTRY_DELETE_FAIL:
-      return { ...state, isFetching: false, error: action.payload };
-
-    case JOURNAL_GET_START:
-      return { ...state, isFetching: true, error: null };
-    case JOURNAL_GET_SUCCESS:
-      return {
-        ...state,
-        entries: action.payload,
-        isFetching: false,
-        error: null
-      };
-    case JOURNAL_GET_FAIL:
       return { ...state, isFetching: false, error: action.payload };
 
     case ENTRY_ID_GET_START:
