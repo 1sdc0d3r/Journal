@@ -10,23 +10,19 @@ const {
   validateUserBody,
   checkExistingUsers,
   validateHeaders
-} = require("../middleware/auth/authMiddleware");
+} = require("../middleware/authMiddleware");
 
 router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 13);
   user.password = hash;
   db.insertUser(user)
-    .then(user => {
+    .then(newUser => {
       const token = generateToken(user);
-      res.status(201).json({ user, token });
+      res.status(201).json({ newUser, token });
     })
-    .catch((
-      err //{name, message, stack} = .catch
-    ) =>
-      res
-        .status(500)
-        .json({ errorMessage: "unable to create user", error: err })
+    .catch(({ name, message, stack, code }) =>
+      res.status(500).json({ name, message, stack, code })
     );
 });
 
@@ -38,7 +34,9 @@ router.get("/login", validateHeaders, (req, res) => {
   db.getUserByUsername(username)
     .then(user => {
       if (!user) {
-        res.status(404).json({ errorMessage: "Username does not exist" });
+        res.status(403).json({
+          errorMessage: "incorrect credentials"
+        });
       } else {
         if (bcrypt.compareSync(password, user.password)) {
           const token = generateToken(user);

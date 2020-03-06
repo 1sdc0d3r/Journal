@@ -1,12 +1,29 @@
-// Update with your config settings.
+// const pgUser = process.env.PG_USER || "jackBarry";
+// const pgDb = process.env.PG_DB || "password";
+// const prodConnection = `postgres://${pgUser}@localhost/${pgDb}`;
 
 module.exports = {
   development: {
+    client: "pg", //sqlite3
+    connection: "postgresql://localhost/MicroJournal",
+    migrations: {
+      directory: "./database/migrations",
+      tableName: "knex_migrations"
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    seeds: {
+      directory: "./database/seeds"
+    }
+  },
+
+  testing: {
     client: "sqlite3",
     connection: {
-      filename: "./database/Journal.db3"
+      filename: "./database/JournalTest.db3"
     },
-    useNullAsDefault: true,
     migrations: {
       directory: "./database/migrations"
     },
@@ -20,50 +37,39 @@ module.exports = {
       }
     }
   },
-
-  staging: {
-    client: "postgresql",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: "knex_migrations"
-    }
-  },
-
+  // testing: {
+  //   client: "pg",
+  //   connection: "postgresql://localhost/testing",
+  //   pool: {
+  //     min: 2,
+  //     max: 10,
+  //   },
+  //   migrations: {
+  //     directory: "./database/migrations",
+  //     tableName: "knex_migrations",
+  //   },
+  // },
   production: {
-    client: "postgresql",
-    connection: {
-      database: "my_db",
-      user: "username",
-      password: "password"
-    },
+    client: "pg",
+    connection: process.env.DATABASE_URL, //this is what PG on HEROKU looks for
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
+      directory: "./database/migrations",
       tableName: "knex_migrations"
-    }
-  },
-
-  testing: {
-    client: "sqlite3",
-    connection: {
-      filename: "./__test__"
     },
-    useNullAsDefault: true
-    // migrations: {
-    //   directory: "./data/migrations"
-    // },
-    // seeds: {
-    //   directory: "./data/seeds"
-    // }
+    seeds: {
+      directory: "./database/seeds"
+    }
   }
 };
+
+// connection: "postgres:// username : password @ addressToServer:5432 / databaseName"
+// connection: {
+//   host: 'db.ourcompany.com',
+//   user: 'me',
+//   password: 'mini me',
+//   database: 'school'
+// }}

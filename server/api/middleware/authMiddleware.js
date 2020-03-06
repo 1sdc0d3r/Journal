@@ -1,4 +1,4 @@
-const db = require("../../../../database/journalModel");
+const db = require("../../../database/journalModel");
 
 module.exports = {
   validateUserBody,
@@ -20,13 +20,13 @@ function checkExistingUsers(req, res, next) {
   db.getUserByEmail(user.email).then(oldUser => {
     if (oldUser) {
       res.status(400).json({
-        message: "Account with this email already exits"
+        errorMessage: "Account with this email already exits"
       });
     } else {
       db.getUserByUsername(user.username).then(oldUser => {
         oldUser
           ? res.status(400).json({
-              message: "this username is already in use"
+              errorMessage: "this username is already in use"
             })
           : next();
       });

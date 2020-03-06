@@ -1,36 +1,37 @@
-import React from "react";
+import React, { Component } from "react";
+import { NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 
-import { logoutAction } from "../actions/user/logoutAction";
-
-function Dashboard(props) {
-  const { user, error, loggingOut, logoutAction } = props;
-  if (!user) {
-    props.history.push("/login");
+class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      toLogin: false
+    };
   }
 
-  return (
-    <>
-      <nav>
-        <NavLink to="/entry">Entry</NavLink>
-        <NavLink to="/journal">Journal</NavLink>
-        <button onClick={() => logoutAction()}>
-          {!loggingOut ? "Logout" : "loggingOut..."}
-        </button>
-      </nav>
-      <h2>Dashboard</h2>
-      {error ? <h2>{error}</h2> : null}
-      {user ? <h2>Welcome: {user.first_name}</h2> : null}
-    </>
-  );
-}
+  render() {
+    if (!this.props.user.id) {
+      return <Redirect to="/login" />;
+    }
 
+    return (
+      <>
+        <nav>
+          <NavLink to="/entry">Entry</NavLink>
+          <NavLink to="/journal">Journal</NavLink>
+        </nav>
+        <h2>Dashboard</h2>
+        {this.props.error ? (
+          <h2>{this.props.error}</h2>
+        ) : (
+          <h2>Welcome: {this.props.user.username}</h2>
+        )}
+      </>
+    );
+  }
+}
 const mapStateToProps = state => {
-  return {
-    user: state.userReducer.user,
-    loggingOut: state.userReducer.loggingOut,
-    error: state.userReducer.error
-  };
+  return { user: state.userReducer.user };
 };
-export default connect(mapStateToProps, { logoutAction })(Dashboard);
+export default connect(mapStateToProps, {})(Dashboard);

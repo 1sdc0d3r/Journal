@@ -1,68 +1,73 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
+import {} from "react-router-dom";
+import { loginAction } from "../redux/actions/user/loginAction";
 
-import { loginAction } from "../actions/user/loginAction";
+class LoginForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      toDashboard: false,
+      credentials: {
+        username: "",
+        password: ""
+      },
+      error: null
+    };
+  }
 
-function LoginForm(props) {
-  const { isLoggingIn, loginAction, error, user } = props;
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: ""
-  });
-
-  const onChangeHandler = evt => {
-    setCredentials({
-      ...credentials,
-      [evt.target.name]: evt.target.value
+  onChangeHandler = evt => {
+    this.setState({
+      ...this.state,
+      credentials: {
+        ...this.state.credentials,
+        [evt.target.name]: evt.target.value
+      }
     });
   };
 
-  const onSubmitHandler = evt => {
+  onSubmitHandler = evt => {
     evt.preventDefault();
-    loginAction(credentials);
+    this.props.loginAction(this.state.credentials, this.props.history);
   };
-  //! warning: "can't update during state transition..."
-  if (user) {
-    props.history.push("/dashboard");
-  }
-  return (
-    <>
-      <form onSubmit={onSubmitHandler}>
-        {!error ? null : <h3>{error}</h3>}
-        <label>
-          Username:{" "}
-          <input
-            type="text"
-            name="username"
-            value={credentials.username}
-            onChange={onChangeHandler}
-            placeholder="username"
-            required
-          />
-        </label>
-        <label>
-          Password:{" "}
-          <input
-            type="password"
-            name="password"
-            value={credentials.password}
-            onChange={onChangeHandler}
-            placeholder="password"
-            required
-          />
-        </label>
-        <button type="submit">{!isLoggingIn ? "Login" : "Loading..."}</button>
-      </form>
-    </>
-  );
-}
 
+  render() {
+    return (
+      <>
+        <form onSubmit={this.onSubmitHandler}>
+          {!this.props.error ? null : <h3>{this.state.error}</h3>}
+          <label>
+            Username:{" "}
+            <input
+              type="text"
+              name="username"
+              value={this.state.credentials.username}
+              onChange={this.onChangeHandler}
+              placeholder="username"
+              required
+            />
+          </label>
+          <label>
+            Password:{" "}
+            <input
+              type="password"
+              name="password"
+              value={this.state.credentials.password}
+              onChange={this.onChangeHandler}
+              placeholder="password"
+              required
+            />
+          </label>
+          <button type="submit">Login</button>
+        </form>
+      </>
+    );
+  }
+}
 const mapStateToProps = state => {
   return {
-    isLoggingIn: state.userReducer.isLoggingIn,
-    error: state.userReducer.error,
-    user: state.userReducer.user
+    user: state.userReducer.user,
+    error: state.userReducer.error
   };
 };
-
 export default connect(mapStateToProps, { loginAction })(LoginForm);

@@ -1,82 +1,100 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import { NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { submitAction } from "../actions/entry/submitAction";
+import { submitAction } from "../redux/actions/entry/submitAction";
+import { modifyAction } from "../redux/actions/entry/modifyAction";
 
-function EntryForm(props) {
-  const { isSubmitting, error, user, submitAction } = props;
+class EntryForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      entry: {
+        medication: props.edit.medication || "",
+        dose: props.edit.dose || "",
+        description: props.edit.description || ""
+      }
+    };
+  }
 
-  const [entry, setEntry] = useState({
-    medication: null,
-    dose: null,
-    description: null
-  });
-
-  const onChangeHandler = evt => {
-    setEntry({
-      ...entry,
-      [evt.target.name]: evt.target.value
+  onChangeHandler = evt => {
+    this.setState({
+      ...this.state,
+      entry: {
+        ...this.state.entry,
+        [evt.target.name]: evt.target.value
+      }
     });
   };
 
-  const onSubmitHandler = evt => {
+  onSubmitHandler = evt => {
     evt.preventDefault();
-    submitAction(entry).then(res => console.log(res));
-    props.history.push("/journal");
+    this.props.isModifying
+      ? this.props.modifyAction(
+          this.props.edit.id,
+          this.state.entry,
+          this.props.history
+        )
+      : this.props.submitAction(this.state.entry, this.props.history);
   };
 
-  return (
-    <>
-      <NavLink to="/dashboard">Dashboard</NavLink>
-      <form onSubmit={onSubmitHandler}>
-        {!error ? null : <h3>{error}</h3>}
-        <label>
-          medication:{" "}
-          <input
-            type="text"
-            name="medication"
-            value={entry.medication}
-            onChange={onChangeHandler}
-            placeholder="medication"
-            required
-          />
-        </label>
-        <label>
-          dose:{" "}
-          <input
-            type="text"
-            name="dose"
-            value={entry.dose}
-            onChange={onChangeHandler}
-            placeholder="dose"
-            required
-          />
-        </label>{" "}
-        <label>
-          Entry:{" "}
-          <input
-            type="text"
-            name="description"
-            value={entry.description}
-            onChange={onChangeHandler}
-            placeholder="description"
-            required
-          />
-        </label>
-        <button type="submit">
-          {!isSubmitting ? "Submit" : "Submitting..."}
-        </button>
-      </form>
-    </>
-  );
+  render() {
+    if (!this.props.user.id) {
+      return <Redirect to="/login" />;
+    }
+    return (
+      <>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+        <NavLink to="/journal">Journal</NavLink>
+        <form onSubmit={this.onSubmitHandler}>
+          <h3>{this.props.error}</h3>
+          <label>
+            medication:{" "}
+            <input
+              type="text"
+              name="medication"
+              value={this.state.entry.medication}
+              onChange={this.onChangeHandler}
+              placeholder="medication"
+            />
+          </label>
+          <label>
+            dose:{" "}
+            <input
+              type="text"
+              name="dose"
+              value={this.state.entry.dose}
+              onChange={this.onChangeHandler}
+              placeholder="dose"
+            />
+          </label>{" "}
+          <label>
+            Entry:{" "}
+            <input
+              type="text"
+              name="description"
+              value={this.state.entry.description}
+              onChange={this.onChangeHandler}
+              placeholder="description"
+              required
+            />
+          </label>
+          <button type="submit">
+            {!this.props.fetching ? "Submit" : "Submitting..."}
+          </button>
+        </form>
+      </>
+    );
+  }
 }
-
 const mapStateToProps = state => {
   return {
     user: state.userReducer.user,
-    error: state.entryReducer.error,
-    isSubmitting: state.entryReducer.isSubmitting
+    fetching: state.entryReducer.isFetching,
+    isModifying: state.entryReducer.isModifying,
+    edit: state.entryReducer.edit,
+    error: state.entryReducer.error
   };
 };
-
-export default connect(mapStateToProps, { submitAction })(EntryForm);
+export default connect(mapStateToProps, { submitAction, modifyAction })(
+  EntryForm
+);
