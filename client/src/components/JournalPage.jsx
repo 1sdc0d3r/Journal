@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { getEntriesAction } from "../redux/actions/entry/getAction";
+import { getEntriesAction } from "../redux/actions/journal/getJournal";
 import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
 class JournalPage extends Component {

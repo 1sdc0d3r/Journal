@@ -26,8 +26,13 @@ router.get("/:id", (req, res) => {
 
 router.post("/", validateEntry, (req, res) => {
   const entry = req.body;
+  const userId = req.decodedToken.subject; //id
   db.insertEntry(entry)
-    .then(entry => res.status(200).json(entry))
+    .then(([id]) => {
+      //todo if registered can't post due to key constrains until logged out
+      //todo return id
+      db.updateJournal(userId, id).then(() => res.status(201).end());
+    })
     .catch(err =>
       res.status(500).json({ errorMessage: "unable to add entry", error: err })
     );

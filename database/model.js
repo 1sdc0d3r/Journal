@@ -1,5 +1,5 @@
 const db = require("./journalConfig");
-
+//todo separate into models: user/entry/journal/testing
 module.exports = {
   insertEntry,
   getUsers,
@@ -14,6 +14,7 @@ module.exports = {
   modifyEntry,
   removeEntry,
   getJournalByUserId,
+  updateJournal,
   truncate
 };
 
@@ -54,11 +55,11 @@ function removeUser(id) {
 
 //* Entry
 function insertEntry(entry) {
-  return db("Entry").insert(entry);
-  // db()
+  return db("Entry")
+    .insert(entry)
+    .returning("id");
 }
 
-//todo ORDERBY NOT SORTING CORRECTLY
 function getEntries(limit, offset) {
   return db("Entry")
     .orderBy("id")
@@ -94,6 +95,10 @@ function getJournalByUserId(id) {
     .join("Entry as e", "j.entry_id", "e.id")
     .select("e.*")
     .where("u.id", id);
+}
+
+function updateJournal(userId, entryId) {
+  return db("Journal").insert({ user_id: userId, entry_id: entryId });
 }
 
 //* Testing

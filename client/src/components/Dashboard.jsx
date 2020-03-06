@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { NavLink, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { NavLink, Redirect, withRouter } from "react-router-dom";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -10,17 +10,16 @@ class Dashboard extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   if (!this.props.user.username) {
-  //     this.setState({ redirect: "/login" });
-  //   }
-  // }
+  componentDidMount() {
+    if (!this.props.user.username) {
+      this.setState({ redirect: "/login" });
+    }
+  }
 
   render() {
-    // if (this.state.redirect) {
-    //   return <Redirect to={this.state.redirect} />;
-    // }
-    console.log(this.props.user);
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
     return (
       <>
         <nav>
@@ -40,4 +39,4 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   return { user: state.userReducer.user };
 };
-export default connect(mapStateToProps, {})(Dashboard);
+export default withRouter(connect(mapStateToProps, {})(Dashboard));

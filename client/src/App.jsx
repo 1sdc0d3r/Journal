@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import "./style/App.css";
 import { connect } from "react-redux";
-import { Route, Switch, NavLink, Redirect } from "react-router-dom";
+import { Route, Switch, NavLink, Redirect, withRouter } from "react-router-dom";
 import { removeToken } from "./utils/authService";
-
-//* components
+//* Actions
+import { logoutAction } from "./redux/actions/user/logoutAction";
+//* Components
 import { PrivateRoute } from "./components/PrivateRoute";
 import Register from "./components/Register";
 import Login from "./components/Login";
@@ -12,6 +12,8 @@ import Dashboard from "./components/Dashboard";
 import Entry from "./components/Entry";
 import JournalPage from "./components/JournalPage";
 // import Journal from "./components/Journal";
+//* Style
+import "./style/App.css";
 
 //todo implement GraphQL
 class App extends Component {
@@ -35,10 +37,7 @@ class App extends Component {
           <button
             onClick={() => {
               removeToken();
-              this.setState({
-                ...this.state,
-                redirect: "/login"
-              });
+              this.props.logoutAction(this.props.history);
             }}
           >
             Logout
@@ -58,4 +57,4 @@ class App extends Component {
 const mapStateToProps = state => {
   return {};
 };
-export default connect(mapStateToProps, {})(App);
+export default withRouter(connect(mapStateToProps, { logoutAction })(App));
