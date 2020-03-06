@@ -16,11 +16,10 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 13);
   user.password = hash;
-  const test = "test";
   db.insertUser(user)
     .then(() => {
       const token = generateToken(user);
-      res.status(201).json({ user, token, test });
+      res.status(201).json({ user, token });
     })
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({ name, message, stack, code })

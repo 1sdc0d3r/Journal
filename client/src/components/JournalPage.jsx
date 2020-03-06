@@ -14,7 +14,7 @@ class JournalPage extends Component {
   }
 
   render() {
-    if (!this.props.user.id) {
+    if (!this.props.user.username) {
       return <Redirect to="/login" />;
     }
 

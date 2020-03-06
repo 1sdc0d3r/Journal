@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 class Dashboard extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
       toLogin: false
@@ -12,7 +11,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    if (!this.props.user.id) {
+    if (!this.props.user.username) {
       return <Redirect to="/login" />;
     }
 
