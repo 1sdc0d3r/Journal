@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { submitAction } from "../redux/actions/entry/submitAction";
 import { modifyAction } from "../redux/actions/entry/modifyAction";
@@ -95,6 +95,6 @@ const mapStateToProps = state => {
     error: state.entryReducer.error
   };
 };
-export default connect(mapStateToProps, { submitAction, modifyAction })(
-  EntryForm
+export default withRouter(
+  connect(mapStateToProps, { submitAction, modifyAction })(EntryForm)
 );

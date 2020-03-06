@@ -58,8 +58,9 @@ function insertEntry(entry) {
   // db()
 }
 
+//todo ORDERBY NOT SORTING CORRECTLY
 function getEntries() {
-  return db("Entry");
+  return db("Entry").orderBy("id");
 }
 
 function getEntryById(id) {

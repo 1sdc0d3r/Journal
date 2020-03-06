@@ -3,7 +3,7 @@ import "./style/App.css";
 import { Route, Switch, NavLink, Redirect } from "react-router-dom";
 
 //* components
-import PrivateRoute from "./components/PrivateRoute";
+import { PrivateRoute } from "./components/PrivateRoute";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";

@@ -7,10 +7,16 @@ module.exports = {
 };
 function validateUserBody(req, res, next) {
   const user = req.body;
-  if (!user.first_name || !user.last_name || !user.email) {
-    res.status(400).json({ message: "please provide name and email" });
+  if (!user.first_name || !user.email) {
+    res
+      .status(400)
+      .json({ message: "please provide name and email" })
+      .end();
   } else if (!user.username || !user.password) {
-    res.status(400).json({ message: "please provide username and password" });
+    res
+      .status(400)
+      .json({ message: "please provide username and password" })
+      .end();
   }
   next();
 }

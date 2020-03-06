@@ -7,7 +7,7 @@ class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toDashboard: false,
+      redirect: null,
       user: {
         first_name: "",
         last_name: "",
@@ -36,7 +36,7 @@ class RegisterForm extends Component {
   render() {
     return (
       <form onSubmit={this.onSubmitHandler}>
-        <h3>{this.state.error}</h3>
+        <h3>{this.props.error}</h3>
         <label>
           First Name:{" "}
           <input
@@ -45,7 +45,7 @@ class RegisterForm extends Component {
             value={this.state.user.first_name}
             onChange={this.onChangeHandler}
             placeholder="first name"
-            required
+            // required
           />
         </label>
         <label>
@@ -56,7 +56,7 @@ class RegisterForm extends Component {
             value={this.state.user.last_name}
             onChange={this.onChangeHandler}
             placeholder="last name"
-            required
+            // required
           />
         </label>
         <label>
@@ -67,7 +67,7 @@ class RegisterForm extends Component {
             value={this.state.user.email}
             onChange={this.onChangeHandler}
             placeholder="email"
-            required
+            // required
           />
         </label>
         <label>

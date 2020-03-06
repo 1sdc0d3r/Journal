@@ -10,11 +10,10 @@ class LoginForm extends Component {
       credentials: {
         username: "",
         password: ""
-      },
-      error: null
+      }
     };
   }
-
+//todo rerender this component when using <Redirect />
   componentDidMount() {
     console.log("LOGIN MOUNTED");
   }
@@ -38,7 +37,8 @@ class LoginForm extends Component {
     return (
       <>
         <form onSubmit={this.onSubmitHandler}>
-          {!this.props.error ? null : <h3>{this.state.error}</h3>}
+          {/* {!this.props.error ? null : <h3>{this.state.error}</h3>} */}
+          <h3>{this.props.error}</h3>
           <label>
             Username:{" "}
             <input
@@ -73,4 +73,4 @@ const mapStateToProps = state => {
     error: state.userReducer.error
   };
 };
-export default connect(mapStateToProps, { loginAction })(LoginForm);
+export default withRouter(connect(mapStateToProps, { loginAction })(LoginForm));

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { getEntriesAction } from "../redux/actions/entry/getAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
@@ -9,15 +9,15 @@ class JournalPage extends Component {
     this.state = {};
   }
 
+  //? is there a way to merge these together?
   componentDidMount() {
+    this.props.getEntriesAction();
+  }
+  componentDidUpdate() {
     this.props.getEntriesAction();
   }
 
   render() {
-    // if (!this.props.user.username) {
-    //   return <Redirect to="/login" />;
-    // }
-
     return (
       <>
         <NavLink to="/dashboard">Dashboard</NavLink>
@@ -39,10 +39,9 @@ class JournalPage extends Component {
             >
               Edit
             </button>
-
             <button
               onClick={() => {
-                this.props.deleteAction(entry.id);
+                this.props.deleteAction(entry.id, this.props.history);
               }}
             >
               Delete
@@ -59,6 +58,6 @@ const mapStateToProps = state => {
     entries: state.entryReducer.entries
   };
 };
-export default connect(mapStateToProps, { getEntriesAction, deleteAction })(
-  JournalPage
+export default withRouter(
+  connect(mapStateToProps, { getEntriesAction, deleteAction })(JournalPage)
 );
