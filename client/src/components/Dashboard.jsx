@@ -1,19 +1,25 @@
 import React, { Component } from "react";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toLogin: false
+      redirect: null
     };
   }
 
+  // componentDidMount() {
+  //   if (!this.props.user.username) {
+  //     this.setState({ redirect: "/login" });
+  //   }
+  // }
+
   render() {
-    if (!this.props.user.username) {
-      return <Redirect to="/login" />;
-    }
+    // if (this.state.redirect) {
+    //   return <Redirect to={this.state.redirect} />;
+    // }
 
     return (
       <>

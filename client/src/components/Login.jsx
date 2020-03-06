@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { loginAction } from "../redux/actions/user/loginAction";
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toDashboard: false,
       credentials: {
         username: "",
         password: ""
       },
       error: null
     };
+  }
+
+  componentDidMount() {
+    console.log("LOGIN MOUNTED");
   }
 
   onChangeHandler = evt => {

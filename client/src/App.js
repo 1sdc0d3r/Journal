@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./style/App.css";
-import { Route, Switch, NavLink } from "react-router-dom";
+import { Route, Switch, NavLink, Redirect } from "react-router-dom";
 
 //* components
+import PrivateRoute from "./components/PrivateRoute";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
@@ -10,17 +11,21 @@ import Entry from "./components/Entry";
 // import Journal from "./components/Journal";
 import JournalPage from "./components/JournalPage";
 import { connect } from "react-redux";
+// import { Redirect } from "react-router-dom";
 
 //todo implement GraphQL
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toLogin: false
+      redirect: null
     };
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
     return (
       <div className="App">
         <h3>Journal Application</h3>
@@ -33,7 +38,7 @@ class App extends Component {
               localStorage.removeItem("journalToken");
               this.setState({
                 ...this.state,
-                toLogin: true
+                redirect: "/login"
               });
             }}
           >
@@ -43,9 +48,9 @@ class App extends Component {
         <Switch>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/entry" component={Entry} />
-          <Route path="/journal" component={JournalPage} />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/entry" component={Entry} />
+          <PrivateRoute path="/journal" component={JournalPage} />
         </Switch>
       </div>
     );

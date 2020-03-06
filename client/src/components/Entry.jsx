@@ -38,9 +38,9 @@ class EntryForm extends Component {
   };
 
   render() {
-    if (!this.props.user.username) {
-      return <Redirect to="/login" />;
-    }
+    // if (!this.props.user.username) {
+    //   return <Redirect to="/login" />;
+    // }
     return (
       <>
         <NavLink to="/dashboard">Dashboard</NavLink>

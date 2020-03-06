@@ -14,8 +14,7 @@ class RegisterForm extends Component {
         email: "",
         username: "",
         password: ""
-      },
-      register: props.registerAction
+      }
     };
   }
 
