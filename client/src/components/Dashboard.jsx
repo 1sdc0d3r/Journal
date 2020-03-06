@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 class Dashboard extends Component {
   constructor(props) {
+    console.log(props);
     super(props);
     this.state = {
       toLogin: false

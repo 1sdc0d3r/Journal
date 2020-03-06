@@ -9,6 +9,7 @@ export const registerAction = (user, history) => dispatch => {
   axios
     .post("https://micro-journal.herokuapp.com/api/auth/register", user)
     .then(res => {
+      console.log({ res });
       localStorage.setItem("journalToken", res.data.token);
       dispatch({ type: USER_REGISTER_SUCCESS, payload: res.data.user });
       history.push("/dashboard");
