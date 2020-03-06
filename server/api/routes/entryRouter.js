@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const db = require("../../../database/journalModel");
+const db = require("../../../database/model");
 const { validateEntry } = require("../middleware/entryMiddleware");
 
 router.get("/", (req, res) => {

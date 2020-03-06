@@ -2,6 +2,7 @@ const db = require("./journalConfig");
 
 module.exports = {
   insertEntry,
+  getUsers,
   getUserById,
   getUserByUsername,
   getUserByEmail,
@@ -21,7 +22,9 @@ function insertUser(user) {
   return db("User").insert(user);
   // .then(([id]) => getUserById(id));
 }
-
+function getUsers() {
+  return db("User");
+}
 function getUserById(id) {
   return db("User")
     .where({ id })

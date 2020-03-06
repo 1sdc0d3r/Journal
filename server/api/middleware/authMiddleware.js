@@ -1,4 +1,4 @@
-const db = require("../../../database/journalModel");
+const db = require("../../../database/model");
 
 module.exports = {
   validateUserBody,

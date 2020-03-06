@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../database/journalModel");
+const db = require("../../../database/model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -28,6 +28,7 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
 
 //todo add more security, learn more
 //todo if already logged in redirect to dashboard
+//todo CHANGE TO POST REQUEST
 router.get("/login", validateHeaders, (req, res) => {
   const { username, password } = req.headers;
 
@@ -50,6 +51,14 @@ router.get("/login", validateHeaders, (req, res) => {
       res
         .status(500)
         .json({ errorMessage: "unable to retrieve user", error: err })
+    );
+});
+//todo add admin route
+router.get("/users", (req, res) => {
+  db.getUsers()
+    .then(users => res.status(200).json(users))
+    .catch(({ name, message, stack, code }) =>
+      res.status(500).json({ name, message, stack, code })
     );
 });
 
