@@ -4,15 +4,15 @@ exports.up = function(knex) {
     tbl
       .integer("user_id")
       .notNullable()
-      .unsigned();
-    // .references("id")
-    // .inTable("User");
+      .unsigned()
+      .references("id")
+      .inTable("User");
     tbl
       .integer("entry_id")
       .notNullable()
-      .unsigned();
-    // .references("id")
-    // .inTable("Entry");
+      .unsigned()
+      .references("id")
+      .inTable("Entry");
   });
 };
 
