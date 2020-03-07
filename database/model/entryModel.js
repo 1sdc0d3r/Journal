@@ -5,7 +5,8 @@ module.exports = {
   getEntries,
   getEntryById,
   modifyEntry,
-  removeEntry
+  removeEntry,
+  truncate
 };
 
 //* Entry
@@ -41,4 +42,9 @@ function removeEntry(id) {
   return db("Entry")
     .where({ id })
     .del();
+}
+
+//* Testing
+function truncate() {
+  return db("Entry").truncate();
 }

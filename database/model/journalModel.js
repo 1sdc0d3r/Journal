@@ -2,7 +2,8 @@ const db = require("../journalConfig");
 
 module.exports = {
   getJournalByUserId,
-  updateJournal
+  updateJournal,
+  truncate
 };
 
 //* Journal
@@ -18,4 +19,9 @@ function getJournalByUserId(id, limit, offset) {
 
 function updateJournal(userId, entryId) {
   return db("Journal").insert({ user_id: userId, entry_id: entryId });
+}
+
+//* Testing
+function truncate() {
+  return db("Journal").truncate();
 }
