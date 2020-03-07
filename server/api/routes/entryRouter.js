@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const db = require("../../../database/model");
+const db = require("../../../database/model/userModel");
 const { validateEntry } = require("../middleware/entryMiddleware");
 
 router.get("/", (req, res) => {
@@ -36,12 +36,10 @@ router.post("/", validateEntry, (req, res) => {
       db.updateJournal(userId, id).then(() => res.status(201).end());
     })
     .catch(({ name, message, stack, code }) =>
-      res
-        .status(500)
-        .json({
-          errorMessage: "unable to add entry",
-          error: { name, message, stack, code }
-        })
+      res.status(500).json({
+        errorMessage: "unable to add entry",
+        error: { name, message, stack, code }
+      })
     );
 });
 
@@ -54,12 +52,10 @@ router.put("/:id", (req, res) => {
       res.status(201).json({ message: "successfully updated entry", entry })
     )
     .catch(({ name, message, stack, code }) =>
-      res
-        .status(500)
-        .json({
-          errorMessage: "unable to update entry",
-          error: { name, message, stack, code }
-        })
+      res.status(500).json({
+        errorMessage: "unable to update entry",
+        error: { name, message, stack, code }
+      })
     );
 });
 
@@ -68,12 +64,10 @@ router.delete("/:id", (req, res) => {
   db.removeEntry(id)
     .then(count => res.status(200).json(count))
     .catch(({ name, message, stack, code }) =>
-      res
-        .status(500)
-        .json({
-          errorMessage: "unable to delete entry",
-          error: { name, message, stack, code }
-        })
+      res.status(500).json({
+        errorMessage: "unable to delete entry",
+        error: { name, message, stack, code }
+      })
     );
 });
 

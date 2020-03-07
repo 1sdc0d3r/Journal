@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const db = require("../../../database/model");
+const db = require("../../../database/model/userModel");
 
 router.get("/", (req, res) => {
   const { limit, offset } = req.query;

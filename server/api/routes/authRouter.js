@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../database/model");
+const db = require("../../../database/model/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -48,12 +48,10 @@ router.get("/login", validateHeaders, (req, res) => {
       }
     })
     .catch(({ name, message, stack, code }) =>
-      res
-        .status(500)
-        .json({
-          errorMessage: "unable to retrieve user",
-          error: { name, message, stack, code }
-        })
+      res.status(500).json({
+        errorMessage: "unable to retrieve user",
+        error: { name, message, stack, code }
+      })
     );
 });
 //todo add admin route
