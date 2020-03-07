@@ -47,10 +47,13 @@ router.get("/login", validateHeaders, (req, res) => {
         }
       }
     })
-    .catch(err =>
+    .catch(({ name, message, stack, code }) =>
       res
         .status(500)
-        .json({ errorMessage: "unable to retrieve user", error: err })
+        .json({
+          errorMessage: "unable to retrieve user",
+          error: { name, message, stack, code }
+        })
     );
 });
 //todo add admin route

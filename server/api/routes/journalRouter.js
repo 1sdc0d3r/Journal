@@ -11,10 +11,10 @@ router.get("/", (req, res) => {
     );
   //   db.getEntries(limit, offset)
   //     .then(entries => res.status(200).json(entries))
-  //     .catch(err =>
+  //     .catch(({ name, message, stack, code }) =>
   //       res
   //         .status(500)
-  //         .json({ errorMessage: "unable to retrieve entries", error: err })
+  //         .json({ errorMessage: "unable to retrieve entries", error: { name, message, stack, code } })
   //     );
 });
 

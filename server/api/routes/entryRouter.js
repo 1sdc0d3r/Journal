@@ -6,10 +6,11 @@ router.get("/", (req, res) => {
   const { limit, offset } = req.query;
   db.getEntries(limit, offset)
     .then(entries => res.status(200).json(entries))
-    .catch(err =>
-      res
-        .status(500)
-        .json({ errorMessage: "unable to retrieve entries", error: err })
+    .catch(({ name, message, stack, code }) =>
+      res.status(500).json({
+        errorMessage: "unable to retrieve entries",
+        error: { name, message, stack, code }
+      })
     );
 });
 
@@ -17,10 +18,11 @@ router.get("/:id", (req, res) => {
   const { id } = req.params;
   db.getEntryById(id)
     .then(entry => res.status(200).json(entry))
-    .catch(err =>
-      res
-        .status(500)
-        .json({ errorMessage: "unable to retrieve entry", error: err })
+    .catch(({ name, message, stack, code }) =>
+      res.status(500).json({
+        errorMessage: "unable to retrieve entry",
+        error: { name, message, stack, code }
+      })
     );
 });
 
@@ -33,8 +35,13 @@ router.post("/", validateEntry, (req, res) => {
       //todo return id
       db.updateJournal(userId, id).then(() => res.status(201).end());
     })
-    .catch(err =>
-      res.status(500).json({ errorMessage: "unable to add entry", error: err })
+    .catch(({ name, message, stack, code }) =>
+      res
+        .status(500)
+        .json({
+          errorMessage: "unable to add entry",
+          error: { name, message, stack, code }
+        })
     );
 });
 
@@ -46,10 +53,13 @@ router.put("/:id", (req, res) => {
     .then(entry =>
       res.status(201).json({ message: "successfully updated entry", entry })
     )
-    .catch(err =>
+    .catch(({ name, message, stack, code }) =>
       res
         .status(500)
-        .json({ errorMessage: "unable to update entry", error: err })
+        .json({
+          errorMessage: "unable to update entry",
+          error: { name, message, stack, code }
+        })
     );
 });
 
@@ -57,10 +67,13 @@ router.delete("/:id", (req, res) => {
   const { id } = req.params;
   db.removeEntry(id)
     .then(count => res.status(200).json(count))
-    .catch(err =>
+    .catch(({ name, message, stack, code }) =>
       res
         .status(500)
-        .json({ errorMessage: "unable to delete entry", error: err })
+        .json({
+          errorMessage: "unable to delete entry",
+          error: { name, message, stack, code }
+        })
     );
 });
 
