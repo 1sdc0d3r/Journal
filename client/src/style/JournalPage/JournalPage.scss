@@ -1,0 +1,30 @@
+// normalize
+
+@mixin for-mobile {
+  @media (max-width: 499px) {
+    @content;
+  }
+}
+@mixin for-tablet {
+  @media (min-width: 500px) and (max-width: 800px) {
+    @content;
+  }
+}
+@mixin for-desktop {
+  @media (min-width: 800px) {
+    @content;
+  }
+}
+
+.wrapper {
+  border: 1px solid black;
+  width: 95;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.entry {
+  border: 2px solid black;
+  width: 45%;
+  margin: 1rem auto;
+}

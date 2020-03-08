@@ -32,6 +32,9 @@ class App extends Component {
       <div className="App">
         <h3>Journal Application</h3>
         <nav>
+          <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink to="/journal">Journal</NavLink>
+          <NavLink to="/entry">Entry</NavLink>
           <NavLink to="/register">Register</NavLink>
           <NavLink to="/login">Login</NavLink>
           <button

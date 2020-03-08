@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getJournalAction } from "../redux/actions/journal/getJournal";
 import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
+import "../style/JournalPage/JournalPage.css";
 class JournalPage extends Component {
   constructor(props) {
     super(props);
@@ -20,19 +21,14 @@ class JournalPage extends Component {
 
   render() {
     return (
-      <>
-        <NavLink to="/dashboard">Dashboard</NavLink>
-        <NavLink to="/entry">Entry</NavLink>
+      <div className="wrapper">
         {this.props.entries.map(entry => (
-          <div key={entry.id}>
-            <p>Entry: {entry.id}</p>
+          <div key={entry.id} className="entry">
+            {/* <p>Entry: {entry.id}</p> */}
             <p>Entry Date: {entry.created_at}</p>
             <p>Modified Date: {entry.modified_at}</p>
-            <ul>
-              <li>
-                Medication: {entry.medication} - Dose: {entry.dose}
-              </li>
-            </ul>
+            <p>Medication: {entry.medication}</p>
+            <p>Dose: {entry.dose}</p>
             <p>Description: {entry.description}</p>
             <button
               onClick={() => {
@@ -52,7 +48,7 @@ class JournalPage extends Component {
             </button>
           </div>
         ))}
-      </>
+      </div>
     );
   }
 }
