@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../../../database/model/userModel");
+const userDb = require("../../../database/model/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -16,7 +16,8 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 13);
   user.password = hash;
-  db.insertUser(user)
+  userDb
+    .insertUser(user)
     .then(() => {
       const token = generateToken(user);
       res.status(201).json({ user, token });
@@ -32,7 +33,8 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
 router.get("/login", validateHeaders, (req, res) => {
   const { username, password } = req.headers;
 
-  db.getUserByUsername(username)
+  userDb
+    .getUserByUsername(username)
     .then(user => {
       if (!user) {
         res.status(403).json({
@@ -56,7 +58,8 @@ router.get("/login", validateHeaders, (req, res) => {
 });
 //todo add admin route
 router.get("/users", (req, res) => {
-  db.getUsers()
+  userDb
+    .getUsers()
     .then(users => res.status(200).json(users))
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({ name, message, stack, code })

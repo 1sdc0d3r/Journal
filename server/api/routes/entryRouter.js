@@ -1,10 +1,12 @@
 const router = require("express").Router();
-const db = require("../../../database/model/userModel");
+const entryDb = require("../../../database/model/entryModel");
+const journalDb = require("../../../database/model/journalModel");
 const { validateEntry } = require("../middleware/entryMiddleware");
 
 router.get("/", (req, res) => {
   const { limit, offset } = req.query;
-  db.getEntries(limit, offset)
+  entryDb
+    .getEntries(limit, offset)
     .then(entries => res.status(200).json(entries))
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({
@@ -16,7 +18,8 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  db.getEntryById(id)
+  entryDb
+    .getEntryById(id)
     .then(entry => res.status(200).json(entry))
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({
@@ -29,11 +32,12 @@ router.get("/:id", (req, res) => {
 router.post("/", validateEntry, (req, res) => {
   const entry = req.body;
   const userId = req.decodedToken.subject; //id
-  db.insertEntry(entry)
+  entryDb
+    .insertEntry(entry)
     .then(([id]) => {
       //todo if registered can't post due to key constrains until logged out
       //todo return id
-      db.updateJournal(userId, id).then(() => res.status(201).end());
+      journalDb.updateJournal(userId, id).then(() => res.status(201).end());
     })
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({
@@ -46,8 +50,10 @@ router.post("/", validateEntry, (req, res) => {
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const newEntry = req.body;
-
-  db.modifyEntry(id, newEntry)
+  // newEntry.modified_at = Date.now();
+  console.log({ newEntry });
+  entryDb
+    .modifyEntry(id, newEntry)
     .then(entry =>
       res.status(201).json({ message: "successfully updated entry", entry })
     )
@@ -61,7 +67,8 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
-  db.removeEntry(id)
+  entryDb
+    .removeEntry(id)
     .then(count => res.status(200).json(count))
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({

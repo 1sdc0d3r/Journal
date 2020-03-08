@@ -1,11 +1,14 @@
 const router = require("express").Router();
-const db = require("../../../database/model/userModel");
+const journalDb = require("../../../database/model/journalModel");
 
 router.get("/", (req, res) => {
   const { limit, offset } = req.query;
   const id = req.decodedToken.subject;
-  db.getJournalByUserId(id, limit, offset)
-    .then(entries => res.status(200).json(entries))
+  journalDb
+    .getJournalByUserId(id, limit, offset)
+    .then(entries => {
+      res.status(200).json(entries);
+    })
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({ name, message, stack, code })
     );

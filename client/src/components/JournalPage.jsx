@@ -27,6 +27,7 @@ class JournalPage extends Component {
           <div key={entry.id}>
             <p>Entry: {entry.id}</p>
             <p>Entry Date: {entry.created_at}</p>
+            <p>Modified Date: {entry.modified_at}</p>
             <ul>
               <li>
                 Medication: {entry.medication} - Dose: {entry.dose}
