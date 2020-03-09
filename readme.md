@@ -27,8 +27,7 @@
 -Id
 -Creation date
 -Modification date
--Medication
--Dose
+-custom entries
 -Description
 
 ## Testing

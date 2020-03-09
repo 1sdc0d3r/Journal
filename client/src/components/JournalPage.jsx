@@ -5,6 +5,7 @@ import { getJournalAction } from "../redux/actions/journal/getJournal";
 import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
 import "../style/JournalPage/JournalPage.css";
+
 class JournalPage extends Component {
   constructor(props) {
     super(props);
@@ -27,8 +28,8 @@ class JournalPage extends Component {
             {/* <p>Entry: {entry.id}</p> */}
             <p>Entry Date: {entry.created_at}</p>
             <p>Modified Date: {entry.modified_at}</p>
-            <p>Medication: {entry.medication}</p>
-            <p>Dose: {entry.dose}</p>
+            <p>entry1: {entry.entry1}</p>
+            <p>entry2: {entry.entry2}</p>
             <p>Description: {entry.description}</p>
             <button
               onClick={() => {
@@ -37,6 +38,7 @@ class JournalPage extends Component {
             >
               Edit
             </button>
+            <button onClick={() => {}}>Favorite</button>
             <button
               onClick={() => {
                 const { limit, offset } = this.state;

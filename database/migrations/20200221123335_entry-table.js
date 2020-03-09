@@ -3,8 +3,8 @@ exports.up = function(knex) {
     tbl.increments("id");
     tbl.dateTime("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
     tbl.dateTime("updated_at");
-    tbl.string("medication");
-    tbl.string("dose");
+    tbl.string("entry1");
+    tbl.string("entry2");
     tbl.string("description").notNullable();
   });
 };

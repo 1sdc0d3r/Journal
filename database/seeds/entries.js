@@ -6,33 +6,33 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex("Entry").insert([
         {
-          medication: "adderall xr",
-          dose: "20mg",
+          entry1: "adderall xr",
+          entry2: "20mg",
           description: "entry 1"
         },
         {
-          medication: "adderall xr",
-          dose: "20mg",
+          entry1: "adderall xr",
+          entry2: "20mg",
           description: "entry 2"
         },
         {
-          medication: "adderall xr",
-          dose: "20mg",
+          entry1: "adderall xr",
+          entry2: "20mg",
           description: "entry 3"
         },
         {
-          medication: "adderall",
-          dose: "10mg",
+          entry1: "adderall",
+          entry2: "10mg",
           description: "entry 1"
         },
         {
-          medication: "adderall",
-          dose: "10mg",
+          entry1: "adderall",
+          entry2: "10mg",
           description: "entry 2"
         },
         {
-          medication: "adderall",
-          dose: "10mg",
+          entry1: "adderall",
+          entry2: "10mg",
           description: "entry 3"
         }
       ]);

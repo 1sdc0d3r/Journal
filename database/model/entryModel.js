@@ -6,6 +6,7 @@ module.exports = {
   getEntryById,
   modifyEntry,
   removeEntry,
+  favorite,
   truncate
 };
 
@@ -42,6 +43,12 @@ function removeEntry(id) {
   return db("Entry")
     .where({ id })
     .del();
+}
+
+function favorite(id) {
+  return db("Entry")
+    .update({ favorite: true })
+    .where({ id });
 }
 
 //* Testing

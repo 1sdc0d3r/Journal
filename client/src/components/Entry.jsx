@@ -9,8 +9,8 @@ class EntryForm extends Component {
     super(props);
     this.state = {
       entry: {
-        medication: props.edit.medication || "",
-        dose: props.edit.dose || "",
+        entry1: props.edit.entry1 || "",
+        entry2: props.edit.entry2 || "",
         description: props.edit.description || ""
       }
     };
@@ -48,23 +48,23 @@ class EntryForm extends Component {
         <form onSubmit={this.onSubmitHandler}>
           <h3>{this.props.error}</h3>
           <label>
-            medication:{" "}
+            entry1:{" "}
             <input
               type="text"
-              name="medication"
-              value={this.state.entry.medication}
+              name="entry1"
+              value={this.state.entry.entry1}
               onChange={this.onChangeHandler}
-              placeholder="medication"
+              placeholder="entry1"
             />
           </label>
           <label>
-            dose:{" "}
+            entry2:{" "}
             <input
               type="text"
-              name="dose"
-              value={this.state.entry.dose}
+              name="entry2"
+              value={this.state.entry.entry2}
               onChange={this.onChangeHandler}
-              placeholder="dose"
+              placeholder="entry2"
             />
           </label>{" "}
           <label>
