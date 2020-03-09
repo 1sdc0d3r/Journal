@@ -45,6 +45,7 @@ function removeEntry(id) {
     .del();
 }
 
+//todo toggle favorite field
 function favorite(id) {
   return db("Entry")
     .update({ favorite: true })

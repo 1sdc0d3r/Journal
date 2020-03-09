@@ -9,12 +9,12 @@ class EntryForm extends Component {
     super(props);
     this.state = {
       entry: {
-        entry1: props.edit.entry1 || "",
-        entry2: props.edit.entry2 || "",
         description: props.edit.description || ""
       }
     };
   }
+
+  //   //todo set state to entry fields w/ cwm
 
   onChangeHandler = evt => {
     this.setState({
@@ -47,7 +47,7 @@ class EntryForm extends Component {
         <NavLink to="/journal">Journal</NavLink>
         <form onSubmit={this.onSubmitHandler}>
           <h3>{this.props.error}</h3>
-          <label>
+          {/* <label>
             entry1:{" "}
             <input
               type="text"
@@ -66,7 +66,7 @@ class EntryForm extends Component {
               onChange={this.onChangeHandler}
               placeholder="entry2"
             />
-          </label>{" "}
+          </label>{" "} */}
           <label>
             Entry:{" "}
             <input
@@ -81,6 +81,7 @@ class EntryForm extends Component {
           <button type="submit">
             {!this.props.fetching ? "Submit" : "Submitting..."}
           </button>
+          <button>add field</button>
         </form>
       </>
     );

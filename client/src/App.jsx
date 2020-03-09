@@ -11,6 +11,7 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Entry from "./components/Entry";
 import JournalPage from "./components/JournalPage";
+import Favorite from "./components/Favorites";
 // import Journal from "./components/Journal";
 //* Style
 import "./style/App.css";
@@ -35,6 +36,7 @@ class App extends Component {
         <nav>
           <NavLink to="/dashboard">Dashboard</NavLink>
           <NavLink to="/journal">Journal</NavLink>
+          <NavLink to="/favorite">Favorite</NavLink>
           <NavLink to="/entry">Entry</NavLink>
           <NavLink to="/register">Register</NavLink>
           <NavLink to="/login">Login</NavLink>
@@ -53,6 +55,7 @@ class App extends Component {
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/entry" component={Entry} />
           <PrivateRoute path="/journal" component={JournalPage} />
+          <PrivateRoute path="/favorite" component={Favorite} />
         </Switch>
       </div>
     );

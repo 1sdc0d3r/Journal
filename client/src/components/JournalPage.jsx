@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getJournalAction } from "../redux/actions/journal/getJournal";
 import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
+import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 import "../style/JournalPage/JournalPage.css";
 
 class JournalPage extends Component {
@@ -23,33 +24,46 @@ class JournalPage extends Component {
   render() {
     return (
       <div className="wrapper">
-        {this.props.entries.map(entry => (
-          <div key={entry.id} className="entry">
-            {/* <p>Entry: {entry.id}</p> */}
-            <p>Entry Date: {entry.created_at}</p>
-            <p>Modified Date: {entry.modified_at}</p>
-            <p>entry1: {entry.entry1}</p>
-            <p>entry2: {entry.entry2}</p>
-            <p>Description: {entry.description}</p>
-            <button
-              onClick={() => {
-                this.props.getEntryIdAction(entry.id, this.props.history);
-              }}
-            >
-              Edit
-            </button>
-            <button onClick={() => {}}>Favorite</button>
-            <button
-              onClick={() => {
-                const { limit, offset } = this.state;
-                this.props.deleteAction(entry.id, this.props.history);
-                this.props.getJournalAction(limit, offset);
-              }}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
+        {this.props.entries.length ? (
+          this.props.entries.map(entry => (
+            <div key={entry.id} className="entry">
+              {/* <p>Entry: {entry.id}</p> */}
+              <p>Entry Date: {entry.created_at}</p>
+              <p>Modified Date: {entry.modified_at}</p>
+              <p>entry1: {entry.entry1}</p>
+              <p>Description: {entry.description}</p>
+              <button
+                onClick={() => {
+                  this.props.getEntryIdAction(entry.id, this.props.history);
+                }}
+              >
+                Edit
+              </button>
+              {entry.favorite ? (
+                <span>favorite</span>
+              ) : (
+                <button
+                  onClick={() => {
+                    this.props.favoriteAction(entry.id, this.props.history);
+                  }}
+                >
+                  Favorite
+                </button>
+              )}
+              <button
+                onClick={() => {
+                  const { limit, offset } = this.state;
+                  this.props.deleteAction(entry.id, this.props.history);
+                  this.props.getJournalAction(limit, offset);
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          ))
+        ) : (
+          <h2 className="no-entries">No Entries</h2>
+        )}
       </div>
     );
   }
@@ -64,6 +78,7 @@ export default withRouter(
   connect(mapStateToProps, {
     getJournalAction,
     deleteAction,
-    getEntryIdAction
+    getEntryIdAction,
+    favoriteAction
   })(JournalPage)
 );

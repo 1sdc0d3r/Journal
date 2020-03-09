@@ -78,5 +78,18 @@ router.delete("/:id", (req, res) => {
     );
 });
 
+router.get("/favorite/:id", (req, res) => {
+  const { id } = req.params;
+  entryDb
+    .favorite(id)
+    .then(count => res.status(200).json(count))
+    .catch(({ name, message, stack, code }) =>
+      res.status(500).json({
+        errorMessage: "unable to favorite entry",
+        error: { name, message, stack, code }
+      })
+    );
+});
+
 module.exports = router;
 //  "knex seed:run --env testing && cross-env NODE_ENV=testing && jest --watchAll --verbose"
