@@ -27,9 +27,7 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
     );
 });
 
-//todo add more security, learn more
 //todo if already logged in redirect to dashboard
-//todo CHANGE TO POST REQUEST
 router.get("/login", validateHeaders, (req, res) => {
   const { username, password } = req.headers;
 
@@ -56,7 +54,6 @@ router.get("/login", validateHeaders, (req, res) => {
       })
     );
 });
-//todo add admin route
 router.get("/users", (req, res) => {
   userDb
     .getUsers()

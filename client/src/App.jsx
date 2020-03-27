@@ -16,8 +16,6 @@ import Favorite from "./components/Favorites";
 //* Style
 import "./style/App.css";
 
-//todo allow user to implement own custom inputs
-//todo implement GraphQL
 class App extends Component {
   constructor(props) {
     super(props);

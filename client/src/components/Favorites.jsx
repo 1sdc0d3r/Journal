@@ -5,6 +5,7 @@ import { getJournalAction } from "../redux/actions/journal/getJournal";
 import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
 import { favoriteAction } from "../redux/actions/entry/favoriteAction";
+import { FaStar } from "react-icons/fa";
 
 class Favorites extends Component {
   constructor(props) {
@@ -20,6 +21,20 @@ class Favorites extends Component {
     this.props.getJournalAction(limit, offset);
   }
 
+  editBtnHandler = entry => {
+    this.props.getEntryIdAction(entry.id, this.props.history);
+  };
+  unFavoriteBtnHandler = entry => {
+    const { limit, offset } = this.state;
+    this.props.favoriteAction(entry.id, this.props.history);
+    this.props.getJournalAction(limit, offset);
+  };
+  deleteBtnHandler = entry => {
+    const { limit, offset } = this.state;
+    this.props.deleteAction(entry.id, this.props.history);
+    this.props.getJournalAction(limit, offset);
+  };
+
   render() {
     return (
       <div className="wrapper">
@@ -28,31 +43,25 @@ class Favorites extends Component {
             if (entry.favorite) {
               return (
                 <div key={entry.id} className="entry">
+                  {entry.favorite && (
+                    <FaStar
+                      color="blue"
+                      size="1.25rem"
+                      style={{ padding: ".125rem" }}
+                    />
+                  )}
                   <p>Entry Date: {entry.created_at}</p>
                   <p>Modified Date: {entry.modified_at}</p>
                   <p>entry1: {entry.entry1}</p>
                   <p>Description: {entry.description}</p>
-                  <button
-                    onClick={() => {
-                      this.props.getEntryIdAction(entry.id, this.props.history);
-                    }}
-                  >
+                  <button onClick={() => this.editBtnHandler(entry)}>
                     Edit
                   </button>
-                  <button
-                    onClick={() => {
-                      this.props.favoriteAction(entry.id, this.props.history);
-                    }}
-                  >
-                    Favorite
+                  <button onClick={() => this.unFavoriteBtnHandler(entry)}>
+                    {/* {entry.favorite ? "unFavorite" : "Favorite"} */}
+                    unFavorite
                   </button>
-                  <button
-                    onClick={() => {
-                      const { limit, offset } = this.state;
-                      this.props.deleteAction(entry.id, this.props.history);
-                      this.props.getJournalAction(limit, offset);
-                    }}
-                  >
+                  <button onClick={() => this.deleteBtnHandler(entry)}>
                     Delete
                   </button>
                 </div>

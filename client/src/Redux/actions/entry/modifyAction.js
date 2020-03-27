@@ -11,7 +11,7 @@ export const modifyAction = (id, entry, history) => dispatch => {
     .put(`${address.LOCALHOST}/api/entry/${id}`, entry)
     .then(res => {
       dispatch({ type: ENTRY_MODIFY_SUCCESS, payload: res.data });
-      history.push("/journal");
+      history.goBack();
     })
     .catch(err => dispatch({ type: ENTRY_MODIFY_FAIL, payload: err }));
 };

@@ -1,5 +1,5 @@
 const db = require("../journalConfig");
-//todo separate into models: user/entry/journal/testing
+
 module.exports = {
   getUsers,
   getUserById,
@@ -41,6 +41,8 @@ function modifyUser(id, user) {
     .update(user)
     .where({ id });
 }
+
+
 
 function removeUser(id) {
   return db("User").delete({ id });

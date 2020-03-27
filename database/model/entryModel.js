@@ -40,16 +40,23 @@ function modifyEntry(id, entry) {
 }
 
 function removeEntry(id) {
-  return db("Entry")
-    .where({ id })
-    .del();
+  return db("Journal")
+    .where("entry_id", id)
+    .del()
+    .then(() =>
+      db("Entry")
+        .where({ id })
+        .del()
+    );
 }
 
-//todo toggle favorite field
-function favorite(id) {
+function favorite(id, entry) {
   return db("Entry")
-    .update({ favorite: true })
-    .where({ id });
+    .update(entry)
+    .where({ id })
+    .then(() => {
+      return getEntryById(id);
+    });
 }
 
 //* Testing

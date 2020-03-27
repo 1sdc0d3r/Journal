@@ -14,7 +14,7 @@ class EntryForm extends Component {
     };
   }
 
-  //   //todo set state to entry fields w/ cwm
+  //todo set state to entry fields w/ cwm
 
   onChangeHandler = evt => {
     this.setState({
@@ -68,7 +68,7 @@ class EntryForm extends Component {
             />
           </label>{" "} */}
           <label>
-            Entry:{" "}
+            Description:{" "}
             <input
               type="text"
               name="description"
@@ -81,7 +81,6 @@ class EntryForm extends Component {
           <button type="submit">
             {!this.props.fetching ? "Submit" : "Submitting..."}
           </button>
-          <button>add field</button>
         </form>
       </>
     );

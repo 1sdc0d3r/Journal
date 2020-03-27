@@ -9,6 +9,12 @@ export const favoriteAction = (id, history) => dispatch => {
   dispatch({ type: ENTRY_FAVORITE_START });
   axiosWithAuth()
     .get(`${address.LOCALHOST}/api/entry/favorite/${id}`)
-    .then(res => dispatch({ type: ENTRY_FAVORITE_SUCCESS, payload: res.data }))
-    .catch(err => dispatch({ type: ENTRY_FAVORITE_FAIL, payload: err }));
+    .then(res => {
+      dispatch({ type: ENTRY_FAVORITE_SUCCESS, payload: res.data });
+      console.log(res.data);
+      history.push(res.data.favorite ? "/favorite" : "/journal");
+    })
+    .catch(err => {
+      dispatch({ type: ENTRY_FAVORITE_FAIL, payload: err });
+    });
 };
