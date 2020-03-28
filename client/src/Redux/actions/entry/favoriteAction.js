@@ -1,6 +1,6 @@
 import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 import address from "../../../config/address";
-import { FaThemeco } from "react-icons/fa";
+// import { FaThemeco } from "react-icons/fa";
 
 export const ENTRY_FAVORITE_START = "ENTRY_FAVORITE_START";
 export const ENTRY_FAVORITE_SUCCESS = "ENTRY_FAVORITE_SUCCESS";

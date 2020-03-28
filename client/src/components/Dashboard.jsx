@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink, Redirect, withRouter } from "react-router-dom";
 import { newFieldAction } from "../redux/actions/entry-field/newFieldAction";
+import { getJournalAction } from "../redux/actions/journal/getJournal";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Dashboard extends Component {
   componentDidMount() {
     if (!this.props.user.username) {
       this.setState({ redirect: "/login" });
+      this.props.getJournalAction();
     }
   }
   // * newField-feature
@@ -67,5 +69,5 @@ const mapStateToProps = state => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, { newFieldAction })(Dashboard)
+  connect(mapStateToProps, { newFieldAction, getJournalAction })(Dashboard)
 );

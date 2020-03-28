@@ -1,0 +1,39 @@
+@mixin for-mobile {
+  @media (max-width: 499px) {
+    @content;
+  }
+}
+@mixin for-tablet {
+  @media (min-width: 500px) and (max-width: 800px) {
+    @content;
+  }
+}
+@mixin for-desktop {
+  @media (min-width: 800px) {
+    @content;
+  }
+}
+
+.journal {
+  display: flex;
+  flex-direction: column;
+  //   border: 1px solid black;
+  width: 95%;
+  margin: auto;
+  .entries {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 2px solid green;
+    .entry {
+      border: 2px solid black;
+      width: 45%;
+      margin: 1rem auto;
+    }
+  }
+  .nav-btns {
+    border: 2px solid green;
+    width: 10%;
+    margin: auto;
+  }
+}
