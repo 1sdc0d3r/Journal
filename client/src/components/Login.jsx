@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { loginAction } from "../redux/actions/user/loginAction";
+import "../style/login/Login.css";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -35,10 +36,10 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <>
+      <div className="login">
         <form onSubmit={this.onSubmitHandler}>
-          {/* {!this.props.error ? null : <h3>{this.state.error}</h3>} */}
-          <h3>{this.props.error}</h3>
+          <h2>Login</h2>
+          {this.props.error && <h3>{this.props.error}</h3>}
           <label>
             Username:{" "}
             <input
@@ -64,7 +65,9 @@ class LoginForm extends Component {
           {/* //todo isLoading */}
           <button type="submit">Login</button>
         </form>
-      </>
+        <span>Don't have an account? </span>
+        <Link to="/register">Register</Link>
+      </div>
     );
   }
 }

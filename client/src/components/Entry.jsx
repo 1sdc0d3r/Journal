@@ -42,7 +42,7 @@ class EntryForm extends Component {
     //   return <Redirect to="/login" />;
     // }
     return (
-      <>
+      <div className="entry">
         <NavLink to="/dashboard">Dashboard</NavLink>
         <NavLink to="/journal">Journal</NavLink>
         <form onSubmit={this.onSubmitHandler}>
@@ -82,7 +82,7 @@ class EntryForm extends Component {
             {!this.props.fetching ? "Submit" : "Submitting..."}
           </button>
         </form>
-      </>
+      </div>
     );
   }
 }

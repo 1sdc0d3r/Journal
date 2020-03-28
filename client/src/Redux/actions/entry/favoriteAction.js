@@ -1,5 +1,6 @@
 import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 import address from "../../../config/address";
+import { FaThemeco } from "react-icons/fa";
 
 export const ENTRY_FAVORITE_START = "ENTRY_FAVORITE_START";
 export const ENTRY_FAVORITE_SUCCESS = "ENTRY_FAVORITE_SUCCESS";
@@ -11,8 +12,8 @@ export const favoriteAction = (id, history) => dispatch => {
     .get(`${address.LOCALHOST}/api/entry/favorite/${id}`)
     .then(res => {
       dispatch({ type: ENTRY_FAVORITE_SUCCESS, payload: res.data });
-      console.log(res.data);
-      history.push(res.data.favorite ? "/favorite" : "/journal");
+      history.push("/temp");
+      history.goBack();
     })
     .catch(err => {
       dispatch({ type: ENTRY_FAVORITE_FAIL, payload: err });

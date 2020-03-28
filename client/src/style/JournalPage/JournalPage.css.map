@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAkBA,AAAA,QAAQ,CAAC;EACP,MAAM,EAAE,eAAe;EACvB,KAAK,EAAE,EAAE;EACT,MAAM,EAAE,IAAI;EACZ,OAAO,EAAE,IAAI;EACb,SAAS,EAAE,IAAI;CAChB;;AACD,AAAA,MAAM,CAAC;EACL,MAAM,EAAE,eAAe;EACvB,KAAK,EAAE,GAAG;EACV,MAAM,EAAE,SAAS;CAClB",
-    "sources": [
-        "JournalPage.scss"
-    ],
-    "names": [],
-    "file": "JournalPage.css"
-}

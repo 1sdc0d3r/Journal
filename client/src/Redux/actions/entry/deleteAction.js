@@ -11,7 +11,8 @@ export const deleteAction = (id, history) => dispatch => {
     .delete(`${address.LOCALHOST}/api/entry/${id}`)
     .then(res => {
       dispatch({ type: ENTRY_DELETE_SUCCESS, payload: res.data });
-      history.push("/journal");
+      history.push("/temp");
+      history.goBack();
     })
     .catch(err => dispatch({ type: ENTRY_DELETE_FAIL, payload: err }));
 };

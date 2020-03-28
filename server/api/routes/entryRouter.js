@@ -51,7 +51,6 @@ router.put("/:id", (req, res) => {
   const { id } = req.params;
   const newEntry = req.body;
   // newEntry.modified_at = Date.now();
-  // console.log({ newEntry });
   entryDb
     .modifyEntry(id, newEntry)
     .then(entry =>
@@ -96,7 +95,6 @@ router.get("/favorite/:id", (req, res) => {
       entryDb
         .favorite(id, entry)
         .then(newEntry => {
-          console.log({ newEntry });
           res.status(200).json(newEntry);
         })
         .catch(({ name, message, stack, code }) =>

@@ -19,6 +19,12 @@ import {
   ENTRY_ID_GET_FAIL
 } from "../actions/entry/getIdAction";
 
+import {
+  ENTRY_FAVORITE_START,
+  ENTRY_FAVORITE_SUCCESS,
+  ENTRY_FAVORITE_FAIL
+} from "../actions/entry/favoriteAction";
+
 const initialState = {
   entries: [],
   edit: {},
@@ -66,6 +72,15 @@ export default (state = initialState, action) => {
         error: null
       };
     case ENTRY_ID_GET_FAIL:
+      return { ...state, isFetching: false, error: action.payload };
+
+    case ENTRY_FAVORITE_START:
+      return { ...state, isFetching: true, error: null };
+
+    case ENTRY_FAVORITE_SUCCESS:
+      return { ...state, isFetching: false };
+
+    case ENTRY_FAVORITE_FAIL:
       return { ...state, isFetching: false, error: action.payload };
 
     default:

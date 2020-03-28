@@ -36,7 +36,7 @@ class Dashboard extends Component {
       return <Redirect to={this.state.redirect} />;
     }
     return (
-      <div className="dashboard-wrapper">
+      <div className="dashboard">
         <nav>
           <NavLink to="/entry">Entry</NavLink>
           <NavLink to="/journal">Journal</NavLink>

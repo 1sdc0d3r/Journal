@@ -6,6 +6,7 @@ import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
 import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 import { FaStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 
 class Favorites extends Component {
   constructor(props) {
@@ -37,29 +38,32 @@ class Favorites extends Component {
 
   render() {
     return (
-      <div className="wrapper">
+      <div className="favorites wrapper">
         {this.props.entries.length ? (
           this.props.entries.map(entry => {
             if (entry.favorite) {
               return (
                 <div key={entry.id} className="entry">
-                  {entry.favorite && (
+                  {entry.favorite ? (
                     <FaStar
                       color="blue"
                       size="1.25rem"
                       style={{ padding: ".125rem" }}
+                      onClick={() => this.unFavoriteBtnHandler(entry)}
+                    />
+                  ) : (
+                    <FaRegStar
+                      color="blue"
+                      size="1.25rem"
+                      style={{ padding: ".125rem" }}
+                      onClick={() => this.unFavoriteBtnHandler(entry)}
                     />
                   )}
                   <p>Entry Date: {entry.created_at}</p>
                   <p>Modified Date: {entry.modified_at}</p>
-                  <p>entry1: {entry.entry1}</p>
                   <p>Description: {entry.description}</p>
                   <button onClick={() => this.editBtnHandler(entry)}>
                     Edit
-                  </button>
-                  <button onClick={() => this.unFavoriteBtnHandler(entry)}>
-                    {/* {entry.favorite ? "unFavorite" : "Favorite"} */}
-                    unFavorite
                   </button>
                   <button onClick={() => this.deleteBtnHandler(entry)}>
                     Delete

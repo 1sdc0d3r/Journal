@@ -16,6 +16,7 @@ import Favorite from "./components/Favorites";
 //* Style
 import "./style/App.css";
 
+//todo format date
 class App extends Component {
   constructor(props) {
     super(props);
