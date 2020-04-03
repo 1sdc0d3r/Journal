@@ -20,7 +20,6 @@
           flex-direction: row;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  border: 2px solid green;
 }
 
 .journal .entries .entry {
@@ -28,10 +27,4 @@
   width: 45%;
   margin: 1rem auto;
 }
-
-.journal .nav-btns {
-  border: 2px solid green;
-  width: 10%;
-  margin: auto;
-}
-/*# sourceMappingURL=JournalPage.css.map */
+/*# sourceMappingURL=Entries.css.map */

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { withRouter, Redirect } from "react-router-dom";
+import EntryCard from "./EntryCard";
+import NavButtons from "./NavButtons";
 // * STYLE
-import "../style/journalPage/JournalPage.css";
+import "../style/entries/Entries.css";
 // * REDUX
 import { connect } from "react-redux";
 import { getJournalAction } from "../redux/actions/journal/getJournal";
@@ -11,6 +13,7 @@ import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 // * ICONS
 import { FaStar, FaRegStar } from "react-icons/fa";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
+import Entry from "./Entry";
 
 //todo create a card component DRY
 class JournalPage extends Component {
@@ -20,7 +23,7 @@ class JournalPage extends Component {
       limit: 10,
       offset: 0,
       page: 1,
-      entries: []
+      entries: [],
     };
   }
 
@@ -29,105 +32,80 @@ class JournalPage extends Component {
     this.props.getJournalAction();
     this.setState({
       ...this.state,
-      entries: this.props.entries.slice(offset, offset + limit)
+      entries: this.props.entries.slice(offset, limit),
     });
   }
 
-  editBtnHandler = entry => {
+  editBtnHandler = (entry) => {
     this.props.getEntryIdAction(entry.id, this.props.history);
   };
 
-  favoriteBtnHandler = entry => {
+  favoriteBtnHandler = (entry) => {
     this.props.favoriteAction(entry.id, this.props.history);
   };
 
-  deleteBtnHandler = entry => {
+  deleteBtnHandler = (entry) => {
     this.props.deleteAction(entry.id, this.props.history);
   };
 
+  //todo refactor Previous/Next BTN handlers
   previousBtnHandler = () => {
     const { limit, offset, page } = this.state;
     this.setState({
       ...this.state,
       offset: offset - limit,
       page: page - 1,
-      entries: this.props.entries.slice(offset - limit, offset - limit * 2)
+      entries: this.props.entries.slice(offset - limit, limit * (page - 1)),
     });
   };
 
   nextBtnHandler = () => {
     const { limit, offset, page } = this.state;
-    //todo refactor this code
     this.setState({
       ...this.state,
       offset: offset + limit,
       page: page + 1,
-      entries: this.props.entries.slice(offset + limit, offset + limit * 2)
+      entries: this.props.entries.slice(offset + limit, offset + limit * 2),
     });
   };
 
   render() {
-    const { limit, offset, page } = this.state;
     if (!this.props.entries.length) {
       return <Redirect to="/dashboard" />;
     }
     console.log("state", this.state);
-    console.log("entries", this.props.entries);
+    // console.log("entries", this.props.entries);
 
     return (
       <div className="journal">
+        <h1>Journal</h1>
         <div className="entries">
           {this.state.entries.length ? (
-            this.state.entries.map(entry => (
-              <div key={entry.id} className="entry">
-                {entry.favorite ? (
-                  <FaStar
-                    color="blue"
-                    size="1.25rem"
-                    style={{ padding: ".125rem" }}
-                    onClick={() => this.favoriteBtnHandler(entry)}
-                  />
-                ) : (
-                  <FaRegStar
-                    color="blue"
-                    size="1.25rem"
-                    style={{ padding: ".125rem" }}
-                    onClick={() => this.favoriteBtnHandler(entry)}
-                  />
-                )}
-                <p>Entry Date: {entry.created_at}</p>
-                <p>Modified Date: {entry.modified_at}</p>
-                <p>Description: {entry.description}</p>
-                <button onClick={() => this.editBtnHandler(entry)}>Edit</button>
-                <button onClick={() => this.deleteBtnHandler(entry)}>
-                  Delete
-                </button>
-              </div>
+            this.state.entries.map((entry) => (
+              <EntryCard
+                entry={entry}
+                favoriteHandler={this.favoriteBtnHandler}
+                editHandler={this.editBtnHandler}
+                deleteHandler={this.deleteBtnHandler}
+              />
             ))
           ) : (
             <h2 className="no-entries">No Entries</h2>
           )}
         </div>
-        <div className="nav-btns">
-          {this.state.page === 1 ? (
-            <IoMdArrowBack color="grey" onClick={() => null} />
-          ) : (
-            <IoMdArrowBack color="red" onClick={this.previousBtnHandler} />
-          )}
-          {this.props.entries.length / limit < page ? (
-            <IoMdArrowForward color="grey" onClick={() => null} />
-          ) : (
-            <IoMdArrowForward color="red" onClick={this.nextBtnHandler} />
-          )}
-        </div>
+        <NavButtons
+          state={this.state}
+          back={this.previousBtnHandler}
+          next={this.nextBtnHandler}
+        />
       </div>
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
-    entries: state.journalReducer.entries
+    entries: state.journalReducer.entries,
   };
 };
 export default withRouter(
@@ -135,6 +113,6 @@ export default withRouter(
     getJournalAction,
     deleteAction,
     getEntryIdAction,
-    favoriteAction
+    favoriteAction,
   })(JournalPage)
 );

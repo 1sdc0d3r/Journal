@@ -39,10 +39,10 @@ class Dashboard extends Component {
     }
     return (
       <div className="dashboard">
-        <nav>
+        {/* <nav>
           <NavLink to="/entry">Entry</NavLink>
           <NavLink to="/journal">Journal</NavLink>
-        </nav>
+        </nav> */}
         <h2>Dashboard</h2>
         {this.props.error ? (
           <h2>{this.props.error}</h2>

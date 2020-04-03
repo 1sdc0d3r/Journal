@@ -9,7 +9,7 @@ const { JWT_SECRET = "not a secret" } = process.env;
 const {
   validateUserBody,
   checkExistingUsers,
-  validateHeaders
+  validateHeaders,
 } = require("../middleware/authMiddleware");
 
 router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
@@ -30,13 +30,12 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
 //todo if already logged in redirect to dashboard
 router.get("/login", validateHeaders, (req, res) => {
   const { username, password } = req.headers;
-
   userDb
     .getUserByUsername(username)
-    .then(user => {
+    .then((user) => {
       if (!user) {
         res.status(403).json({
-          errorMessage: "incorrect credentials"
+          errorMessage: "incorrect username",
         });
       } else {
         if (bcrypt.compareSync(password, user.password)) {
@@ -50,14 +49,14 @@ router.get("/login", validateHeaders, (req, res) => {
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({
         errorMessage: "unable to retrieve user",
-        error: { name, message, stack, code }
+        error: { name, message, stack, code },
       })
     );
 });
 router.get("/users", (req, res) => {
   userDb
     .getUsers()
-    .then(users => res.status(200).json(users))
+    .then((users) => res.status(200).json(users))
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({ name, message, stack, code })
     );
@@ -72,11 +71,11 @@ module.exports = router;
 function generateToken(user) {
   const payload = {
     subject: user.id,
-    username: user.username
+    username: user.username,
   };
   const secret = JWT_SECRET || "not a secret";
   const options = {
-    expiresIn: "1w"
+    expiresIn: "1w",
   };
   return jwt.sign(payload, secret, options);
 }

@@ -5,8 +5,8 @@ router.get("/", (req, res) => {
   // const { limit, offset } = req.query;
   const id = req.decodedToken.subject;
   journalDb
-    .getJournalByUserId(id, limit, offset)
-    .then(entries => {
+    .getJournalByUserId(id)
+    .then((entries) => {
       res.status(200).json(entries);
     })
     .catch(({ name, message, stack, code }) =>

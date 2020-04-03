@@ -43,8 +43,8 @@ class EntryForm extends Component {
     // }
     return (
       <div className="entry">
-        <NavLink to="/dashboard">Dashboard</NavLink>
-        <NavLink to="/journal">Journal</NavLink>
+        {/* <NavLink to="/dashboard">Dashboard</NavLink> */}
+        {/* <NavLink to="/journal">Journal</NavLink> */}
         <form onSubmit={this.onSubmitHandler}>
           <h3>{this.props.error}</h3>
           {/* <label>
