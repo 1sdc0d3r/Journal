@@ -1,18 +1,18 @@
 exports.up = function(knex) {
   return knex.schema.createTable("Journal", tbl => {
-    tbl.increments();
+    tbl.increments("id").primary();
     tbl
       .integer("user_id")
       .notNullable()
-      .unsigned();
-    // .references("id")
-    // .inTable("User");
+      .unsigned()
+      .references("id")
+      .inTable("User");
     tbl
       .integer("entry_id")
       .notNullable()
-      .unsigned();
-    // .references("id")
-    // .inTable("Entry");
+      .unsigned()
+      .references("id")
+      .inTable("Entry");
   });
 };
 

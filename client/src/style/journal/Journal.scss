@@ -1,0 +1,33 @@
+@mixin for-mobile {
+  @media (max-width: 499px) {
+    @content;
+  }
+}
+@mixin for-tablet {
+  @media (min-width: 500px) and (max-width: 800px) {
+    @content;
+  }
+}
+@mixin for-desktop {
+  @media (min-width: 800px) {
+    @content;
+  }
+}
+
+.journal {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: auto;
+  .entries {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .entry {
+      border: 2px solid black;
+      width: 45%;
+      margin: 1rem auto;
+      background: whitesmoke;
+    }
+  }
+}

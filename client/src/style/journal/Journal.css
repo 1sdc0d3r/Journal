@@ -1,0 +1,31 @@
+.journal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 95%;
+  margin: auto;
+}
+
+.journal .entries {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.journal .entries .entry {
+  border: 2px solid black;
+  width: 45%;
+  margin: 1rem auto;
+  background: whitesmoke;
+}
+/*# sourceMappingURL=Journal.css.map */

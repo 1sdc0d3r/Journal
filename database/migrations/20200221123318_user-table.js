@@ -1,12 +1,18 @@
 exports.up = function(knex) {
   return knex.schema.createTable("User", tbl => {
-    tbl.increments();
+    tbl.increments("id").primary();
     tbl.dateTime("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
+    tbl.dateTime("updated_at");
+    tbl
+      .string("account")
+      .defaultTo("user")
+      .notNullable();
     tbl.string("first_name").notNullable();
     tbl.string("last_name").notNullable();
-    tbl.string("email", 226).notNullable();
-    tbl.string("username", 16).notNullable();
-    tbl.string("password", 32).notNullable();
+    tbl.string("email").notNullable();
+    tbl.string("username").notNullable();
+    tbl.string("password").notNullable();
+    tbl.string("fields").defaultTo([]);
   });
 };
 

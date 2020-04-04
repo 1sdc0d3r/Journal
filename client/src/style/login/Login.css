@@ -1,0 +1,119 @@
+.login {
+  border: 2px solid red;
+  width: 60%;
+  margin: 2rem auto 0px;
+  background: grey;
+  padding-bottom: 0.45rem;
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .login {
+    width: 45%;
+    padding-bottom: 0.55rem;
+  }
+}
+
+@media (min-width: 800px) {
+  .login {
+    width: 45%;
+    padding-bottom: 0.6rem;
+  }
+}
+
+.login h2 {
+  font-style: italic;
+  margin: 0.4rem auto 0.25rem;
+}
+
+.login form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 90%;
+  margin: auto;
+}
+
+.login form label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0.3rem;
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .login form label {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    margin: 0.55rem auto;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+}
+
+@media (min-width: 800px) {
+  .login form label {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 70%;
+    margin: 0.5rem auto;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+}
+
+.login form label input {
+  width: 80%;
+  margin: 0.25rem auto 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .login form label input {
+    margin: 0px 0.25rem;
+  }
+}
+
+@media (min-width: 800px) {
+  .login form label input {
+    margin: 0px 0.5rem;
+  }
+}
+
+.login form button {
+  width: 45%;
+  background: darkgrey;
+  margin: 0.5rem auto 1rem;
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .login form button {
+    width: 40%;
+  }
+}
+
+@media (min-width: 800px) {
+  .login form button {
+    width: 25%;
+  }
+}
+/*# sourceMappingURL=Login.css.map */

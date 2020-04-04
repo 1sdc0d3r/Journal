@@ -10,10 +10,13 @@ import {
   USER_LOGIN_FAIL
 } from "../actions/user/loginAction";
 
+
+import { LOGOUT } from "../actions/user/logoutAction";
+
 const initialState = {
   user: {},
   isFetching: false,
-  error: false
+  error: null
 };
 
 export default (state = initialState, action) => {
@@ -26,7 +29,7 @@ export default (state = initialState, action) => {
         ...state,
         user: action.payload,
         isFetching: false,
-        error: false
+        error: null
       };
     case USER_REGISTER_FAIL:
       return { ...state, isFetching: false, error: action.payload };
@@ -39,10 +42,15 @@ export default (state = initialState, action) => {
         ...state,
         user: action.payload,
         isFetching: false,
-        error: false
+        error: null
       };
     case USER_LOGIN_FAIL:
       return { ...state, isFetching: false, error: action.payload };
+
+    case LOGOUT:
+      return {
+        ...initialState
+      };
 
     default:
       return state;

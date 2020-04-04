@@ -1,0 +1,119 @@
+.register {
+  border: 2px solid red;
+  width: 70%;
+  margin: 2rem auto 0px;
+  background: grey;
+  padding-bottom: 0.45rem;
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .register {
+    width: 57%;
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media (min-width: 800px) {
+  .register {
+    width: 45%;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.register h2 {
+  font-style: italic;
+}
+
+.register form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 85%;
+  margin: auto;
+}
+
+.register form label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0.3rem;
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .register form label {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 70%;
+    margin: 0.5rem auto;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+}
+
+@media (min-width: 800px) {
+  .register form label {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    width: 70%;
+    margin: 0.5rem auto;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+}
+
+.register form label input {
+  width: 60%;
+  margin: 0.25rem auto 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .register form label input {
+    margin: 0px 0.25rem;
+  }
+}
+
+@media (min-width: 800px) {
+  .register form label input {
+    margin: 0px 0.5rem;
+  }
+}
+
+.register form button {
+  width: 45%;
+  background: darkgrey;
+  margin: 0.5rem auto 1rem;
+}
+
+@media (min-width: 500px) and (max-width: 800px) {
+  .register form button {
+    width: 40%;
+  }
+}
+
+@media (min-width: 800px) {
+  .register form button {
+    width: 25%;
+  }
+}
+/*# sourceMappingURL=Register.css.map */

@@ -1,19 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {} from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { loginAction } from "../redux/actions/user/loginAction";
+import "../style/login/Login.css";
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toDashboard: false,
       credentials: {
         username: "",
         password: ""
-      },
-      error: null
+      }
     };
+  }
+  //todo re-render this component when using <Redirect />
+  componentDidMount() {
+    console.log("LOGIN MOUNTED");
   }
 
   onChangeHandler = evt => {
@@ -33,9 +36,10 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <>
+      <div className="login">
         <form onSubmit={this.onSubmitHandler}>
-          {!this.props.error ? null : <h3>{this.state.error}</h3>}
+          <h2>Login</h2>
+          {this.props.error && <h3>{this.props.error}</h3>}
           <label>
             Username:{" "}
             <input
@@ -58,9 +62,12 @@ class LoginForm extends Component {
               required
             />
           </label>
+          {/* //todo isLoading */}
           <button type="submit">Login</button>
         </form>
-      </>
+        <span>Don't have an account? </span>
+        <Link to="/register">Register</Link>
+      </div>
     );
   }
 }
@@ -70,4 +77,4 @@ const mapStateToProps = state => {
     error: state.userReducer.error
   };
 };
-export default connect(mapStateToProps, { loginAction })(LoginForm);
+export default withRouter(connect(mapStateToProps, { loginAction })(LoginForm));

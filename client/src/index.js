@@ -5,15 +5,22 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 
+// import history from "./config/history";
+// import httpService from "./utils/httpService";
+
+//* REDUX
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./redux/reducers";
 
+//* REDUX MIDDLEWARE
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 
 const middleware = [thunk, logger];
 const store = createStore(rootReducer, applyMiddleware(...middleware));
+
+// httpService.setupInterceptors(history); //todo check out this function more
 
 ReactDOM.render(
   <Provider store={store}>

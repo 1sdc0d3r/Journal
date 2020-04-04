@@ -1,0 +1,18 @@
+nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin: auto;
+  background: lightgreen;
+  padding: 1.2rem 0.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: bolder;
+  color: #5757e0;
+}
+/*# sourceMappingURL=Navigation.css.map */

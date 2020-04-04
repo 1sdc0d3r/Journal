@@ -14,13 +14,16 @@ import {
   ENTRY_DELETE_FAIL
 } from "../actions/entry/deleteAction";
 import {
-  ENTRY_GET_START,
-  ENTRY_GET_SUCCESS,
-  ENTRY_GET_FAIL,
   ENTRY_ID_GET_START,
   ENTRY_ID_GET_SUCCESS,
   ENTRY_ID_GET_FAIL
-} from "../actions/entry/getAction";
+} from "../actions/entry/getIdAction";
+
+import {
+  ENTRY_FAVORITE_START,
+  ENTRY_FAVORITE_SUCCESS,
+  ENTRY_FAVORITE_FAIL
+} from "../actions/entry/favoriteAction";
 
 const initialState = {
   entries: [],
@@ -58,18 +61,6 @@ export default (state = initialState, action) => {
     case ENTRY_DELETE_FAIL:
       return { ...state, isFetching: false, error: action.payload };
 
-    case ENTRY_GET_START:
-      return { ...state, isFetching: true, error: null };
-    case ENTRY_GET_SUCCESS:
-      return {
-        ...state,
-        entries: action.payload,
-        isFetching: false,
-        error: null
-      };
-    case ENTRY_GET_FAIL:
-      return { ...state, isFetching: false, error: action.payload };
-
     case ENTRY_ID_GET_START:
       return { ...state, isFetching: true, error: null };
     case ENTRY_ID_GET_SUCCESS:
@@ -81,6 +72,15 @@ export default (state = initialState, action) => {
         error: null
       };
     case ENTRY_ID_GET_FAIL:
+      return { ...state, isFetching: false, error: action.payload };
+
+    case ENTRY_FAVORITE_START:
+      return { ...state, isFetching: true, error: null };
+
+    case ENTRY_FAVORITE_SUCCESS:
+      return { ...state, isFetching: false };
+
+    case ENTRY_FAVORITE_FAIL:
       return { ...state, isFetching: false, error: action.payload };
 
     default:

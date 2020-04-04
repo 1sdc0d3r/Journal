@@ -1,10 +1,8 @@
 exports.up = function(knex) {
   return knex.schema.createTable("Entry", tbl => {
-    tbl.increments();
+    tbl.increments("id").primary();
     tbl.dateTime("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
-    tbl.dateTime("modified_at");
-    tbl.string("medication");
-    tbl.string("dose");
+    tbl.dateTime("updated_at");
     tbl.string("description").notNullable();
   });
 };

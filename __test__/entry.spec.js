@@ -4,23 +4,23 @@ const db = require("../database/journalConfig");
 
 const entry = {
   init: {
-    medication: "initial",
-    dose: "initial",
+    entry1: "initial",
+    entry2: "initial",
     description: "initial entry"
   },
   entry: {
-    medication: "test",
-    dose: "test",
+    entry1: "test",
+    entry2: "test",
     description: "test entry"
   },
   invalidEntry: {
-    medication: "test",
-    dose: "test",
+    entry1: "test",
+    entry2: "test",
     description: null
   },
   modifiedEntry: {
-    medication: "new",
-    dose: "new",
+    entry1: "new",
+    entry2: "new",
     description: "new"
   }
 };
