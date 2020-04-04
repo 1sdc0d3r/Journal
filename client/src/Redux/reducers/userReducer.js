@@ -1,22 +1,22 @@
 import {
   USER_REGISTER_START,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL
+  USER_REGISTER_FAIL,
 } from "../actions/user/registerAction";
 
 import {
   USER_LOGIN_START,
   USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAIL
+  USER_LOGIN_FAIL,
 } from "../actions/user/loginAction";
-
 
 import { LOGOUT } from "../actions/user/logoutAction";
 
 const initialState = {
   user: {},
+  loggedIn: false,
   isFetching: false,
-  error: null
+  error: null,
 };
 
 export default (state = initialState, action) => {
@@ -28,11 +28,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        loggedIn: true,
         isFetching: false,
-        error: null
+        error: null,
       };
     case USER_REGISTER_FAIL:
-      return { ...state, isFetching: false, error: action.payload };
+      return {
+        ...state,
+        isFetching: false,
+        loggedIn: false,
+        error: action.payload,
+      };
 
     //* LOGIN
     case USER_LOGIN_START:
@@ -41,15 +47,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        loggedIn: true,
         isFetching: false,
-        error: null
+        error: null,
       };
     case USER_LOGIN_FAIL:
-      return { ...state, isFetching: false, error: action.payload };
+      return {
+        ...state,
+        isFetching: false,
+        loggedIn: false,
+        error: action.payload,
+      };
 
     case LOGOUT:
       return {
-        ...initialState
+        ...initialState,
       };
 
     default:

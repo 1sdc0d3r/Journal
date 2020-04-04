@@ -28,8 +28,8 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
 });
 
 //todo if already logged in redirect to dashboard
-router.get("/login", validateHeaders, (req, res) => {
-  const { username, password } = req.headers;
+router.post("/login", validateHeaders, (req, res) => {
+  const { username, password } = req.body;
   userDb
     .getUserByUsername(username)
     .then((user) => {

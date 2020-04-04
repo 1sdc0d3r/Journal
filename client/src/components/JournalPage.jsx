@@ -103,6 +103,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
     entries: state.journalReducer.entries,
+    loggedIn: state.userReducer.loggedIn,
   };
 };
 export default withRouter(

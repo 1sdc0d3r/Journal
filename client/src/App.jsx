@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Switch, NavLink, Redirect, withRouter } from "react-router-dom";
 //* Components
-import { PrivateRoute } from "./components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 import Navigation from "./components/Navigation";
 import Register from "./components/Register";
 import Login from "./components/Login";

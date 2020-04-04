@@ -9,5 +9,10 @@ nav {
     font-size: 1.125rem;
     font-weight: bolder;
     color: rgb(87, 87, 224);
+    transition: 0.25s;
+    &:hover {
+      transform: scale(1.2);
+      transition: 0.35s;
+    }
   }
 }
