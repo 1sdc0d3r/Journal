@@ -17,19 +17,17 @@
 .journal {
   display: flex;
   flex-direction: column;
-  //   border: 1px solid black;
-  // background: lightgrey;
   width: 95%;
   margin: auto;
   .entries {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    // border: 2px solid green;
     .entry {
       border: 2px solid black;
       width: 45%;
       margin: 1rem auto;
+      background: whitesmoke;
     }
   }
 }

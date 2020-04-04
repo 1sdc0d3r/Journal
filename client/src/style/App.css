@@ -1,4 +1,8 @@
-.App {
+html {
+  background: #e9e9e9;
+}
+
+html .App {
   text-align: center;
 }
 /*# sourceMappingURL=App.css.map */

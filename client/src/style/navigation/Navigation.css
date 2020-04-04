@@ -12,5 +12,7 @@ nav {
 nav a {
   text-decoration: none;
   font-size: 1.125rem;
+  font-weight: bolder;
+  color: #5757e0;
 }
 /*# sourceMappingURL=Navigation.css.map */

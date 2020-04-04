@@ -3,7 +3,7 @@ import { withRouter, Redirect } from "react-router-dom";
 import EntryCard from "./EntryCard";
 import NavButtons from "./NavButtons";
 // * STYLE
-import "../style/entries/Entries.css";
+import "../style/journal/Journal.css";
 // * REDUX
 import { connect } from "react-redux";
 import { getJournalAction } from "../redux/actions/journal/getJournal";
@@ -11,9 +11,6 @@ import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
 import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 // * ICONS
-import { FaStar, FaRegStar } from "react-icons/fa";
-import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
-import Entry from "./Entry";
 
 //todo create a card component DRY
 class JournalPage extends Component {
