@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "server": "nodemon index.js",
-    "test": "knex seed: run --env testing && cross-env DB_ENV=testing jest --watchAll --verbose",
-    "start": "node index.js"
+    "test": "knex seed: run --env testing && cross-env DB_ENV=testing jest --watchAll --verbose"
   },
   "jest": {
     "testEnvironment": "node",
