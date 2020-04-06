@@ -1,22 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink, Redirect, withRouter } from "react-router-dom";
+import { getToken } from "../utils/authService";
 import { newFieldAction } from "../redux/actions/entry-field/newFieldAction";
 import { getJournalAction } from "../redux/actions/journal/getJournal";
+import { logoutAction } from "../redux/actions/user/logoutAction";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       redirect: null,
-      newField: ""
+      newField: "",
     };
   }
 
   componentDidMount() {
-    if (!this.props.user.username) {
+    // const token = getToken();
+    this.props.getJournalAction();
+    if (!this.props.loggedIn) {
       this.setState({ redirect: "/login" });
-      this.props.getJournalAction();
+      alert("no user");
+      // this.props.logoutAction();
     }
   }
   // * newField-feature
@@ -64,10 +69,12 @@ class Dashboard extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  return { user: state.userReducer.user };
+const mapStateToProps = (state) => {
+  return { user: state.userReducer.user, loggedIn: state.userReducer.user };
 };
 
 export default withRouter(
-  connect(mapStateToProps, { newFieldAction, getJournalAction })(Dashboard)
+  connect(mapStateToProps, { logoutAction, newFieldAction, getJournalAction })(
+    Dashboard
+  )
 );

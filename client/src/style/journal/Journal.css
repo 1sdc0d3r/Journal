@@ -28,4 +28,25 @@
   margin: 1rem auto;
   background: whitesmoke;
 }
+
+.journal .no-entries {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: auto;
+}
+
+.journal .no-entries button {
+  padding: 1rem;
+  border-radius: 50%;
+  width: 45%;
+  margin: auto;
+  font-size: 1.25rem;
+  -webkit-box-shadow: 2px 2px grey;
+          box-shadow: 2px 2px grey;
+}
 /*# sourceMappingURL=Journal.css.map */

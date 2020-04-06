@@ -14,5 +14,14 @@ nav a {
   font-size: 1.125rem;
   font-weight: bolder;
   color: #5757e0;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+}
+
+nav a:hover {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition: 0.35s;
+  transition: 0.35s;
 }
 /*# sourceMappingURL=Navigation.css.map */

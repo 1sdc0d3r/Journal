@@ -30,4 +30,20 @@
       background: whitesmoke;
     }
   }
+  .no-entries {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    button {
+      padding: 1rem;
+      border-radius: 50%;
+      width: 45%;
+      margin: auto;
+      font-size: 1.25rem;
+      box-shadow: 2px 2px grey;
+      // &:focus {
+      // box-shadow: none;
+      // }
+    }
+  }
 }

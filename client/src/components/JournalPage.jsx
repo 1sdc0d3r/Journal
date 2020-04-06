@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, Redirect, Link } from "react-router-dom";
 import EntryCard from "./EntryCard";
 import NavButtons from "./NavButtons";
 // * STYLE
@@ -23,10 +23,12 @@ class JournalPage extends Component {
       entries: [],
     };
   }
-
+  //todo fix showing journal after inputting new entry and redirect
   componentWillMount() {
-    const { limit, offset } = this.state;
     this.props.getJournalAction();
+  }
+  componentDidMount() {
+    const { limit, offset } = this.state;
     this.setState({
       ...this.state,
       entries: this.props.entries.slice(offset, limit),
@@ -67,9 +69,9 @@ class JournalPage extends Component {
   };
 
   render() {
-    if (!this.props.entries.length) {
-      return <Redirect to="/dashboard" />;
-    }
+    // if (!this.props.entries.length) {
+    //   return <Redirect to="/" />;
+    // }
     console.log("state", this.state);
     // console.log("entries", this.props.entries);
 
@@ -87,7 +89,12 @@ class JournalPage extends Component {
               />
             ))
           ) : (
-            <h2 className="no-entries">No Entries</h2>
+            <div className="no-entries">
+              <h2>You don't have any entries...</h2>
+              <button onClick={() => this.props.history.push("/entry")}>
+                Add your first entry!
+              </button>
+            </div>
           )}
         </div>
         <NavButtons
@@ -103,6 +110,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
     entries: state.journalReducer.entries,
+    loggedIn: state.userReducer.loggedIn,
   };
 };
 export default withRouter(

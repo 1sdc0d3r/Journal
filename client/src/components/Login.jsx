@@ -10,8 +10,8 @@ class LoginForm extends Component {
     this.state = {
       credentials: {
         username: "",
-        password: ""
-      }
+        password: "",
+      },
     };
   }
   //todo re-render this component when using <Redirect />
@@ -19,17 +19,17 @@ class LoginForm extends Component {
     console.log("LOGIN MOUNTED");
   }
 
-  onChangeHandler = evt => {
+  onChangeHandler = (evt) => {
     this.setState({
       ...this.state,
       credentials: {
         ...this.state.credentials,
-        [evt.target.name]: evt.target.value
-      }
+        [evt.target.name]: evt.target.value,
+      },
     });
   };
 
-  onSubmitHandler = evt => {
+  onSubmitHandler = (evt) => {
     evt.preventDefault();
     this.props.loginAction(this.state.credentials, this.props.history);
   };
@@ -71,10 +71,10 @@ class LoginForm extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
-    error: state.userReducer.error
+    error: state.userReducer.error,
   };
 };
 export default withRouter(connect(mapStateToProps, { loginAction })(LoginForm));
