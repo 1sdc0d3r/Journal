@@ -2,7 +2,6 @@ const router = require("express").Router();
 const journalDb = require("../../../database/model/journalModel");
 
 router.get("/", (req, res) => {
-  // const { limit, offset } = req.query;
   const id = req.decodedToken.subject;
   journalDb
     .getJournalByUserId(id)

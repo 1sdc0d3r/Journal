@@ -10,7 +10,7 @@ function Navigation(props) {
   return (
     //todo don't show register, and login when logged in
     <nav>
-      <NavLink to="/dashboard">Dashboard</NavLink>
+      <NavLink to="/">Dashboard</NavLink>
       <NavLink to="/journal">Journal</NavLink>
       <NavLink to="/favorite">Favorite</NavLink>
       <NavLink to="/entry">Entry</NavLink>

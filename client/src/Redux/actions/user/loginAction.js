@@ -14,7 +14,7 @@ export const loginAction = (credentials, history) => (dispatch) => {
     .then((res) => {
       setToken(res.data.token);
       dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data.user });
-      history.push("/dashboard");
+      history.push("/");
     })
     .catch((err) => {
       console.log({ err });
