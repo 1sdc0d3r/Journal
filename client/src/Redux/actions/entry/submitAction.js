@@ -8,7 +8,7 @@ export const ENTRY_SUBMIT_FAIL = "ENTRY_SUBMIT_FAIL";
 export const submitAction = (entry, history) => (dispatch) => {
   dispatch({ type: ENTRY_SUBMIT_START });
   axiosWithAuth()
-    .post(`${address.HEROKU}/entry`, entry)
+    .post(`${address.LOCALHOST}/entry`, entry)
     .then((res) => {
       dispatch({ type: ENTRY_SUBMIT_SUCCESS, payload: res.config.data });
       history.push("/journal");

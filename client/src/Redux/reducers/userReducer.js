@@ -10,6 +10,11 @@ import {
   USER_LOGIN_FAIL,
 } from "../actions/user/loginAction";
 
+import {
+  CHECK_TOKEN_SUCCESS,
+  CHECK_TOKEN_FAIL,
+} from "../actions/user/checkToken";
+
 import { LOGOUT } from "../actions/user/logoutAction";
 
 const initialState = {
@@ -21,6 +26,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    //* EXISTING TOKEN?
+    case CHECK_TOKEN_SUCCESS:
+      return { ...state, loggedIn: true };
+    case CHECK_TOKEN_FAIL:
+      return { ...state, loggedIn: false };
     //* REGISTER
     case USER_REGISTER_START:
       return { ...state, isFetching: true };

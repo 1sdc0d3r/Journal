@@ -42,7 +42,7 @@ router.post("/login", validateHeaders, (req, res) => {
           const token = generateToken(user);
           res.status(200).json({ user, token });
         } else {
-          res.status(403).json({ errorMessage: "incorrect credentials" });
+          res.status(403).json({ errorMessage: "invalid credentials" });
         }
       }
     })

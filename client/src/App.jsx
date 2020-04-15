@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Switch, NavLink, Redirect, withRouter } from "react-router-dom";
+import { getToken } from "./utils/authService";
+import { checkToken } from "./redux/actions/user/checkToken";
 //* Components
 import PrivateRoute from "./components/PrivateRoute";
 import Navigation from "./components/Navigation";
@@ -14,11 +16,13 @@ import Favorite from "./components/Favorites";
 //* Style
 import "./style/App.css";
 
+// todo stay logged in if there is a token, save user data as well???
 //todo format date
 //todo fix autologout, server side
 //todo not able to add entries/access journal when first register
 //todo fix errors between register and login components (server error?)
 //todo fix logging in each time page refreshes
+// todo allow user to delete account/user w/ all entries
 class App extends Component {
   constructor(props) {
     super(props);
@@ -27,13 +31,17 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log("APP MOUNT");
+    this.props.checkToken();
+  }
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
     return (
       <div className="App">
-        {/* <h3>Journal Application</h3> */}
         <Navigation />
         <Switch>
           <Route path="/register" component={Register} />
@@ -48,4 +56,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect(null, {})(App));
+export default withRouter(connect(null, { checkToken })(App));

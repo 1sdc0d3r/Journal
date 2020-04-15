@@ -40,9 +40,13 @@ function checkExistingUsers(req, res, next) {
 function validateHeaders(req, res, next) {
   const { username, password } = req.body;
 
-  !username || !password
+  !username
     ? res.status(400).json({
-        message: "Please provide username and password",
+        errorMessage: "Please provide username",
+      })
+    : !password
+    ? res.status(400).json({
+        errorMessage: "Please provide password",
       })
     : next();
 }

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink, Redirect, withRouter } from "react-router-dom";
-import { getToken } from "../utils/authService";
 import { newFieldAction } from "../redux/actions/entry-field/newFieldAction";
 import { getJournalAction } from "../redux/actions/journal/getJournal";
 import { logoutAction } from "../redux/actions/user/logoutAction";
@@ -16,12 +15,10 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    // const token = getToken();
     this.props.getJournalAction();
-    if (!this.props.loggedIn) {
+    if (this.props.loggedIn === false) {
+      console.log("REDIRECT FROM DASHBOARD");
       this.setState({ redirect: "/login" });
-      alert("no user");
-      // this.props.logoutAction();
     }
   }
   // * newField-feature
@@ -40,6 +37,7 @@ class Dashboard extends Component {
 
   render() {
     if (this.state.redirect) {
+      console.log("REDIRECT DASHBOARD");
       return <Redirect to={this.state.redirect} />;
     }
     return (
@@ -70,7 +68,7 @@ class Dashboard extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  return { user: state.userReducer.user, loggedIn: state.userReducer.user };
+  return { user: state.userReducer.user, loggedIn: state.userReducer.loggedIn };
 };
 
 export default withRouter(

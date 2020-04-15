@@ -10,14 +10,14 @@ export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
 export const loginAction = (credentials, history) => (dispatch) => {
   dispatch({ type: USER_LOGIN_START, payload: credentials });
   axios
-    .post(`${address.HEROKU}/api/auth/login`, credentials)
+    .post(`${address.LOCALHOST}/api/auth/login`, credentials)
     .then((res) => {
       setToken(res.data.token);
       dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data.user });
       history.push("/");
     })
     .catch((err) => {
-      console.log({ err });
+      // console.log("err", err.response.data);
       dispatch({
         type: USER_LOGIN_FAIL,
         payload: err.response.data.errorMessage,

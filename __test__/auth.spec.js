@@ -175,7 +175,7 @@ describe("Auth route", () => {
 //     });
 
 //     it("should return error message on wrong username", async () => {
-//       const expectedBody = { errorMessage: "incorrect credentials" };
+//       const expectedBody = { errorMessage: "invalid credentials" };
 //       const response = await request(server)
 //         .get("/api/auth/login")
 //         .set({ username: "jackWrong", password: "password" });
@@ -183,7 +183,7 @@ describe("Auth route", () => {
 //     });
 
 //     it("should return error message on wrong password", async () => {
-//       const expectedBody = { errorMessage: "incorrect credentials" };
+//       const expectedBody = { errorMessage: "invalid credentials" };
 //       const response = await request(server)
 //         .get("/api/auth/login")
 //         .set({ username: "jackTest", password: "wrongPass" });

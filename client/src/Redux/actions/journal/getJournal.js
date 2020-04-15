@@ -8,7 +8,7 @@ export const JOURNAL_GET_FAIL = "JOURNAL_GET_FAIL";
 export const getJournalAction = (history) => (dispatch) => {
   dispatch({ type: JOURNAL_GET_START });
   axiosWithAuth()
-    .get(`${address.HEROKU}/api/journal`)
+    .get(`${address.LOCALHOST}/api/journal`)
     // , {
     //   params: {
     //     limit: limit,

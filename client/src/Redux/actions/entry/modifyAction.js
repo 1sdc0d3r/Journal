@@ -8,7 +8,7 @@ export const ENTRY_MODIFY_FAIL = "ENTRY_MODIFY_FAIL";
 export const modifyAction = (id, entry, history) => (dispatch) => {
   dispatch({ type: ENTRY_MODIFY_START });
   axiosWithAuth()
-    .put(`${address.HEROKU}/api/entry/${id}`, entry)
+    .put(`${address.LOCALHOST}/api/entry/${id}`, entry)
     .then((res) => {
       dispatch({ type: ENTRY_MODIFY_SUCCESS, payload: res.data });
       history.goBack();
