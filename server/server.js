@@ -10,3 +10,5 @@ configureMiddleware(server);
 server.use("/api", apiRouter);
 
 module.exports = server;
+
+// todo create a forgot username/password

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Switch, NavLink, Redirect, withRouter } from "react-router-dom";
-import { getToken } from "./utils/authService";
-import { checkToken } from "./redux/actions/user/checkToken";
+import { Route, Switch, withRouter } from "react-router-dom";
 //* Components
 import PrivateRoute from "./components/PrivateRoute";
 import Navigation from "./components/Navigation";
@@ -31,15 +29,11 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     console.log("APP MOUNT");
-    this.props.checkToken();
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
-    }
     return (
       <div className="App">
         <Navigation />
@@ -56,4 +50,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect(null, { checkToken })(App));
+export default withRouter(connect(null, {})(App));

@@ -1,5 +1,5 @@
-const express = require("express");
-const router = express.Router();
+// const router = express.Router();
+const router = require("express").Router();
 const userDb = require("../../../database/model/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -19,8 +19,8 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   userDb
     .insertUser(user)
     .then(() => {
-      const token = generateToken(user);
-      res.status(201).json({ user, token });
+      user.token = generateToken(user);
+      res.status(201).json({ user });
     })
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({ name, message, stack, code })
@@ -37,13 +37,11 @@ router.post("/login", validateHeaders, (req, res) => {
         res.status(403).json({
           errorMessage: "incorrect username",
         });
+      } else if (bcrypt.compareSync(password, user.password)) {
+        user.token = generateToken(user);
+        res.status(200).json({ user });
       } else {
-        if (bcrypt.compareSync(password, user.password)) {
-          const token = generateToken(user);
-          res.status(200).json({ user, token });
-        } else {
-          res.status(403).json({ errorMessage: "invalid credentials" });
-        }
+        res.status(403).json({ errorMessage: "invalid credentials" });
       }
     })
     .catch(({ name, message, stack, code }) =>
@@ -53,6 +51,7 @@ router.post("/login", validateHeaders, (req, res) => {
       })
     );
 });
+
 router.get("/users", (req, res) => {
   userDb
     .getUsers()
@@ -75,7 +74,7 @@ function generateToken(user) {
   };
   const secret = JWT_SECRET || "not a secret";
   const options = {
-    expiresIn: "1w",
+    expiresIn: "2w",
   };
   return jwt.sign(payload, secret, options);
 }

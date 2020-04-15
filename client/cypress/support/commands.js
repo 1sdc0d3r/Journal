@@ -33,5 +33,5 @@ Cypress.Commands.add("login", () => {
       username: "jackBarry",
       password: "password",
     },
-  }).then((resp) => setToken(resp.body.token));
+  }).then((resp) => setToken(resp.body.user.token));
 });

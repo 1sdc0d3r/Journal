@@ -12,15 +12,14 @@ export const loginAction = (credentials, history) => (dispatch) => {
   axios
     .post(`${address.LOCALHOST}/api/auth/login`, credentials)
     .then((res) => {
-      setToken(res.data.token);
+      setToken(res.data.user.token);
       dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data.user });
       history.push("/");
     })
-    .catch((err) => {
-      // console.log("err", err.response.data);
+    .catch((err) =>
       dispatch({
         type: USER_LOGIN_FAIL,
         payload: err.response.data.errorMessage,
-      });
-    });
+      })
+    );
 };

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import EntryCard from "./EntryCard";
+import NavButtons from "./NavButtons";
 import { getJournalAction } from "../redux/actions/journal/getJournal";
 import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
@@ -13,9 +14,9 @@ class Favorites extends Component {
     this.state = {
       limit: 10,
       offset: 0,
+      page: 1,
     };
   }
-
   componentDidMount() {
     const { limit, offset } = this.state;
     this.props.getJournalAction(limit, offset);
@@ -35,18 +36,39 @@ class Favorites extends Component {
     this.props.getJournalAction(limit, offset);
   };
 
+  previousBtnHandler = () => {
+    const { limit, offset, page } = this.state;
+    this.setState({
+      ...this.state,
+      offset: offset - limit,
+      page: page - 1,
+      // entries: this.props.entries.slice(offset - limit, limit * (page - 1)),
+    });
+  };
+
+  nextBtnHandler = () => {
+    const { limit, offset, page } = this.state;
+    this.setState({
+      ...this.state,
+      offset: offset + limit,
+      page: page + 1,
+      // entries: this.props.entries.slice(offset + limit, offset + limit * 2),
+    });
+  };
+
   render() {
+    const { limit, offset } = this.state;
     return (
       <div className="favorites journal">
         <h1>Favorites</h1>
         <div className="entries">
           {this.props.entries.length ? (
-            this.props.entries.map((entry) => {
+            this.props.entries.slice(offset, offset + limit).map((entry) => {
               if (entry.favorite) {
                 return (
                   <EntryCard
                     entry={entry}
-                    favoriteHandler={this.favoriteBtnHandler}
+                    favoriteHandler={this.unFavoriteBtnHandler}
                     editHandler={this.editBtnHandler}
                     deleteHandler={this.deleteBtnHandler}
                   />
@@ -57,8 +79,11 @@ class Favorites extends Component {
             <h2 className="no-entries">No Favorite Entries</h2>
           )}
         </div>
-        {/* //todo incorporate back/next btns */}
-        {/* <NavButtons /> */}
+        <NavButtons
+          state={this.state}
+          back={this.previousBtnHandler}
+          next={this.nextBtnHandler}
+        />
       </div>
     );
   }

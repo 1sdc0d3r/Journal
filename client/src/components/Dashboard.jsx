@@ -8,18 +8,11 @@ import { logoutAction } from "../redux/actions/user/logoutAction";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      redirect: null,
-      newField: "",
-    };
+    this.state = {};
   }
 
   componentDidMount() {
     this.props.getJournalAction();
-    if (this.props.loggedIn === false) {
-      console.log("REDIRECT FROM DASHBOARD");
-      this.setState({ redirect: "/login" });
-    }
   }
   // * newField-feature
   // onChangeHandler = evt => {
@@ -36,10 +29,10 @@ class Dashboard extends Component {
   // };
 
   render() {
-    if (this.state.redirect) {
-      console.log("REDIRECT DASHBOARD");
-      return <Redirect to={this.state.redirect} />;
-    }
+    // if (this.state.redirect) {
+    //   console.log("REDIRECT DASHBOARD");
+    //   return <Redirect to={this.state.redirect} />;
+    // }
     return (
       <div className="dashboard">
         {/* <nav>
@@ -68,7 +61,10 @@ class Dashboard extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  return { user: state.userReducer.user, loggedIn: state.userReducer.loggedIn };
+  return {
+    user: state.userReducer.user,
+    authenticated: state.userReducer.authenticated,
+  };
 };
 
 export default withRouter(

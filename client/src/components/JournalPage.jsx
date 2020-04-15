@@ -13,6 +13,7 @@ import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 // * ICONS
 
 //todo create a card component DRY
+//todo allow user to go straight to journal page without hitting dash first (getJournalAction)
 class JournalPage extends Component {
   constructor(props) {
     super(props);
@@ -20,19 +21,13 @@ class JournalPage extends Component {
       limit: 10,
       offset: 0,
       page: 1,
-      entries: [],
     };
   }
   //todo fix showing journal after inputting new entry and redirect
-  componentWillMount() {
-    this.props.getJournalAction();
-  }
+
   componentDidMount() {
     const { limit, offset } = this.state;
-    this.setState({
-      ...this.state,
-      entries: this.props.entries.slice(offset, limit),
-    });
+    this.props.getJournalAction(limit, offset);
   }
 
   editBtnHandler = (entry) => {
@@ -40,54 +35,34 @@ class JournalPage extends Component {
   };
 
   favoriteBtnHandler = (entry) => {
+    const { limit, offset } = this.state;
     this.props.favoriteAction(entry.id, this.props.history);
+    this.props.getJournalAction(limit, offset);
   };
 
   deleteBtnHandler = (entry) => {
+    const { limit, offset } = this.state;
     this.props.deleteAction(entry.id, this.props.history);
-  };
-
-  //todo refactor Previous/Next BTN handlers
-  previousBtnHandler = () => {
-    const { limit, offset, page } = this.state;
-    this.setState({
-      ...this.state,
-      offset: offset - limit,
-      page: page - 1,
-      entries: this.props.entries.slice(offset - limit, limit * (page - 1)),
-    });
-  };
-
-  nextBtnHandler = () => {
-    const { limit, offset, page } = this.state;
-    this.setState({
-      ...this.state,
-      offset: offset + limit,
-      page: page + 1,
-      entries: this.props.entries.slice(offset + limit, offset + limit * 2),
-    });
+    this.props.getJournalAction(limit, offset);
   };
 
   render() {
-    // if (!this.props.entries.length) {
-    //   return <Redirect to="/" />;
-    // }
-    console.log("state", this.state);
-    // console.log("entries", this.props.entries);
-
+    const { limit, offset, page } = this.state;
     return (
       <div className="journal">
         <h1>Journal</h1>
         <div className="entries">
-          {this.state.entries.length ? (
-            this.state.entries.map((entry) => (
-              <EntryCard
-                entry={entry}
-                favoriteHandler={this.favoriteBtnHandler}
-                editHandler={this.editBtnHandler}
-                deleteHandler={this.deleteBtnHandler}
-              />
-            ))
+          {this.props.entries.length ? (
+            this.props.entries
+              .slice(offset, offset + limit)
+              .map((entry) => (
+                <EntryCard
+                  entry={entry}
+                  favoriteHandler={this.favoriteBtnHandler}
+                  editHandler={this.editBtnHandler}
+                  deleteHandler={this.deleteBtnHandler}
+                />
+              ))
           ) : (
             <div className="no-entries">
               <h2>You don't have any entries...</h2>
@@ -97,10 +72,23 @@ class JournalPage extends Component {
             </div>
           )}
         </div>
+        {/* //? btn handlers? */}
         <NavButtons
           state={this.state}
-          back={this.previousBtnHandler}
-          next={this.nextBtnHandler}
+          back={() =>
+            this.setState({
+              ...this.state,
+              offset: offset - limit,
+              page: page - 1,
+            })
+          }
+          next={() =>
+            this.setState({
+              ...this.state,
+              offset: offset + limit,
+              page: page + 1,
+            })
+          }
         />
       </div>
     );
@@ -110,7 +98,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
     entries: state.journalReducer.entries,
-    loggedIn: state.userReducer.loggedIn,
+    authenticated: state.userReducer.authenticated,
   };
 };
 export default withRouter(

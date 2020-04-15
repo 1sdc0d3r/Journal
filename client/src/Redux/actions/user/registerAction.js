@@ -11,7 +11,7 @@ export const registerAction = (user, history) => (dispatch) => {
   axios
     .post(`${address.LOCALHOST}/api/auth/register`, user)
     .then((res) => {
-      setToken(res.data.token);
+      setToken(res.data.user.token);
       dispatch({ type: USER_REGISTER_SUCCESS, payload: res.data.user });
       history.push("/");
     })

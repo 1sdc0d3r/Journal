@@ -21,19 +21,17 @@ function validateUserBody(req, res, next) {
 function checkExistingUsers(req, res, next) {
   const user = req.body;
   userDb.getUserByEmail(user.email).then((oldUser) => {
-    if (oldUser) {
-      res.status(400).json({
-        errorMessage: "Account with this email already exits",
-      });
-    } else {
-      userDb.getUserByUsername(user.username).then((oldUser) => {
-        oldUser
-          ? res.status(400).json({
-              errorMessage: "this username is already in use",
-            })
-          : next();
-      });
-    }
+    oldUser
+      ? res.status(400).json({
+          errorMessage: "Account with this email already exits",
+        })
+      : userDb.getUserByUsername(user.username).then((oldUser) => {
+          oldUser
+            ? res.status(400).json({
+                errorMessage: "Username is already in use",
+              })
+            : next();
+        });
   });
 }
 
