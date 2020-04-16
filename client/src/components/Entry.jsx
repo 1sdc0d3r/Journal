@@ -49,7 +49,7 @@ class EntryForm extends Component {
         <h1>New Entry</h1>
         <form>
           {this.props.error && <h3>{this.props.error}</h3>}
-          <label for="description">
+          <label htmlFor="description">
             {/* Entry:{" "} */}
             <textarea
               name="description"

@@ -11,10 +11,11 @@ import {
 } from "../actions/user/loginAction";
 
 import { LOGOUT } from "../actions/user/logoutAction";
+import { getToken } from "../../utils/authService";
 
 const initialState = {
   user: {},
-  authenticated: false,
+  authenticated: getToken() ? true : false,
   isFetching: true,
   error: null,
 };

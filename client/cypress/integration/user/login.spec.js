@@ -18,7 +18,6 @@ describe("/login", () => {
       "/register"
     );
   });
-  //todo require username and password
   it("require username", () => {
     cy.get("form").contains("button", "Login").click();
     cy.contains("h3", "Please provide username");

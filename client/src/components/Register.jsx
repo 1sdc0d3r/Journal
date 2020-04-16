@@ -14,22 +14,22 @@ class RegisterForm extends Component {
         last_name: "",
         email: "",
         username: "",
-        password: ""
-      }
+        password: "",
+      },
     };
   }
 
-  onChangeHandler = evt => {
+  onChangeHandler = (evt) => {
     this.setState({
       ...this.state,
       user: {
         ...this.state.user,
-        [evt.target.name]: evt.target.value
-      }
+        [evt.target.name]: evt.target.value,
+      },
     });
   };
 
-  onSubmitHandler = evt => {
+  onSubmitHandler = (evt) => {
     evt.preventDefault();
     this.props.registerAction(this.state.user, this.props.history);
   };
@@ -104,10 +104,10 @@ class RegisterForm extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.userReducer.user,
-    error: state.userReducer.error
+    error: state.userReducer.error,
   };
 };
 

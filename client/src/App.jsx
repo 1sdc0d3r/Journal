@@ -10,6 +10,7 @@ import Dashboard from "./components/Dashboard";
 import Entry from "./components/Entry";
 import JournalPage from "./components/JournalPage";
 import Favorite from "./components/Favorites";
+import Settings from "./components/Settings.jsx";
 // import Journal from "./components/Journal";
 //* Style
 import "./style/App.css";
@@ -31,6 +32,7 @@ class App extends Component {
 
   componentWillMount() {
     console.log("APP MOUNT");
+    // getUser();
   }
 
   render() {
@@ -44,6 +46,7 @@ class App extends Component {
           <PrivateRoute path="/entry" component={Entry} />
           <PrivateRoute path="/journal" component={JournalPage} />
           <PrivateRoute path="/favorite" component={Favorite} />
+          <PrivateRoute path="/settings" component={Settings} />
         </Switch>
       </div>
     );

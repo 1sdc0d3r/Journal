@@ -8,6 +8,7 @@ import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
 import { deleteAction } from "../redux/actions/entry/deleteAction";
 import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 
+// todo combine with JournalPage based off of history.location.current? (/journal vs /favorite)
 class Favorites extends Component {
   constructor(props) {
     super(props);
@@ -55,34 +56,41 @@ class Favorites extends Component {
       // entries: this.props.entries.slice(offset + limit, offset + limit * 2),
     });
   };
-
+  // todo rendering 3 cards per page...
   render() {
     const { limit, offset } = this.state;
+    console.log({ limit }, { offset });
     return (
       <div className="favorites journal">
         <h1>Favorites</h1>
         <div className="entries">
           {this.props.entries.length ? (
-            this.props.entries.slice(offset, offset + limit).map((entry) => {
-              if (entry.favorite) {
-                return (
-                  <EntryCard
-                    entry={entry}
-                    favoriteHandler={this.unFavoriteBtnHandler}
-                    editHandler={this.editBtnHandler}
-                    deleteHandler={this.deleteBtnHandler}
-                  />
-                );
-              }
-            })
+            this.props.entries
+              .filter((e) => e.favorite)
+              .slice(offset, offset + limit)
+              .map((entry, i) => {
+                if (entry.favorite) {
+                  return (
+                    <EntryCard
+                      key={i}
+                      entry={entry}
+                      favoriteHandler={this.unFavoriteBtnHandler}
+                      editHandler={this.editBtnHandler}
+                      deleteHandler={this.deleteBtnHandler}
+                    />
+                  );
+                }
+              })
           ) : (
             <h2 className="no-entries">No Favorite Entries</h2>
           )}
         </div>
+        {/*//todo filter down to entries w/ favorite  */}
         <NavButtons
           state={this.state}
           back={this.previousBtnHandler}
           next={this.nextBtnHandler}
+          path={this.props.location.pathname}
         />
       </div>
     );

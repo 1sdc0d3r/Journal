@@ -12,7 +12,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    this.props.getJournalAction();
+    // this.props.getJournalAction();
   }
   // * newField-feature
   // onChangeHandler = evt => {

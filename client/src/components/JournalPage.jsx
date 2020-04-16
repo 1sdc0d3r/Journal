@@ -55,8 +55,9 @@ class JournalPage extends Component {
           {this.props.entries.length ? (
             this.props.entries
               .slice(offset, offset + limit)
-              .map((entry) => (
+              .map((entry, i) => (
                 <EntryCard
+                  key={i}
                   entry={entry}
                   favoriteHandler={this.favoriteBtnHandler}
                   editHandler={this.editBtnHandler}
@@ -89,6 +90,7 @@ class JournalPage extends Component {
               page: page + 1,
             })
           }
+          path={this.props.location.pathname}
         />
       </div>
     );

@@ -14,6 +14,7 @@ function Navigation(props) {
       <NavLink to="/journal">Journal</NavLink>
       <NavLink to="/favorite">Favorite</NavLink>
       <NavLink to="/entry">Entry</NavLink>
+      <NavLink to="/settings">Settings</NavLink>
       {!authenticated && <NavLink to="/login">Login</NavLink>}
       {!authenticated && <NavLink to="/register">Register</NavLink>}
       {authenticated && (
