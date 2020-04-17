@@ -15,6 +15,7 @@ import Settings from "./components/Settings.jsx";
 //* Style
 import "./style/App.css";
 
+// todo setup development, staging, and production branches
 // todo stay logged in if there is a token, save user data as well???
 //todo format date
 //todo fix autologout, server side
@@ -22,6 +23,8 @@ import "./style/App.css";
 //todo fix errors between register and login components (server error?)
 //todo fix logging in each time page refreshes
 // todo allow user to delete account/user w/ all entries
+//todo incorrect username from login error carries over to register
+
 class App extends Component {
   constructor(props) {
     super(props);

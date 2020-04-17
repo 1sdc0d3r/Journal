@@ -1,10 +1,12 @@
 import axios from "axios";
+import address from "../config/address";
 import { getToken } from "../utils/authService";
 
+//todo IS THIS BASE URL WORKING???
 export const axiosWithAuth = () => {
   const token = getToken();
   return axios.create({
-    baseURL: "https://micro-journal.herokuapp.com/api/",
-    headers: { Authorization: token }
+    baseURL: `${address.LOCALHOST}/api/`,
+    headers: { Authorization: token },
   });
 };

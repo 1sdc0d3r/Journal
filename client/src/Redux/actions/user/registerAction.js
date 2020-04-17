@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setToken } from "../../../utils/authService";
+import { setToken, setUser } from "../../../utils/authService";
 import address from "../../../config/address";
 
 export const USER_REGISTER_START = "USER_REGISTER_START";
@@ -12,7 +12,8 @@ export const registerAction = (user, history) => (dispatch) => {
     .post(`${address.LOCALHOST}/api/auth/register`, user)
     .then((res) => {
       setToken(res.data.user.token);
-      dispatch({ type: USER_REGISTER_SUCCESS, payload: res.data.user });
+      setUser(res.data.user.first_name);
+      dispatch({ type: USER_REGISTER_SUCCESS });
       history.push("/");
     })
     .catch((err) =>

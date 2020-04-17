@@ -1,12 +1,18 @@
 const router = require("express").Router();
 const userDb = require("../../../database/model/userModel");
 
-router.get("/delete", (req, res) => {
-  const id = req.decodedToken.subject;
+// todo change to router.delete
 
+router.delete("/", (req, res) => {
+  const id = req.decodedToken.subject;
+  console.log({ id });
   userDb
     .removeUser(id)
-    .then((res) => res.status(200).json({ message: "deleted user :(" }))
+    .then((resp) =>
+      res
+        .status(200)
+        .json({ message: `User was successfully deleted. ID:${resp}` })
+    )
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({ name, message, stack, code })
     );

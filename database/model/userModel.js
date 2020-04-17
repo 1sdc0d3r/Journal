@@ -13,7 +13,7 @@ module.exports = {
 
 //* User
 function insertUser(user) {
-  return db("User").insert(user);
+  return db("User").insert(user).returning("*");
 }
 function getUsers() {
   return db("User");

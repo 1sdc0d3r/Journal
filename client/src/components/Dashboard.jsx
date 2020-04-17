@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { NavLink, Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { newFieldAction } from "../redux/actions/entry-field/newFieldAction";
 import { getJournalAction } from "../redux/actions/journal/getJournal";
 import { logoutAction } from "../redux/actions/user/logoutAction";
+import { getUser } from "../utils/authService";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      firstName: getUser() || "",
+    };
   }
 
-  componentDidMount() {
-    // this.props.getJournalAction();
-  }
+  componentDidMount() {}
   // * newField-feature
   // onChangeHandler = evt => {
   //   this.setState({
@@ -29,10 +30,6 @@ class Dashboard extends Component {
   // };
 
   render() {
-    // if (this.state.redirect) {
-    //   console.log("REDIRECT DASHBOARD");
-    //   return <Redirect to={this.state.redirect} />;
-    // }
     return (
       <div className="dashboard">
         {/* <nav>
@@ -43,7 +40,7 @@ class Dashboard extends Component {
         {this.props.error ? (
           <h2>{this.props.error}</h2>
         ) : (
-          <h2>Welcome: {this.props.user.first_name}</h2>
+          <h2>Welcome: {this.state.firstName}</h2>
         )}
         {/* // * newField-feature */}
         {/* <form onSubmit={this.onSubmitHandler}>
@@ -60,9 +57,9 @@ class Dashboard extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user,
     authenticated: state.userReducer.authenticated,
   };
 };

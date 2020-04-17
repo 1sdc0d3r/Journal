@@ -98,7 +98,6 @@ class JournalPage extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user,
     entries: state.journalReducer.entries,
     authenticated: state.userReducer.authenticated,
   };

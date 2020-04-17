@@ -5,7 +5,6 @@ import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import history from "../config/history";
 
 function NavButtons({ state, back, next, entries, path }) {
-  console.log({path});
   return (
     <div className="nav-btns">
       <p className="back">

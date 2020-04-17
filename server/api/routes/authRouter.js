@@ -18,8 +18,8 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   user.password = hash;
   userDb
     .insertUser(user)
-    .then(() => {
-      user.token = generateToken(user);
+    .then(([newUser]) => {
+      user.token = generateToken(newUser);
       res.status(201).json({ user });
     })
     .catch(({ name, message, stack, code }) =>
@@ -27,7 +27,6 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
     );
 });
 
-//todo if already logged in redirect to dashboard
 router.post("/login", validateHeaders, (req, res) => {
   const { username, password } = req.body;
   userDb

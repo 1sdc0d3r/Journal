@@ -41,9 +41,6 @@ class EntryForm extends Component {
   };
 
   render() {
-    // if (!this.props.user.username) {
-    //   return <Redirect to="/login" />;
-    // }
     return (
       <div className="entry">
         <h1>New Entry</h1>
@@ -70,7 +67,6 @@ class EntryForm extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user,
     fetching: state.entryReducer.isFetching,
     isModifying: state.entryReducer.isModifying,
     edit: state.entryReducer.edit,

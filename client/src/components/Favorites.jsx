@@ -9,6 +9,7 @@ import { deleteAction } from "../redux/actions/entry/deleteAction";
 import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 
 // todo combine with JournalPage based off of history.location.current? (/journal vs /favorite)
+// todo if no favorites link to JournalPage
 class Favorites extends Component {
   constructor(props) {
     super(props);
@@ -59,7 +60,6 @@ class Favorites extends Component {
   // todo rendering 3 cards per page...
   render() {
     const { limit, offset } = this.state;
-    console.log({ limit }, { offset });
     return (
       <div className="favorites journal">
         <h1>Favorites</h1>
@@ -98,7 +98,6 @@ class Favorites extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user,
     entries: state.journalReducer.entries,
   };
 };

@@ -106,7 +106,6 @@ class RegisterForm extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user,
     error: state.userReducer.error,
   };
 };
