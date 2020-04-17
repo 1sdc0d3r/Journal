@@ -1,8 +1,6 @@
 const router = require("express").Router();
 const userDb = require("../../../database/model/userModel");
 
-// todo change to router.delete
-
 router.delete("/", (req, res) => {
   const id = req.decodedToken.subject;
   console.log({ id });
