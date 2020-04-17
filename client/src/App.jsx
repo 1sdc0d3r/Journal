@@ -29,11 +29,6 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
-    console.log("APP MOUNT");
-    // getUser();
-  }
-
   render() {
     return (
       <div className="App">

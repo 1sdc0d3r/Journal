@@ -24,7 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import address from "../../src/config/address";
-import { setToken } from "../../src/utils/authService";
+import { setToken, setUser } from "../../src/utils/authService";
+
 Cypress.Commands.add("login", () => {
   cy.request({
     method: "POST",
@@ -33,5 +34,31 @@ Cypress.Commands.add("login", () => {
       username: "jackBarry",
       password: "password",
     },
-  }).then((resp) => setToken(resp.body.user.token));
+  }).then((resp) => {
+    setToken(resp.body.user.token);
+    setUser(resp.body.user.first_name);
+  });
+});
+
+Cypress.Commands.add("loginWith", (user, pass) => {
+  cy.get("[name=username]").type(`${user}`);
+  cy.get("[name=password]").type(`${pass}{enter}`);
+});
+
+Cypress.Commands.add("logout", () => {
+  cy.get('[href="/login"]').click();
+});
+
+let LOCAL_STORAGE_MEMORY = {};
+
+Cypress.Commands.add("saveLocalStorage", () => {
+  Object.keys(localStorage).forEach((key) => {
+    LOCAL_STORAGE_MEMORY[key] = localStorage[key];
+  });
+});
+
+Cypress.Commands.add("restoreLocalStorage", () => {
+  Object.keys(LOCAL_STORAGE_MEMORY).forEach((key) => {
+    localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
+  });
 });

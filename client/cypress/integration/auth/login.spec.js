@@ -32,6 +32,8 @@ describe("/login", () => {
   });
   it("navigates to #/ on successful login", () => {
     cy.get("[name=password]").type("{selectAll}{del}password{enter}");
-    cy.hash().should("eq", "");
+    //? cy.hash()
+    cy.contains("h2", "Dashboard");
+    cy.url().should("contain", "/");
   });
 });
