@@ -21,7 +21,7 @@ export const deleteUser = (history) => (dispatch) => {
     })
     .catch((err) => {
       console.log({ err });
-      // todo pass error to reducer
+      //? passing error?
       dispatch({ type: USER_DELETE_FAIL, payload: err.response.data.message });
     });
 };

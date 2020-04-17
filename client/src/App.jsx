@@ -8,22 +8,18 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Entry from "./components/Entry";
-import JournalPage from "./components/JournalPage";
+import JournalPage from "./components/Journal";
 import Favorite from "./components/Favorites";
 import Settings from "./components/Settings.jsx";
 // import Journal from "./components/Journal";
 //* Style
 import "./style/App.css";
 
-// todo setup development, staging, and production branches
-// todo stay logged in if there is a token, save user data as well???
+//todo add trigger for updated_at user&entry
 //todo format date
-//todo fix autologout, server side
-//todo not able to add entries/access journal when first register
+//? todo fix auto logout, server side
 //todo fix errors between register and login components (server error?)
-//todo fix logging in each time page refreshes
-// todo allow user to delete account/user w/ all entries
-//todo incorrect username from login error carries over to register
+//todo delete account w/ all entries
 
 class App extends Component {
   constructor(props) {

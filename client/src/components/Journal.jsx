@@ -13,7 +13,6 @@ import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 // * ICONS
 
 //todo create a card component DRY
-//todo allow user to go straight to journal page without hitting dash first (getJournalAction)
 class JournalPage extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +22,6 @@ class JournalPage extends Component {
       page: 1,
     };
   }
-  //todo fix showing journal after inputting new entry and redirect
 
   componentDidMount() {
     const { limit, offset } = this.state;

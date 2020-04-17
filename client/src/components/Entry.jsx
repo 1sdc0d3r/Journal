@@ -15,8 +15,6 @@ class EntryForm extends Component {
     };
   }
 
-  //todo set state to entry fields w/ cwm
-
   onChangeHandler = (evt) => {
     this.setState({
       ...this.state,

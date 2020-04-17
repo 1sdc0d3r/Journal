@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { deleteUser } from "../redux/actions/user/deleteUser";
 
-//todo unable to delete user unless logging out first
 function Settings({ deleteUser, history, error }) {
   const [confirm, setConfirm] = useState(false);
 

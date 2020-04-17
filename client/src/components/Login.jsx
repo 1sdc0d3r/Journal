@@ -14,7 +14,7 @@ class LoginForm extends Component {
       },
     };
   }
-  //todo re-render this component when using <Redirect />
+  //? Do I want user to be able to access login without logging out?
   componentDidMount() {
     console.log("LOGIN MOUNTED");
   }

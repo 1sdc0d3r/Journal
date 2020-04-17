@@ -35,11 +35,9 @@ router.post("/", validateEntry, (req, res) => {
   console.log({ entry }, { userId });
   entryDb
     .insertEntry(entry)
-    .then(([id]) => {
-      //todo FIXED? if registered can't post due to key constrains until logged out
-      //todo return id
-      journalDb.updateJournal(userId, id).then(() => res.status(201).end());
-    })
+    .then(([id]) =>
+      journalDb.updateJournal(userId, id).then(() => res.status(201).end())
+    )
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({
         errorMessage: "unable to add entry",

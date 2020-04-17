@@ -9,7 +9,6 @@ import { deleteAction } from "../redux/actions/entry/deleteAction";
 import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 
 // todo combine with JournalPage based off of history.location.current? (/journal vs /favorite)
-// todo if no favorites link to JournalPage
 class Favorites extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +56,6 @@ class Favorites extends Component {
       // entries: this.props.entries.slice(offset + limit, offset + limit * 2),
     });
   };
-  // todo rendering 3 cards per page...
   render() {
     const { limit, offset } = this.state;
     return (
@@ -82,10 +80,14 @@ class Favorites extends Component {
                 }
               })
           ) : (
-            <h2 className="no-entries">No Favorite Entries</h2>
+            <>
+              <h2 className="no-entries">No Favorite Entries</h2>
+              <button onClick={() => this.props.history.push("/journal")}>
+                Journal
+              </button>
+            </>
           )}
         </div>
-        {/*//todo filter down to entries w/ favorite  */}
         <NavButtons
           state={this.state}
           back={this.previousBtnHandler}
