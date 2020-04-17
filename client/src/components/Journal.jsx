@@ -52,6 +52,7 @@ class JournalPage extends Component {
         <div className="entries">
           {this.props.entries.length ? (
             this.props.entries
+              .sort((a, b) => a.id - b.id)
               .slice(offset, offset + limit)
               .map((entry, i) => (
                 <EntryCard

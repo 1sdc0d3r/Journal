@@ -32,7 +32,7 @@ router.get("/:id", (req, res) => {
 router.post("/", validateEntry, (req, res) => {
   const entry = req.body;
   const userId = req.decodedToken.subject; //id
-  console.log({ entry }, { userId });
+  // console.log({ entry }, { userId });
   entryDb
     .insertEntry(entry)
     .then(([id]) =>

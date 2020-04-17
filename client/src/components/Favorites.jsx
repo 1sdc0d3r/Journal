@@ -65,6 +65,7 @@ class Favorites extends Component {
           {this.props.entries.length ? (
             this.props.entries
               .filter((e) => e.favorite)
+              .sort((a, b) => a.id - b.id)
               .slice(offset, offset + limit)
               .map((entry, i) => {
                 if (entry.favorite) {

@@ -25,30 +25,8 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import address from "../../src/config/address";
 import { setToken, setUser } from "../../src/utils/authService";
-
-Cypress.Commands.add("login", () => {
-  cy.request({
-    method: "POST",
-    url: `${address.LOCALHOST}/api/auth/login`,
-    body: {
-      username: "jackBarry",
-      password: "password",
-    },
-  }).then((resp) => {
-    setToken(resp.body.user.token);
-    setUser(resp.body.user.first_name);
-  });
-});
-
-Cypress.Commands.add("loginWith", (user, pass) => {
-  cy.get("[name=username]").type(`${user}`);
-  cy.get("[name=password]").type(`${pass}{enter}`);
-});
-
-Cypress.Commands.add("logout", () => {
-  cy.get('[href="/login"]').click();
-});
-
+const userGenerator = require("random-username-generator");
+// import { loginActionSuccess } from "../../src/redux/actions/user/loginAction";
 let LOCAL_STORAGE_MEMORY = {};
 
 Cypress.Commands.add("saveLocalStorage", () => {
@@ -61,4 +39,44 @@ Cypress.Commands.add("restoreLocalStorage", () => {
   Object.keys(LOCAL_STORAGE_MEMORY).forEach((key) => {
     localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
   });
+});
+
+Cypress.Commands.add("register", (user) => {
+  cy.request({
+    method: "POST",
+    url: `${address.LOCALHOST}/api/auth/register`,
+    body: {
+      first_name: `test`,
+      email: `${user.email}` || userGenerator.generate(),
+      username: `${user.username}` || userGenerator.generate(),
+      password: `pass`,
+    },
+  }).then((resp) => {
+    setToken(resp.body.user.token);
+    setUser(resp.body.user.first_name);
+    cy.window().then((win) => {
+      win.store.dispatch({ type: "USER_LOGIN_SUCCESS" });
+    });
+  });
+});
+
+Cypress.Commands.add("loginWith", (user, pass) => {
+  cy.request({
+    method: "POST",
+    url: `${address.LOCALHOST}/api/auth/login`,
+    body: {
+      username: `${user}`,
+      password: `${pass}`,
+    },
+  }).then((resp) => {
+    setToken(resp.body.user.token);
+    setUser(resp.body.user.first_name);
+    cy.window().then((win) => {
+      win.store.dispatch({ type: "USER_LOGIN_SUCCESS" });
+    });
+  });
+});
+
+Cypress.Commands.add("logout", () => {
+  cy.get('[href="/login"]').click();
 });

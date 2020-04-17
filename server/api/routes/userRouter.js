@@ -3,7 +3,7 @@ const userDb = require("../../../database/model/userModel");
 
 router.delete("/", (req, res) => {
   const id = req.decodedToken.subject;
-  console.log({ id });
+  // console.log({ id });
   userDb
     .removeUser(id)
     .then((resp) =>

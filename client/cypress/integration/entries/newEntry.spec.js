@@ -1,23 +1,17 @@
-describe("/entry", () => {
-  beforeEach(() => {
-    cy.restoreLocalStorage();
-  });
-  afterEach(() => {
-    cy.saveLocalStorage();
-  });
+import { loginActionSuccess } from "../../../src/redux/actions/user/loginAction";
+const randomSentence = require("random-sentence");
 
-  it("Visits Entry", () => {
+describe("/entry", () => {
+  const sentence = randomSentence({ min: 5, max: 10 });
+
+  it("Navigates to entry", () => {
     cy.visit("/");
-    cy.logout();
     cy.loginWith("jackBarry", "password");
-    cy.contains("h2", "Dashboard");
-  });
-  it("navigates to entry", () => {
     cy.get('[href="/entry"]').click();
     cy.contains("h1", "New Entry");
   });
   it("navigates to /journal on entry", () => {
-    cy.get("textarea").type("New Entry Description");
+    cy.get("textarea").type(sentence);
     cy.get("button").click();
     cy.url().should("contain", "/journal");
   });

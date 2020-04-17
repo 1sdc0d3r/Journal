@@ -7,7 +7,6 @@ import "../style/navigation/Navigation.css";
 
 function Navigation(props) {
   const { authenticated, logoutAction } = props;
-  console.log("authenticated:", authenticated);
   return (
     <nav>
       <NavLink to="/">Dashboard</NavLink>

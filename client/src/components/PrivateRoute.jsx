@@ -4,6 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 
 const PrivateRoute = ({ component: Component, authenticated, ...rest }) => {
   return (
+    // todo change back to authenticated
     <Route
       {...rest}
       render={() => (authenticated ? <Component /> : <Redirect to="login" />)}

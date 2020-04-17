@@ -23,3 +23,6 @@ export const loginAction = (credentials, history) => (dispatch) => {
       })
     );
 };
+
+export const loginActionSuccess = () => (dispatch) =>
+  dispatch({ type: USER_LOGIN_SUCCESS });

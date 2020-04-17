@@ -14,7 +14,22 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-
+import "./commands";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+beforeEach(() => {
+  cy.restoreLocalStorage();
+});
+afterEach(() => {
+  cy.saveLocalStorage();
+});
+
+//! Test files in order CYPRESS.JSON
+//   "testFiles": [
+//     "login/*.js",
+//     "leads/new-lead.spec.js",
+//     "leads/leads-list.spec.js",
+//     "leads/lead-detail.spec.js",
+//     "leads/lead-modify.spec.js"
+//   ]

@@ -15,9 +15,6 @@ class LoginForm extends Component {
     };
   }
   //? Do I want user to be able to access login without logging out?
-  componentDidMount() {
-    console.log("LOGIN MOUNTED");
-  }
 
   onChangeHandler = (evt) => {
     this.setState({
