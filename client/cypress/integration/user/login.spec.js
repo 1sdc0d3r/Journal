@@ -1,7 +1,7 @@
 //Arrange Act Assert
 describe("/login", () => {
-  it("Visits Journal", () => {
-    cy.visit("/");
+  it("Visits Login", () => {
+    cy.visit("/login");
     // cy.url().should("include", "/login");
     //   cy.contains("Login");
     //   cy.get(".action-username")
@@ -11,7 +11,7 @@ describe("/login", () => {
   it("greets with sign in", () => {
     cy.contains("h2", "Login");
   });
-  it("links to #/register", () => {
+  it("links to /register", () => {
     cy.contains("Don't have an account?").should(
       "have.attr",
       "href",

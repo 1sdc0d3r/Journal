@@ -19,7 +19,7 @@ export const registerAction = (user, history) => (dispatch) => {
     .catch((err) =>
       dispatch({
         type: USER_REGISTER_FAIL,
-        payload: err.response.data.errorMessage,
+        payload: err.response.data.message,
       })
     );
 };

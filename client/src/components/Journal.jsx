@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter, Redirect, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import EntryCard from "./EntryCard";
 import NavButtons from "./NavButtons";
 // * STYLE

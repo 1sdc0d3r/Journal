@@ -9264,6 +9264,11 @@ ramda@0.26.1:
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
   integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
 
+random-username-generator@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/random-username-generator/-/random-username-generator-1.0.4.tgz#05a3a62a497bef0cfaa7a850e7822b7969848a7b"
+  integrity sha1-BaOmKkl77wz6p6hQ54IreWmEins=
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"

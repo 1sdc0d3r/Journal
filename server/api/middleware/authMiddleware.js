@@ -23,12 +23,12 @@ function checkExistingUsers(req, res, next) {
   userDb.getUserByEmail(user.email).then((oldUser) => {
     oldUser
       ? res.status(400).json({
-          errorMessage: "Account with this email already exits",
+          message: "Account with this email already exits",
         })
       : userDb.getUserByUsername(user.username).then((oldUser) => {
           oldUser
             ? res.status(400).json({
-                errorMessage: "Username is already in use",
+                message: "Username is already in use",
               })
             : next();
         });

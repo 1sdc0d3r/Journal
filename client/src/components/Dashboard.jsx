@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { newFieldAction } from "../redux/actions/entry-field/newFieldAction";
 import { getJournalAction } from "../redux/actions/journal/getJournal";
 import { logoutAction } from "../redux/actions/user/logoutAction";
 import { getUser } from "../utils/authService";
@@ -13,29 +12,11 @@ class Dashboard extends Component {
       firstName: getUser() || "",
     };
   }
-
-  componentDidMount() {}
   // * newField-feature
-  // onChangeHandler = evt => {
-  //   this.setState({
-  //     ...this.state,
-  //     [evt.target.name]: evt.target.value
-  //   });
-  // };
-
-  // * newField-feature
-  // onSubmitHandler = evt => {
-  //   evt.preventDefault();
-  //   this.props.newFieldAction(this.state.newField, this.props.history);
-  // };
 
   render() {
     return (
       <div className="dashboard">
-        {/* <nav>
-          <NavLink to="/entry">Entry</NavLink>
-          <NavLink to="/journal">Journal</NavLink>
-        </nav> */}
         <h2>Dashboard</h2>
         {this.props.error ? (
           <h2>{this.props.error}</h2>
@@ -65,7 +46,5 @@ const mapStateToProps = (state) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, { logoutAction, newFieldAction, getJournalAction })(
-    Dashboard
-  )
+  connect(mapStateToProps, { logoutAction, getJournalAction })(Dashboard)
 );

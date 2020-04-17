@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import "../style/nav-btns/NavBtns.css";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
-import history from "../config/history";
+// import history from "../config/history";
 
 function NavButtons({ state, back, next, entries, path }) {
   return (
