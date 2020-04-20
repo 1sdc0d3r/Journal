@@ -26,29 +26,31 @@
 import address from "../../src/config/address";
 import { setToken, setUser } from "../../src/utils/authService";
 const userGenerator = require("random-username-generator");
+const randomSentence = require("random-sentence");
+const sentence = randomSentence({ min: 5, max: 10 });
 // import { loginActionSuccess } from "../../src/redux/actions/user/loginAction";
+//! Local storage is ran before every test
 let LOCAL_STORAGE_MEMORY = {};
-
 Cypress.Commands.add("saveLocalStorage", () => {
   Object.keys(localStorage).forEach((key) => {
     LOCAL_STORAGE_MEMORY[key] = localStorage[key];
   });
 });
-
 Cypress.Commands.add("restoreLocalStorage", () => {
   Object.keys(LOCAL_STORAGE_MEMORY).forEach((key) => {
     localStorage.setItem(key, LOCAL_STORAGE_MEMORY[key]);
   });
 });
 
-Cypress.Commands.add("register", (user) => {
+Cypress.Commands.add("register", () => {
   cy.request({
     method: "POST",
     url: `${address.LOCALHOST}/api/auth/register`,
     body: {
       first_name: `test`,
-      email: `${user.email}` || userGenerator.generate(),
-      username: `${user.username}` || userGenerator.generate(),
+      last_name: "test",
+      email: userGenerator.generate(),
+      username: userGenerator.generate(),
       password: `pass`,
     },
   }).then((resp) => {
@@ -65,8 +67,8 @@ Cypress.Commands.add("loginWith", (user, pass) => {
     method: "POST",
     url: `${address.LOCALHOST}/api/auth/login`,
     body: {
-      username: `${user}`,
-      password: `${pass}`,
+      username: user ? `${user}` : "jackBarry",
+      password: pass ? `${pass}` : "password",
     },
   }).then((resp) => {
     setToken(resp.body.user.token);
@@ -79,4 +81,9 @@ Cypress.Commands.add("loginWith", (user, pass) => {
 
 Cypress.Commands.add("logout", () => {
   cy.get('[href="/login"]').click();
+});
+
+Cypress.Commands.add("entry", () => {
+  cy.get("textarea").type(sentence);
+  cy.get("button").click();
 });

@@ -29,7 +29,7 @@ function EntryCard(props) {
       )}
       {/* <p>{entry.id}</p> */}
       <p>Entry Date: {entry.created_at}</p>
-      <p>Modified Date: {entry.modified_at}</p>
+      {/* <p>Modified Date: {entry.modified_at}</p> */}
       <p>Description: {entry.description}</p>
       <button onClick={() => editHandler(entry)}>Edit</button>
       <button onClick={() => deleteHandler(entry)}>Delete</button>

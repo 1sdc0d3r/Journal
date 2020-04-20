@@ -15,7 +15,7 @@ describe("/register", () => {
       "/login"
     );
   });
-
+  // todo test for last_name required as well
   it("require first_name & email", () => {
     cy.get("form").contains("button", "Register").click();
     cy.contains("h3", "please provide name and email");

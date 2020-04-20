@@ -17,6 +17,8 @@
 import "./commands";
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+// import "@cypress/code-coverage/support";
+console.log("before all");
 
 beforeEach(() => {
   cy.restoreLocalStorage();

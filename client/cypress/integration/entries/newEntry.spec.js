@@ -10,7 +10,7 @@ describe("/entry", () => {
     cy.get('[href="/entry"]').click();
     cy.contains("h1", "New Entry");
   });
-  it("navigates to /journal on entry", () => {
+  it("navigates to /journal on successful entry", () => {
     cy.get("textarea").type(sentence);
     cy.get("button").click();
     cy.url().should("contain", "/journal");
