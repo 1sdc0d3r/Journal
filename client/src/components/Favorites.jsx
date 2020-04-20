@@ -62,7 +62,7 @@ class Favorites extends Component {
       <div className="favorites journal">
         <h1>Favorites</h1>
         <div className="entries">
-          {this.props.entries.length ? (
+          {this.props.entries.filter((e) => e.favorite).length ? (
             this.props.entries
               .filter((e) => e.favorite)
               .sort((a, b) => a.id - b.id)

@@ -24,9 +24,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "cypress": "cypress open"
+  },
+  "nyc": {
+    "report-dir": "coverage/cypress-coverage"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,10 +47,12 @@
     ]
   },
   "devDependencies": {
-    "@cypress/code-coverage": "^3.3.0",
+    "@cypress/code-coverage": "^3.3.1",
+    "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^4.4.0",
     "eslint-plugin-cypress": "^2.10.3",
     "istanbul-lib-coverage": "^3.0.0",
+    "it": "^1.1.1",
     "nyc": "^15.0.1"
   }
 }
