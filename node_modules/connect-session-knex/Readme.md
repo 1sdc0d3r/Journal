@@ -18,11 +18,15 @@ connect-session-knex is an [express-session](https://github.com/expressjs/sessio
 $ npm install connect-session-knex
 ```
 
+## History
+
+See [Changelog.md](Changelog.md)
+
 ## Usage
 
-[Example application using the defaults](https://github.com/llambda/connect-session-knex/blob/master/example.js)
+[Example application using the defaults](https://github.com/llambda/connect-session-knex/blob/master/examples/example.js)
 
-[Example application with PostgreSQL](https://github.com/llambda/connect-session-knex/blob/master/example-postgres.js)
+[Example application with PostgreSQL](https://github.com/llambda/connect-session-knex/blob/master/examples/example-postgres.js)
 
 [With Express 3 or Connect](https://github.com/llambda/connect-session-knex/blob/master/Oldversions.md)
 
@@ -75,3 +79,65 @@ If a knex instance is not provided, this module will attempt to create a sqlite3
 [gitter-channel-url]: https://gitter.im/llambda/connect-session-knex
 [express-session-url]: https://github.com/expressjs/session
 [io-url]: https://iojs.org
+
+## Testing
+
+Install Postgresql
+Instructions for Ubuntu after intalling the db:
+
+```bash
+sudo -u postgres psql
+```
+
+```sql
+CREATE DATABASE travis_ci_test OWNER postgres;
+```
+
+```sql
+GRANT all privileges ON DATABASE travis_ci_test TO postgres;
+```
+
+```sql
+ALTER USER postgres WITH PASSWORD 'postgres';
+```
+
+```sql
+\q
+```
+
+Install Mysql
+Instructions for Ubuntu after installing the db:
+
+```bash
+sudo mysql -u root
+```
+
+```sql
+create user 'travis' identified by 'travis';
+```
+
+```sql
+ALTER USER 'travis'@'localhost' IDENTIFIED BY 'travis';
+```
+
+```sql
+create database travis_ci_test;
+```
+
+```sql
+grant all on travis_ci_test.* to 'travis';
+```
+
+```sql
+\q
+```
+
+```bash
+sudo service mysql restart
+```
+
+Make sure both the MySQL and Postgres services are running
+
+```bash
+npm run test
+```
