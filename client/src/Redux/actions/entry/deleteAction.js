@@ -8,7 +8,7 @@ export const ENTRY_DELETE_FAIL = "ENTRY_DELETE_FAIL";
 export const deleteAction = (id, history) => (dispatch) => {
   dispatch({ type: ENTRY_DELETE_START });
   axiosWithAuth()
-    .delete(`${address.LOCALHOST}/api/entry/${id}`)
+    .delete(`${address}/api/entry/${id}`)
     .then((res) => {
       dispatch({ type: ENTRY_DELETE_SUCCESS, payload: res.data });
       history.push("/temp");

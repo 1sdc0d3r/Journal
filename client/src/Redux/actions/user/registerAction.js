@@ -9,7 +9,7 @@ export const USER_REGISTER_FAIL = "USER_REGISTER_FAIL";
 export const registerAction = (user, history) => (dispatch) => {
   dispatch({ type: USER_REGISTER_START, payload: user });
   axios
-    .post(`${address.LOCALHOST}/api/auth/register`, user)
+    .post(`${address}/api/auth/register`, user)
     .then((res) => {
       setToken(res.data.user.token);
       setUser(res.data.user.first_name);

@@ -6,7 +6,7 @@ import { getToken } from "../utils/authService";
 export const axiosWithAuth = () => {
   const token = getToken();
   return axios.create({
-    baseURL: `${address.LOCALHOST}/api/`,
+    baseURL: `${address}/api/`,
     headers: { Authorization: token },
   });
 };

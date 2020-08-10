@@ -9,7 +9,7 @@ export const ENTRY_FAVORITE_FAIL = "ENTRY_FAVORITE_FAIL";
 export const favoriteAction = (id, history) => (dispatch) => {
   dispatch({ type: ENTRY_FAVORITE_START });
   axiosWithAuth()
-    .get(`${address.LOCALHOST}/api/entry/favorite/${id}`)
+    .get(`${address}/api/entry/favorite/${id}`)
     .then((res) => {
       dispatch({ type: ENTRY_FAVORITE_SUCCESS, payload: res.data });
       history.push("/temp");

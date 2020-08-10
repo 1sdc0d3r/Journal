@@ -9,7 +9,7 @@ export const USER_DELETE_FAIL = "USER_DELETE_FAIL";
 export const deleteUser = (history) => (dispatch) => {
   dispatch({ type: USER_DELETE_START });
   axiosWithAuth()
-    .delete(`${address.LOCALHOST}/api/user`)
+    .delete(`${address}/api/user`)
     .then(() => {
       removeToken();
       removeUser();

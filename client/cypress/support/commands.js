@@ -45,7 +45,7 @@ Cypress.Commands.add("restoreLocalStorage", () => {
 Cypress.Commands.add("register", () => {
   cy.request({
     method: "POST",
-    url: `${address.LOCALHOST}/api/auth/register`,
+    url: `${address}/api/auth/register`,
     body: {
       first_name: `test`,
       last_name: "test",
@@ -65,7 +65,7 @@ Cypress.Commands.add("register", () => {
 Cypress.Commands.add("loginWith", (user, pass) => {
   cy.request({
     method: "POST",
-    url: `${address.LOCALHOST}/api/auth/login`,
+    url: `${address}/api/auth/login`,
     body: {
       username: user ? `${user}` : "jackBarry",
       password: pass ? `${pass}` : "password",
