@@ -6,17 +6,17 @@ import { logoutAction } from "../redux/actions/user/logoutAction";
 import "../style/navigation/Navigation.css";
 
 function Navigation(props) {
-  const { user, loggedIn, logoutAction } = props;
+  const { authenticated, logoutAction } = props;
   return (
-    //todo don't show register, and login when logged in
     <nav>
       <NavLink to="/">Dashboard</NavLink>
       <NavLink to="/journal">Journal</NavLink>
       <NavLink to="/favorite">Favorite</NavLink>
       <NavLink to="/entry">Entry</NavLink>
-      {!loggedIn && <NavLink to="/login">Login</NavLink>}
-      {!loggedIn && <NavLink to="/register">Register</NavLink>}
-      {loggedIn && (
+      {authenticated && <NavLink to="/settings">Settings</NavLink>}
+      {!authenticated && <NavLink to="/login">Login</NavLink>}
+      {!authenticated && <NavLink to="/register">Register</NavLink>}
+      {authenticated && (
         <NavLink to="/login" onClick={logoutAction}>
           Logout
         </NavLink>
@@ -26,8 +26,7 @@ function Navigation(props) {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user,
-    loggedIn: state.userReducer.loggedIn,
+    authenticated: state.userReducer.authenticated,
   };
 };
 export default connect(mapStateToProps, { logoutAction })(Navigation);

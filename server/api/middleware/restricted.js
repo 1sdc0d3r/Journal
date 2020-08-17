@@ -3,6 +3,7 @@ const { JWT_SECRET = "not a secret" } = process.env;
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
+  // console.log({ authorization });
   if (authorization) {
     jwt.verify(authorization, JWT_SECRET, (err, decodedToken) => {
       if (err) {

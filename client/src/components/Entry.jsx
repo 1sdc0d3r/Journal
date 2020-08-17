@@ -15,8 +15,6 @@ class EntryForm extends Component {
     };
   }
 
-  //todo set state to entry fields w/ cwm
-
   onChangeHandler = (evt) => {
     this.setState({
       ...this.state,
@@ -41,27 +39,24 @@ class EntryForm extends Component {
   };
 
   render() {
-    // if (!this.props.user.username) {
-    //   return <Redirect to="/login" />;
-    // }
     return (
       <div className="entry">
         <h1>New Entry</h1>
         <form>
           {this.props.error && <h3>{this.props.error}</h3>}
-          <label for="description">
+          <label htmlFor="description">
             {/* Entry:{" "} */}
             <textarea
               name="description"
               rows="6"
               value={this.state.entry.description}
               onChange={this.onChangeHandler}
-              placeholder="description"
+              placeholder="Description"
               required
             />
           </label>
           <button onClick={this.onSubmitHandler}>
-            {!this.props.fetching ? "Submit" : "Submitting..."}
+            {!this.props.fetching ? "Submit" : "Journalizing..."}
           </button>
         </form>
       </div>
@@ -70,7 +65,6 @@ class EntryForm extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user,
     fetching: state.entryReducer.isFetching,
     isModifying: state.entryReducer.isModifying,
     edit: state.entryReducer.edit,

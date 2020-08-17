@@ -14,10 +14,7 @@ class LoginForm extends Component {
       },
     };
   }
-  //todo re-render this component when using <Redirect />
-  componentDidMount() {
-    console.log("LOGIN MOUNTED");
-  }
+  //? Do I want user to be able to access login without logging out?
 
   onChangeHandler = (evt) => {
     this.setState({
@@ -39,6 +36,7 @@ class LoginForm extends Component {
       <div className="login">
         <form onSubmit={this.onSubmitHandler}>
           <h2>Login</h2>
+          {/* {console.log("error", this.props.error)} */}
           {this.props.error && <h3>{this.props.error}</h3>}
           <label>
             Username:{" "}
@@ -48,7 +46,8 @@ class LoginForm extends Component {
               value={this.state.credentials.username}
               onChange={this.onChangeHandler}
               placeholder="username"
-              required
+              // className="action-username"
+              // required
             />
           </label>
           <label>
@@ -59,22 +58,21 @@ class LoginForm extends Component {
               value={this.state.credentials.password}
               onChange={this.onChangeHandler}
               placeholder="password"
-              required
+              className="action-password"
+              // required
             />
           </label>
           {/* //todo isLoading */}
           <button type="submit">Login</button>
         </form>
-        <span>Don't have an account? </span>
-        <Link to="/register">Register</Link>
+        <Link to="/register">Don't have an account?</Link>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.userReducer.user,
-    error: state.userReducer.error,
+    error: state.userReducer.loginError,
   };
 };
 export default withRouter(connect(mapStateToProps, { loginAction })(LoginForm));

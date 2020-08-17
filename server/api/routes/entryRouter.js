@@ -7,11 +7,11 @@ router.get("/", (req, res) => {
   const { limit, offset } = req.query;
   entryDb
     .getEntries(limit, offset)
-    .then(entries => res.status(200).json(entries))
+    .then((entries) => res.status(200).json(entries))
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({
         errorMessage: "unable to retrieve entries",
-        error: { name, message, stack, code }
+        error: { name, message, stack, code },
       })
     );
 });
@@ -20,11 +20,11 @@ router.get("/:id", (req, res) => {
   const { id } = req.params;
   entryDb
     .getEntryById(id)
-    .then(entry => res.status(200).json(entry))
+    .then((entry) => res.status(200).json(entry))
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({
         errorMessage: "unable to retrieve entry",
-        error: { name, message, stack, code }
+        error: { name, message, stack, code },
       })
     );
 });
@@ -32,17 +32,16 @@ router.get("/:id", (req, res) => {
 router.post("/", validateEntry, (req, res) => {
   const entry = req.body;
   const userId = req.decodedToken.subject; //id
+  // console.log({ entry }, { userId });
   entryDb
     .insertEntry(entry)
-    .then(([id]) => {
-      //todo if registered can't post due to key constrains until logged out
-      //todo return id
-      journalDb.updateJournal(userId, id).then(() => res.status(201).end());
-    })
+    .then(([id]) =>
+      journalDb.updateJournal(userId, id).then(() => res.status(201).end())
+    )
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({
         errorMessage: "unable to add entry",
-        error: { name, message, stack, code }
+        error: { name, message, stack, code },
       })
     );
 });
@@ -53,13 +52,13 @@ router.put("/:id", (req, res) => {
   // newEntry.modified_at = Date.now();
   entryDb
     .modifyEntry(id, newEntry)
-    .then(entry =>
+    .then((entry) =>
       res.status(201).json({ message: "successfully updated entry", entry })
     )
     .catch(({ name, message, stack, code }) =>
       res.status(500).json({
         errorMessage: "unable to update entry",
-        error: { name, message, stack, code }
+        error: { name, message, stack, code },
       })
     );
 });
@@ -72,12 +71,12 @@ router.delete("/:id", (req, res) => {
   const { id } = req.params;
   entryDb
     .removeEntry(id)
-    .then(count => res.status(200).json(count))
+    .then((count) => res.status(200).json(count))
     .catch(({ name, message, stack, code }) => {
       console.log(message, stack);
       res.status(500).json({
         errorMessage: "unable to delete entry",
-        error: { name, message, stack, code }
+        error: { name, message, stack, code },
       });
     });
 
@@ -90,24 +89,24 @@ router.get("/favorite/:id", (req, res) => {
   const { id } = req.params;
   entryDb
     .getEntryById(id)
-    .then(entry => {
+    .then((entry) => {
       entry.favorite = !entry.favorite;
       entryDb
         .favorite(id, entry)
-        .then(newEntry => {
+        .then((newEntry) => {
           res.status(200).json(newEntry);
         })
         .catch(({ name, message, stack, code }) =>
           res.status(500).json({
             errorMessage: "unable to favorite entry",
-            error: { name, message, stack, code }
+            error: { name, message, stack, code },
           })
         );
     })
     .catch(({ name, message, stack, code }) => {
       res.status(500).json({
         errorMessage: "unable to find entry",
-        error: { name, message, stack, code }
+        error: { name, message, stack, code },
       });
     });
 });

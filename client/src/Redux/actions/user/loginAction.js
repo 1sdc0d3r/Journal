@@ -1,6 +1,5 @@
 import axios from "axios";
-// import { axiosWithAuth } from "../../../utils/axiosWithAuth";
-import { setToken } from "../../../utils/authService";
+import { setToken, setUser } from "../../../utils/authService";
 import address from "../../../config/address";
 
 export const USER_LOGIN_START = "USER_LOGIN_START";
@@ -10,17 +9,20 @@ export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
 export const loginAction = (credentials, history) => (dispatch) => {
   dispatch({ type: USER_LOGIN_START, payload: credentials });
   axios
-    .post(`${address.LOCALHOST}/api/auth/login`, credentials)
+    .post(`${address}/api/auth/login`, credentials)
     .then((res) => {
-      setToken(res.data.token);
-      dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data.user });
+      setToken(res.data.user.token);
+      setUser(res.data.user.first_name);
+      dispatch({ type: USER_LOGIN_SUCCESS });
       history.push("/");
     })
-    .catch((err) => {
-      console.log({ err });
+    .catch((err) =>
       dispatch({
         type: USER_LOGIN_FAIL,
         payload: err.response.data.errorMessage,
-      });
-    });
+      })
+    );
 };
+
+export const loginActionSuccess = () => (dispatch) =>
+  dispatch({ type: USER_LOGIN_SUCCESS });

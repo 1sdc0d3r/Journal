@@ -1,10 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const userDb = require("../../../database/model/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { JWT_SECRET = "not a secret" } = process.env;
+const {
+  JWT_SECRET = "not a secret"
+} = process.env;
 
 const {
   validateUserBody,
@@ -18,52 +19,92 @@ router.post("/register", validateUserBody, checkExistingUsers, (req, res) => {
   user.password = hash;
   userDb
     .insertUser(user)
-    .then(() => {
-      const token = generateToken(user);
-      res.status(201).json({ user, token });
+    .then(([newUser]) => {
+      user.token = generateToken(newUser);
+      res.status(201).json({
+        user
+      });
     })
-    .catch(({ name, message, stack, code }) =>
-      res.status(500).json({ name, message, stack, code })
+    .catch(({
+        name,
+        message,
+        stack,
+        code
+      }) =>
+      res.status(500).json({
+        name,
+        message,
+        stack,
+        code
+      })
     );
 });
 
-//todo if already logged in redirect to dashboard
 router.post("/login", validateHeaders, (req, res) => {
-  const { username, password } = req.body;
+  const {
+    username,
+    password
+  } = req.body;
   userDb
     .getUserByUsername(username)
     .then((user) => {
       if (!user) {
         res.status(403).json({
-          errorMessage: "incorrect username",
+          errorMessage: "Invalid credentials, please try again.",
+          errorFrom: "Incorrect Username"
+        });
+      } else if (bcrypt.compareSync(password, user.password)) {
+        user.token = generateToken(user);
+        res.status(200).json({
+          user
         });
       } else {
-        if (bcrypt.compareSync(password, user.password)) {
-          const token = generateToken(user);
-          res.status(200).json({ user, token });
-        } else {
-          res.status(403).json({ errorMessage: "incorrect credentials" });
-        }
+        res.status(403).json({
+          errorMessage: "Invalid credentials, please try again."
+        });
       }
     })
-    .catch(({ name, message, stack, code }) =>
+    .catch(({
+        name,
+        message,
+        stack,
+        code
+      }) =>
       res.status(500).json({
         errorMessage: "unable to retrieve user",
-        error: { name, message, stack, code },
+        error: {
+          name,
+          message,
+          stack,
+          code
+        },
       })
     );
 });
+
 router.get("/users", (req, res) => {
   userDb
     .getUsers()
     .then((users) => res.status(200).json(users))
-    .catch(({ name, message, stack, code }) =>
-      res.status(500).json({ name, message, stack, code })
+    .catch(({
+        name,
+        message,
+        stack,
+        code
+      }) =>
+      res.status(500).json({
+        name,
+        message,
+        stack,
+        code
+      })
     );
 });
 
 router.use("/", (req, res) => {
-  res.status(200).json({ Route: "Auth Route up" });
+  res.status(200).json({
+    Route: "Auth Route up"
+  });
 });
 
 module.exports = router;
@@ -75,7 +116,7 @@ function generateToken(user) {
   };
   const secret = JWT_SECRET || "not a secret";
   const options = {
-    expiresIn: "1w",
+    expiresIn: "2w",
   };
   return jwt.sign(payload, secret, options);
 }

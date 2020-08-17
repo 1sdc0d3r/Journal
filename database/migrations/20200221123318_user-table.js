@@ -1,10 +1,11 @@
-exports.up = function(knex) {
-  return knex.schema.createTable("User", tbl => {
+exports.up = function (knex) {
+  return knex.schema.createTable("User", (tbl) => {
     tbl.increments("id").primary();
-    tbl.dateTime("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
-    tbl.dateTime("updated_at");
+    tbl.timestamps(true, true);
+    // tbl.dateTime("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
+    // tbl.dateTime("updated_at");
     tbl
-      .string("account")
+      .string("account") //change to account_type
       .defaultTo("user")
       .notNullable();
     tbl.string("first_name").notNullable();
@@ -16,6 +17,6 @@ exports.up = function(knex) {
   });
 };
 
-exports.down = function(knex) {
+exports.down = function (knex) {
   return knex.schema.dropTableIfExists("User");
 };

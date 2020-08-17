@@ -2,12 +2,25 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "devDependencies": {
+    "@cypress/code-coverage": "^3.3.1",
+    "@istanbuljs/load-nyc-config": "^1.0.0",
+    "babel-plugin-istanbul": "^6.0.0",
+    "cypress": "^4.4.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "istanbul-lib-coverage": "^3.0.0",
+    "it": "^1.1.1",
+    "nyc": "^15.0.1",
+    "random-sentence": "^1.0.4",
+    "random-username-generator": "^1.0.4"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "node-sass": "^4.13.1",
+    "now": "^17.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-icons": "^3.9.0",
@@ -21,8 +34,24 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cy:open": "cypress open",
+    "test:jest": "jest __tests__",
+    "test:cy": "cypress",
+    "test": "yarn test:jest && yarn test:cy",
+    "pretest": "rm -rf .nyc_output || true",
+    "posttest": "yarn report:combined",
+    "mkdir:reports": "mkdir reports || true",
+    "precopy:reports": "yarn mkdir:reports",
+    "copy:reports": "cp coverage/cypress-coverage/coverage-final.json reports/from-cypress.json && cp coverage/jest-coverage/coverage-final.json reports/from-jest.json",
+    "precombine:reports": "yarn copy:reports && mkdir .nyc_output || true",
+    "combine:reports": "npx nyc merge reports && mv coverage.json .nyc_output/out.json",
+    "prereport:combined": "yarn combine:reports",
+    "report:combined": "npx nyc report --reporter lcov --reporter text --report-dir coverage/combined",
+    "postreport:combined": "cp coverage/combined/lcov-report/index.html reports/combined.html"
+  },
+  "nyc": {
+    "report-dir": "coverage/cypress-coverage"
   },
   "eslintConfig": {
     "extends": "react-app"

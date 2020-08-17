@@ -7,7 +7,7 @@ module.exports = {
 };
 function validateUserBody(req, res, next) {
   const user = req.body;
-  if (!user.first_name || !user.email) {
+  if (!user.first_name || !user.last_name || !user.email) {
     res.status(400).json({ message: "please provide name and email" }).end();
   } else if (!user.username || !user.password) {
     res
@@ -21,28 +21,30 @@ function validateUserBody(req, res, next) {
 function checkExistingUsers(req, res, next) {
   const user = req.body;
   userDb.getUserByEmail(user.email).then((oldUser) => {
-    if (oldUser) {
-      res.status(400).json({
-        errorMessage: "Account with this email already exits",
-      });
-    } else {
-      userDb.getUserByUsername(user.username).then((oldUser) => {
-        oldUser
-          ? res.status(400).json({
-              errorMessage: "this username is already in use",
-            })
-          : next();
-      });
-    }
+    oldUser
+      ? res.status(400).json({
+          message: "Account with this email already exits",
+        })
+      : userDb.getUserByUsername(user.username).then((oldUser) => {
+          oldUser
+            ? res.status(400).json({
+                message: "Username is already in use",
+              })
+            : next();
+        });
   });
 }
 
 function validateHeaders(req, res, next) {
   const { username, password } = req.body;
 
-  !username || !password
+  !username
     ? res.status(400).json({
-        message: "Please provide username and password",
+        errorMessage: "Please provide username",
+      })
+    : !password
+    ? res.status(400).json({
+        errorMessage: "Please provide password",
       })
     : next();
 }

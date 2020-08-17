@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Route, Switch, NavLink, Redirect, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 //* Components
 import PrivateRoute from "./components/PrivateRoute";
 import Navigation from "./components/Navigation";
@@ -8,17 +8,20 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import Entry from "./components/Entry";
-import JournalPage from "./components/JournalPage";
+import JournalPage from "./components/Journal";
 import Favorite from "./components/Favorites";
+import Settings from "./components/Settings.jsx";
 // import Journal from "./components/Journal";
 //* Style
 import "./style/App.css";
 
+//todo add trigger for updated_at user&entry
 //todo format date
-//todo fix autologout, server side
-//todo not able to add entries/access journal when first register
+//? todo fix auto logout, server side
 //todo fix errors between register and login components (server error?)
-//todo fix logging in each time page refreshes
+//todo delete account w/ all entries
+//todo implement Facebook, Google, Apple, other... login/register
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -28,12 +31,8 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
-    }
     return (
       <div className="App">
-        {/* <h3>Journal Application</h3> */}
         <Navigation />
         <Switch>
           <Route path="/register" component={Register} />
@@ -42,6 +41,7 @@ class App extends Component {
           <PrivateRoute path="/entry" component={Entry} />
           <PrivateRoute path="/journal" component={JournalPage} />
           <PrivateRoute path="/favorite" component={Favorite} />
+          <PrivateRoute path="/settings" component={Settings} />
         </Switch>
       </div>
     );

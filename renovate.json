@@ -1,0 +1,13 @@
+{
+  "extends": ["config:base"],
+  "automerge": true,
+  "major": {
+    "automerge": false
+  },
+  "prHourlyLimit": 1,
+  "updateNotScheduled": false,
+  "timezone": "America/Utah",
+  "schedule": "earlyMondays",
+  "masterIssue": true,
+  "_comment": "masterIssueApproval"
+}

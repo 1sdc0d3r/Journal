@@ -5,7 +5,9 @@
 module.exports = {
   development: {
     client: "pg", //sqlite3
+    // connection: "postgres://username:password@hostname:port/database"
     connection: "postgresql://localhost/MicroJournal",
+    // connection: "postgres://postgres:password@localhost:5432/MicroJournal",
     migrations: {
       directory: "./database/migrations",
       tableName: "knex_migrations"
