@@ -105,7 +105,7 @@ class RegisterForm extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    error: state.userReducer.error,
+    error: state.userReducer.registerError,
   };
 };
 

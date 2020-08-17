@@ -1,4 +1,6 @@
-import { getToken } from "../../utils/authService";
+import {
+  getToken
+} from "../../utils/authService";
 import {
   USER_REGISTER_START,
   USER_REGISTER_SUCCESS,
@@ -11,7 +13,9 @@ import {
   USER_LOGIN_FAIL,
 } from "../actions/user/loginAction";
 
-import { LOGOUT } from "../actions/user/logoutAction";
+import {
+  LOGOUT
+} from "../actions/user/logoutAction";
 
 import {
   USER_DELETE_START,
@@ -22,45 +26,51 @@ import {
 const initialState = {
   authenticated: getToken() ? true : false,
   isFetching: true,
-  error: null,
+  loginError: null,
+  registerError: null,
+  error: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     //* REGISTER
     case USER_REGISTER_START:
-      return { ...state, isFetching: true };
+      return {
+        ...state, isFetching: true
+      };
     case USER_REGISTER_SUCCESS:
       return {
         ...state,
         authenticated: true,
-        isFetching: false,
-        error: null,
+          isFetching: false,
+          registerError: null,
       };
     case USER_REGISTER_FAIL:
       return {
         ...state,
         isFetching: false,
-        authenticated: false,
-        error: action.payload,
+          authenticated: false,
+          registerError: action.payload,
       };
 
-    //* LOGIN
+      //* LOGIN
     case USER_LOGIN_START:
-      return { ...state, isFetching: true };
+      return {
+        ...state, isFetching: true
+      };
     case USER_LOGIN_SUCCESS:
       return {
         ...state,
         authenticated: true,
-        isFetching: false,
-        error: null,
+          isFetching: false,
+          loginError: null,
       };
     case USER_LOGIN_FAIL:
       return {
         ...state,
         isFetching: false,
-        authenticated: false,
-        error: action.payload,
+          authenticated: false,
+          loginError: action.payload,
       };
 
     case LOGOUT:
@@ -69,7 +79,7 @@ export default (state = initialState, action) => {
         authenticated: false,
       };
 
-    //* DELETE USER
+      //* DELETE USER
     case USER_DELETE_START:
       return {
         ...state,
@@ -79,15 +89,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        authenticated: false,
-        error: action.payload,
+          authenticated: false,
+          error: action.payload,
       };
     case USER_DELETE_FAIL:
       return {
         ...state,
         isFetching: false,
-        authenticated: false,
-        error: action.payload,
+          authenticated: false,
+          error: action.payload,
       };
 
     default:

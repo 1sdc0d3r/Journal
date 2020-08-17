@@ -72,7 +72,7 @@ class LoginForm extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    error: state.userReducer.error,
+    error: state.userReducer.loginError,
   };
 };
 export default withRouter(connect(mapStateToProps, { loginAction })(LoginForm));

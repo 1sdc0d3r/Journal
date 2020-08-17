@@ -20,6 +20,7 @@ import "./style/App.css";
 //? todo fix auto logout, server side
 //todo fix errors between register and login components (server error?)
 //todo delete account w/ all entries
+//todo implement Facebook, Google, Apple, other... login/register
 
 class App extends Component {
   constructor(props) {

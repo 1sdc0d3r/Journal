@@ -51,12 +51,12 @@ class EntryForm extends Component {
               rows="6"
               value={this.state.entry.description}
               onChange={this.onChangeHandler}
-              placeholder="description"
+              placeholder="Description"
               required
             />
           </label>
           <button onClick={this.onSubmitHandler}>
-            {!this.props.fetching ? "Submit" : "Submitting..."}
+            {!this.props.fetching ? "Submit" : "Journalizing..."}
           </button>
         </form>
       </div>

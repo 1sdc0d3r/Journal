@@ -13,6 +13,7 @@ import { favoriteAction } from "../redux/actions/entry/favoriteAction";
 // * ICONS
 
 //todo create a card component DRY
+//todo favorite button not working (backend)
 class JournalPage extends Component {
   constructor(props) {
     super(props);
