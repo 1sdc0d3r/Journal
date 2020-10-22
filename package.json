@@ -33,5 +33,23 @@
     "knex": "^0.20.10",
     "pg": "^7.18.2",
     "sqlite3": "^4.1.1"
+  },
+  "renovate": {
+    "extends": [
+      "config:base"
+    ],
+    "automerge": true,
+    "major": {
+      "automerge": false
+    },
+    "prHourlyLimit": 1,
+    "updateNotScheduled": false,
+    "timezone": "America/Denver",
+    "schedule": [
+      "every weekday",
+      "every weekend"
+    ],
+    "masterIssue": true,
+    "_comment": "masterIssueApproval"
   }
 }
