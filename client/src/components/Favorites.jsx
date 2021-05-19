@@ -3,10 +3,10 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import EntryCard from "./EntryCard";
 import NavButtons from "./NavButtons";
-import { getJournalAction } from "../redux/actions/journal/getJournal";
-import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
-import { deleteAction } from "../redux/actions/entry/deleteAction";
-import { favoriteAction } from "../redux/actions/entry/favoriteAction";
+import { getJournalAction } from "../Redux/actions/journal/getJournal";
+import { getEntryIdAction } from "../Redux/actions/entry/getIdAction";
+import { deleteAction } from "../Redux/actions/entry/deleteAction";
+import { favoriteAction } from "../Redux/actions/entry/favoriteAction";
 
 // todo combine with JournalPage based off of history.location.current? (/journal vs /favorite)
 class Favorites extends Component {
@@ -18,6 +18,7 @@ class Favorites extends Component {
       page: 1,
     };
   }
+
   componentDidMount() {
     const { limit, offset } = this.state;
     this.props.getJournalAction(limit, offset);

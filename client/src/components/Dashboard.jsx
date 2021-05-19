@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getJournalAction } from "../redux/actions/journal/getJournal";
-import { logoutAction } from "../redux/actions/user/logoutAction";
+import { getJournalAction } from "../Redux/actions/journal/getJournal";
+import { logoutAction } from "../Redux/actions/user/logoutAction";
 import { getUser } from "../utils/authService";
 
 class Dashboard extends Component {

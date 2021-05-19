@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { deleteUser } from "../redux/actions/user/deleteUser";
+import { deleteUser } from "../Redux/actions/user/deleteUser";
 
 function Settings({ deleteUser, history, error }) {
   const [confirm, setConfirm] = useState(false);

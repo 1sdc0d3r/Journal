@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 //* Actions
-import { logoutAction } from "../redux/actions/user/logoutAction";
+import { logoutAction } from "../Redux/actions/user/logoutAction";
 import "../style/navigation/Navigation.css";
 
 function Navigation(props) {

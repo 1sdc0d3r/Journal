@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { registerAction } from "../redux/actions/user/registerAction";
+import { registerAction } from "../Redux/actions/user/registerAction";
 import "../style/register/Register.css";
 
 class RegisterForm extends Component {

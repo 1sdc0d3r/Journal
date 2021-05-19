@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { submitAction } from "../redux/actions/entry/submitAction";
-import { modifyAction } from "../redux/actions/entry/modifyAction";
+import { submitAction } from "../Redux/actions/entry/submitAction";
+import { modifyAction } from "../Redux/actions/entry/modifyAction";
 import "../style/entry/Entry.css";
 
 class EntryForm extends Component {

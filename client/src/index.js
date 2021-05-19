@@ -3,15 +3,22 @@ import ReactDOM from "react-dom";
 import "./style/index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter as Router } from "react-router-dom";
+import {
+  BrowserRouter as Router
+} from "react-router-dom";
 
 import history from "./config/history";
 // import httpService from "./utils/httpService";
 
 //* REDUX
-import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
-import rootReducer from "./redux/reducers";
+import {
+  createStore,
+  applyMiddleware
+} from "redux";
+import {
+  Provider
+} from "react-redux";
+import rootReducer from "./Redux/reducers";
 
 //* REDUX MIDDLEWARE
 import thunk from "redux-thunk";
@@ -25,12 +32,19 @@ const store = createStore(rootReducer, applyMiddleware(...middleware));
 if (window.Cypress) {
   window.store = store;
 }
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
-      <App />
-    </Router>
-  </Provider>,
+ReactDOM.render( <
+  Provider store = {
+    store
+  } >
+  <
+  Router history = {
+    history
+  } >
+  <
+  App / >
+  <
+  /Router> <
+  /Provider>,
   document.getElementById("root")
 );
 

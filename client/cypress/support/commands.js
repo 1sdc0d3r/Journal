@@ -24,11 +24,17 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 import address from "../../src/config/address";
-import { setToken, setUser } from "../../src/utils/authService";
+import {
+  setToken,
+  setUser
+} from "../../src/utils/authService";
 const userGenerator = require("random-username-generator");
 const randomSentence = require("random-sentence");
-const sentence = randomSentence({ min: 5, max: 10 });
-// import { loginActionSuccess } from "../../src/redux/actions/user/loginAction";
+const sentence = randomSentence({
+  min: 5,
+  max: 10
+});
+// import { loginActionSuccess } from "../../src/Redux/actions/user/loginAction";
 //! Local storage is ran before every test
 let LOCAL_STORAGE_MEMORY = {};
 Cypress.Commands.add("saveLocalStorage", () => {
@@ -57,7 +63,9 @@ Cypress.Commands.add("register", () => {
     setToken(resp.body.user.token);
     setUser(resp.body.user.first_name);
     cy.window().then((win) => {
-      win.store.dispatch({ type: "USER_LOGIN_SUCCESS" });
+      win.store.dispatch({
+        type: "USER_LOGIN_SUCCESS"
+      });
     });
   });
 });
@@ -74,7 +82,9 @@ Cypress.Commands.add("loginWith", (user, pass) => {
     setToken(resp.body.user.token);
     setUser(resp.body.user.first_name);
     cy.window().then((win) => {
-      win.store.dispatch({ type: "USER_LOGIN_SUCCESS" });
+      win.store.dispatch({
+        type: "USER_LOGIN_SUCCESS"
+      });
     });
   });
 });

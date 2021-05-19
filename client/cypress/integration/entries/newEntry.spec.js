@@ -1,8 +1,13 @@
-import { loginActionSuccess } from "../../../src/redux/actions/user/loginAction";
+import {
+  loginActionSuccess
+} from "../../../src/Redux/actions/user/loginAction";
 const randomSentence = require("random-sentence");
 
 describe("/entry", () => {
-  const sentence = randomSentence({ min: 5, max: 10 });
+  const sentence = randomSentence({
+    min: 5,
+    max: 10
+  });
 
   it("Navigates to entry", () => {
     cy.visit("/");

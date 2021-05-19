@@ -6,10 +6,10 @@ import NavButtons from "./NavButtons";
 import "../style/journal/Journal.css";
 // * REDUX
 import { connect } from "react-redux";
-import { getJournalAction } from "../redux/actions/journal/getJournal";
-import { getEntryIdAction } from "../redux/actions/entry/getIdAction";
-import { deleteAction } from "../redux/actions/entry/deleteAction";
-import { favoriteAction } from "../redux/actions/entry/favoriteAction";
+import { getJournalAction } from "../Redux/actions/journal/getJournal";
+import { getEntryIdAction } from "../Redux/actions/entry/getIdAction";
+import { deleteAction } from "../Redux/actions/entry/deleteAction";
+import { favoriteAction } from "../Redux/actions/entry/favoriteAction";
 // * ICONS
 
 //todo create a card component DRY
