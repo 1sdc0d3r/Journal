@@ -3,22 +3,40 @@
 // const prodConnection = `postgres://${pgUser}@localhost/${pgDb}`;
 
 module.exports = {
+  // development: {
+  //   client: "pg", //sqlite3
+  //   // connection: "postgres://username:password@hostname:port/database"
+  //   connection: "postgresql://localhost/MicroJournal",
+  //   // connection: "postgres://postgres:password@localhost:5432/MicroJournal",
+  //   migrations: {
+  //     directory: "./database/migrations",
+  //     tableName: "knex_migrations"
+  //   },
+  //   pool: {
+  //     min: 2,
+  //     max: 10
+  //   },
+  //   seeds: {
+  //     directory: "./database/seeds"
+  //   }
+  // },
   development: {
-    client: "pg", //sqlite3
-    // connection: "postgres://username:password@hostname:port/database"
-    connection: "postgresql://localhost/MicroJournal",
-    // connection: "postgres://postgres:password@localhost:5432/MicroJournal",
+    client: "sqlite3",
+    connection: {
+      filename: "./database/Journal.db3"
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
     migrations: {
       directory: "./database/migrations",
       tableName: "knex_migrations"
     },
-    pool: {
-      min: 2,
-      max: 10
-    },
     seeds: {
       directory: "./database/seeds"
-    }
+    },
+    useNullAsDefault: true,
   },
 
   testing: {

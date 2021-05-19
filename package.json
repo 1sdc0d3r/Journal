@@ -7,7 +7,8 @@
   "scripts": {
     "server": "nodemon index.js",
     "test": "knex seed: run --env testing && cross-env DB_ENV=testing jest --watchAll --verbose",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dbreset": "knex migrate:rollback && knex migrate:latest && knex seed:run"
   },
   "jest": {
     "testEnvironment": "node",

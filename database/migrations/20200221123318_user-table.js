@@ -5,7 +5,7 @@ exports.up = function (knex) {
     // tbl.dateTime("created_at").defaultTo(knex.raw("CURRENT_TIMESTAMP"));
     // tbl.dateTime("updated_at");
     tbl
-      .string("account") //change to account_type
+      .string("account_type") //change to account_type
       .defaultTo("user")
       .notNullable();
     tbl.string("first_name").notNullable();
