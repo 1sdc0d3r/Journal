@@ -26,14 +26,18 @@ function getEntries(limit, offset) {
 
 function getEntryById(id) {
   return db("Entry")
-    .where({ id })
+    .where({
+      id
+    })
     .first();
 }
 
 function modifyEntry(id, entry) {
   return db("Entry")
     .update(entry)
-    .where({ id })
+    .where({
+      id
+    })
     .then(id => {
       return getEntryById(id);
     });
@@ -45,15 +49,19 @@ function removeEntry(id) {
     .del()
     .then(() =>
       db("Entry")
-        .where({ id })
-        .del()
+      .where({
+        id
+      })
+      .del()
     );
 }
 
 function favorite(id, entry) {
   return db("Entry")
     .update(entry)
-    .where({ id })
+    .where({
+      id
+    })
     .then(() => {
       return getEntryById(id);
     });

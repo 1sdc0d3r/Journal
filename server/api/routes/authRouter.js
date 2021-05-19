@@ -45,9 +45,13 @@ router.post("/login", validateHeaders, (req, res) => {
     username,
     password
   } = req.body;
+
   userDb
     .getUserByUsername(username)
     .then((user) => {
+      // console.log({
+      //   user
+      // })
       if (!user) {
         res.status(403).json({
           errorMessage: "Invalid credentials, please try again.",

@@ -35,3 +35,8 @@
 - functions: invoke the function with optional arguments => check return
 
 - endpoints: make a request with optional arguments => check response
+
+## TODO
+
+- Login errors for username and password separate
+- settings delete user (clear message)

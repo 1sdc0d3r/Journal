@@ -10,7 +10,7 @@ exports.seed = function (knex) {
           last_name: "test",
           email: "testing@test.com",
           username: "user1",
-          password: "password"
+          password: "$2a$13$FU.Pkro6j/eBR3YmVYjYuulLyFwhm9qBqlrXw5foBPorrUatbmZ52"
         },
         {
           account_type: 'user',
@@ -18,7 +18,7 @@ exports.seed = function (knex) {
           last_name: "test",
           email: "testing@test.com",
           username: "user2",
-          password: "password"
+          password: "$2a$13$FU.Pkro6j/eBR3YmVYjYuulLyFwhm9qBqlrXw5foBPorrUatbmZ52"
         },
         {
           account_type: 'user',
@@ -26,7 +26,7 @@ exports.seed = function (knex) {
           last_name: "test",
           email: "testing@test.com",
           username: "user3",
-          password: "password"
+          password: "$2a$13$FU.Pkro6j/eBR3YmVYjYuulLyFwhm9qBqlrXw5foBPorrUatbmZ52"
         },
         {
           account_type: "admin",
@@ -34,7 +34,7 @@ exports.seed = function (knex) {
           last_name: "Barry",
           email: "jackBarry@test.com",
           username: "jackBarry",
-          password: "password"
+          password: "$2a$13$FU.Pkro6j/eBR3YmVYjYuulLyFwhm9qBqlrXw5foBPorrUatbmZ52"
         }
       ]);
     });
