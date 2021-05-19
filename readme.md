@@ -39,4 +39,4 @@
 ## TODO
 
 - Login errors for username and password separate
-- settings delete user (clear message)
+- Entry date on card changes when clicking journal/favorite nav btn

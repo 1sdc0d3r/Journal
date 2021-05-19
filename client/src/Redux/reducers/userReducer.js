@@ -90,7 +90,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
           authenticated: false,
-          error: action.payload,
+          error: null,
       };
     case USER_DELETE_FAIL:
       return {
