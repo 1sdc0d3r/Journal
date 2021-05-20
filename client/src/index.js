@@ -43,8 +43,8 @@ ReactDOM.render( <
   <
   App / >
   <
-  /Router> <
-  /Provider>,
+  /Router> < /
+  Provider > ,
   document.getElementById("root")
 );
 

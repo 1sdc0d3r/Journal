@@ -4,11 +4,13 @@ import { FaStar, FaRegStar } from "react-icons/fa";
 function EntryCard(props) {
   const { entry, favoriteHandler, deleteHandler, editHandler } = props;
 
-  //* reformat date here
+  //* reformat date here if not already formatted
   let date = entry.created_at;
-  date = date.slice(0, 10).split("-");
-  date.push(date.shift());
-  entry.created_at = `${date[0]}-${date[1]}-${date[2]}`;
+  if (date.length !== 10) {
+    date = date.slice(0, 10).split("-");
+    date.push(date.shift());
+    entry.created_at = `${date[0]}-${date[1]}-${date[2]}`;
+  }
 
   return (
     <div key={entry.id} className="entry">
