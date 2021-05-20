@@ -26,8 +26,12 @@
     .entry {
       border: 2px solid black;
       width: 45%;
-      margin: 1rem auto;
+      margin: 1em auto;
+      padding: 0.5em 0 0.5em;
       background: whitesmoke;
+      button {
+        margin-right: 0.5em;
+      }
     }
   }
   .no-entries {
@@ -35,7 +39,7 @@
     flex-direction: column;
     margin: auto;
     button {
-      padding: 1rem;
+      padding: 1em;
       border-radius: 50%;
       width: 45%;
       margin: auto;
